@@ -12,3 +12,17 @@ Jorge Martin Sanchez
 
 Portavoz:
 Jorge Martin Sanchez
+
+## Construcción y ejecución
+Requisitos:
+- Java 17
+- 
+Comandos:
+.\mvnw.cmd clean
+.\mvnw.cmd test
+.\mvnw.cmd package
+.\mvnw.cmd verify
+.\mvnw.cmd spring-boot:run
+
+URL local:
+http://localhost:8080
