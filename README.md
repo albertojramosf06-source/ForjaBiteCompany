@@ -16,7 +16,7 @@ Jorge Martin Sanchez
 ## Construcción y ejecución
 Requisitos:
 - Java 17
-- 
+
 Comandos:
 .\mvnw.cmd clean
 .\mvnw.cmd test
