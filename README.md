@@ -30,7 +30,7 @@ Sprint 0 – Preparación y planificación.
 
 - Java 17
 
-### Construcción y verificación
+### Construcción, verificación y ejecución
 
 Desde la raíz del repositorio:
 
@@ -40,11 +40,10 @@ Desde la raíz del repositorio:
 .\mvnw.cmd package
 .\mvnw.cmd verify
 
-### Ejecución
-
-.\mvnw.cmd spring-boot:run
-
-### Ver
+Ejecución: .\mvnw.cmd spring-boot:run
+´´´powershell
+ 
+### Ver 
 http://localhost:8080/
 
 ### Parar
