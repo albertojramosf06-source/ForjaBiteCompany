@@ -42,12 +42,16 @@ Desde la raíz del repositorio:
 
 Ejecución: .\mvnw.cmd spring-boot:run
 ```
- 
+### Ejecución
+
+ ```powershell
+.\mvnw.cmd spring-boot:run
+```
 ### Ver 
 http://localhost:8080/
 
 ### Parar
-Crtl + C
+Ctrl + C
 
 ### Dependencias Principales
 - spring-boot-starter-webmvc → aplicación web con Spring MVC: controladores y peticiones HTTP.
