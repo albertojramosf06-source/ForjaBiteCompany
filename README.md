@@ -42,7 +42,6 @@ Desde la raíz del repositorio:
 
 ### Ejecución
 
-```powershell
 .\mvnw.cmd spring-boot:run
 
 ### Ver
