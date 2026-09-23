@@ -13,7 +13,17 @@ Este documento recoge los usos relevantes de inteligencia artificial realizados 
 
 Pendiente.
 
+**Tarea delegada:** Organización y análisis de las sesiones S1-S3 a partir de los materiales de la asignatura.
 
+**Contexto proporcionado:** Materiales oficiales S1, S2, S3, Proyecto2026 y diagramas del proyecto.
+
+**Herramienta utilizada:** ChatGPT.
+
+**Resultado final:** [PENDIENTE: completar tras revisar y aplicar la propuesta]
+
+**Verificación realizada:** [PENDIENTE]
+
+**Qué aceptó/modificó/rechazó el equipo:** [PENDIENTE]
 
 ### Uso de IA — [PENDIENTE: FECHA / IDENTIFICADOR]
 
