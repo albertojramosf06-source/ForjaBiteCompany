@@ -41,7 +41,7 @@ Desde la raíz del repositorio:
 .\mvnw.cmd verify
 
 Ejecución: .\mvnw.cmd spring-boot:run
-´´´powershell
+```
  
 ### Ver 
 http://localhost:8080/
