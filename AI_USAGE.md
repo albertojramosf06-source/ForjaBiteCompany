@@ -1,14 +1,14 @@
-Registro de uso de IA
-Este documento recoge los usos relevantes de inteligencia artificial realizados durante el proyecto
+# Registro de uso de IA
 
-Principios
-La IA puede proponer, pero el equipo decide.
+Este documento recoge los usos relevantes de inteligencia artificial realizados durante el proyecto.
 
-Todo cambio de ser comprendido y revisado.
+## Principios
 
-Las propuestas deben verificarse mediante las herramientas correspondientes.
+- La IA puede proponer, pero el equipo decide.
+- Todo cambio debe ser comprendido y revisado.
+- Las propuestas deben verificarse mediante las herramientas correspondientes.
+- No se integrará código generado por IA sin revisión humana.
 
-No se integraará código generado por IA sin revisión humana.
+## Hito 1 – Desarrollo funcional
 
-Hito 1 - Desarrollo funcional
 Pendiente.
