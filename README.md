@@ -30,6 +30,22 @@ Sprint 0 – Preparación y planificación.
 
 - Java 17
 
+### Clonar el repositorio
+
+Desde la terminal en orden uno por uno:
+
+```powershell
+git clone https://github.com/albertojramosf06-source/ForjaBiteCompany.git
+
+cd ForjaBiteCompany
+code .
+
+git status
+git remote -v
+git branch
+
+```
+
 ### Construcción, verificación y ejecución
 
 Desde la raíz del repositorio:
