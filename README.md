@@ -87,3 +87,133 @@ git commit -m "Describe los cambios"
 git push
 git pull
 ```
+Sincronización del repositorio local con GitHub
+
+Antes de comenzar una nueva tarea, la rama main local debe estar actualizada respecto a origin/main y no debe contener cambios pendientes.
+
+Flujo habitual
+
+Para actualizar la copia local:
+
+git checkout main
+git pull
+git status
+
+El resultado esperado es:
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+A partir de este punto se puede crear una nueva rama asociada a la tarea o issue correspondiente.
+
+Recuperación ante una rama main divergente
+
+Si Git indica que main y origin/main han divergido, primero debe comprobarse qué commits existen únicamente en local:
+
+git log --oneline origin/main..main
+
+Si existe algún commit local que se quiera conservar, se crea primero una rama de seguridad:
+
+git branch backup/local-main-before-sync
+
+Después se actualiza la información del repositorio remoto:
+
+git fetch origin
+
+Finalmente, si se ha comprobado que el trabajo local está protegido y se desea que main vuelva a coincidir exactamente con GitHub:
+
+git reset --hard origin/main
+
+Se verifica el resultado con:
+
+git status
+
+Importante: git reset --hard origin/main no forma parte del flujo normal de trabajo. Se utiliza únicamente para recuperar una rama local cuando se ha comprobado previamente que no se perderá trabajo.
+
+Regla de trabajo
+
+No se debe desarrollar directamente sobre main.
+
+El flujo de trabajo será:
+
+Actualizar main.
+
+Seleccionar una issue o tarea.
+
+Crear una rama desde main actualizada.
+
+Realizar cambios acotados.
+
+Revisar los cambios.
+
+Hacer commit.
+
+Hacer push de la rama.
+
+Crear una Pull Request.
+
+Realizar la revisión.
+
+Integrar mediante merge.
+
+Actualizar nuevamente main en local.
+
+Actualizar el repositorio local después de un cambio en GitHub
+
+Si el cambio realizado en GitHub solo afecta al Project, por ejemplo:
+
+mover una issue a In progress;
+
+cambiar prioridad;
+
+asignar responsable;
+
+crear o editar una issue;
+
+no es necesario hacer nada en local, porque no se han modificado archivos del repositorio.
+
+Si se han modificado archivos en GitHub o se ha hecho merge de una Pull Request a main, se debe actualizar la copia local con:
+
+git checkout main
+git pull
+git status
+
+Después de esto, los archivos modificados en GitHub estarán también actualizados en la carpeta local.
+
+Flujo recomendado antes de empezar una nueva tarea
+
+Antes de crear una nueva rama:
+
+git checkout main
+git pull
+git status
+
+Cuando main esté actualizada y el árbol de trabajo esté limpio, se crea la rama correspondiente a la tarea:
+
+git checkout -b tipo/numero-descripcion
+
+Ejemplos:
+
+feat/12-search-availability
+fix/21-invalid-date-validation
+docs/13-update-maven-readme
+refactor/30-reservation-service
+
+Formato recomendado:
+
+<tipo>/<issue>-descripcion-corta
+
+Flujo después de hacer merge de una Pull Request
+
+Cuando una Pull Request haya sido revisada y fusionada en main:
+
+git checkout main
+git pull
+
+Si la rama local ya no se necesita:
+
+git branch -d nombre-de-la-rama
+
+El objetivo es que main local vuelva a coincidir con origin/main antes de empezar una nueva tarea.
