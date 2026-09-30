@@ -87,133 +87,148 @@ git commit -m "Describe los cambios"
 git push
 git pull
 ```
-Sincronización del repositorio local con GitHub
+### Sincronización del repositorio local con GitHub
 
-Antes de comenzar una nueva tarea, la rama main local debe estar actualizada respecto a origin/main y no debe contener cambios pendientes.
+Antes de comenzar una nueva tarea, la rama `main` local debe estar actualizada respecto a `origin/main` y no debe contener cambios pendientes.
 
-Flujo habitual
+#### Flujo habitual
 
 Para actualizar la copia local:
 
+```powershell
 git checkout main
 git pull
 git status
+```
 
 El resultado esperado es:
 
+```text
 On branch main
 Your branch is up to date with 'origin/main'.
 
 nothing to commit, working tree clean
+```
 
 A partir de este punto se puede crear una nueva rama asociada a la tarea o issue correspondiente.
 
-Recuperación ante una rama main divergente
+#### Recuperación ante una rama `main` divergente
 
-Si Git indica que main y origin/main han divergido, primero debe comprobarse qué commits existen únicamente en local:
+Si Git indica que `main` y `origin/main` han divergido, primero debe comprobarse qué commits existen únicamente en local:
 
+```powershell
 git log --oneline origin/main..main
+```
 
 Si existe algún commit local que se quiera conservar, se crea primero una rama de seguridad:
 
+```powershell
 git branch backup/local-main-before-sync
+```
 
 Después se actualiza la información del repositorio remoto:
 
+```powershell
 git fetch origin
+```
 
-Finalmente, si se ha comprobado que el trabajo local está protegido y se desea que main vuelva a coincidir exactamente con GitHub:
+Finalmente, si se ha comprobado que el trabajo local está protegido y se desea que `main` vuelva a coincidir exactamente con GitHub:
 
+```powershell
 git reset --hard origin/main
+```
 
 Se verifica el resultado con:
 
+```powershell
 git status
+```
 
-Importante: git reset --hard origin/main no forma parte del flujo normal de trabajo. Se utiliza únicamente para recuperar una rama local cuando se ha comprobado previamente que no se perderá trabajo.
+**Importante:** `git reset --hard origin/main` no forma parte del flujo normal de trabajo. Se utiliza únicamente para recuperar una rama local cuando se ha comprobado previamente que no se perderá trabajo.
 
-Regla de trabajo
+#### Regla de trabajo
 
-No se debe desarrollar directamente sobre main.
+No se debe desarrollar directamente sobre `main`.
 
 El flujo de trabajo será:
 
-Actualizar main.
+1. Actualizar `main`.
+2. Seleccionar una issue o tarea.
+3. Crear una rama desde `main` actualizada.
+4. Realizar cambios acotados.
+5. Revisar los cambios.
+6. Hacer commit.
+7. Hacer push de la rama.
+8. Crear una Pull Request.
+9. Realizar la revisión.
+10. Integrar mediante merge.
+11. Actualizar nuevamente `main` en local.
 
-Seleccionar una issue o tarea.
-
-Crear una rama desde main actualizada.
-
-Realizar cambios acotados.
-
-Revisar los cambios.
-
-Hacer commit.
-
-Hacer push de la rama.
-
-Crear una Pull Request.
-
-Realizar la revisión.
-
-Integrar mediante merge.
-
-Actualizar nuevamente main en local.
-
-Actualizar el repositorio local después de un cambio en GitHub
+#### Actualizar el repositorio local después de un cambio en GitHub
 
 Si el cambio realizado en GitHub solo afecta al Project, por ejemplo:
 
-mover una issue a In progress;
+- Mover una issue a `In progress`.
+- Cambiar la prioridad.
+- Asignar un responsable.
+- Crear o editar una issue.
 
-cambiar prioridad;
+No es necesario hacer nada en local, porque no se han modificado archivos del repositorio.
 
-asignar responsable;
+Si se han modificado archivos en GitHub o se ha hecho merge de una Pull Request a `main`, se debe actualizar la copia local con:
 
-crear o editar una issue;
-
-no es necesario hacer nada en local, porque no se han modificado archivos del repositorio.
-
-Si se han modificado archivos en GitHub o se ha hecho merge de una Pull Request a main, se debe actualizar la copia local con:
-
+```powershell
 git checkout main
 git pull
 git status
+```
 
 Después de esto, los archivos modificados en GitHub estarán también actualizados en la carpeta local.
 
-Flujo recomendado antes de empezar una nueva tarea
+#### Flujo recomendado antes de empezar una nueva tarea
 
 Antes de crear una nueva rama:
 
+```powershell
 git checkout main
 git pull
 git status
+```
 
-Cuando main esté actualizada y el árbol de trabajo esté limpio, se crea la rama correspondiente a la tarea:
+Cuando `main` esté actualizada y el árbol de trabajo esté limpio, se crea la rama correspondiente a la tarea:
 
+```powershell
 git checkout -b tipo/numero-descripcion
+```
 
 Ejemplos:
 
+```text
 feat/12-search-availability
 fix/21-invalid-date-validation
 docs/13-update-maven-readme
 refactor/30-reservation-service
+```
 
 Formato recomendado:
 
+```text
 <tipo>/<issue>-descripcion-corta
+```
 
-Flujo después de hacer merge de una Pull Request
+#### Flujo después de hacer merge de una Pull Request
 
-Cuando una Pull Request haya sido revisada y fusionada en main:
+Cuando una Pull Request haya sido revisada y fusionada en `main`:
 
+```powershell
 git checkout main
 git pull
+```
 
 Si la rama local ya no se necesita:
 
+```powershell
 git branch -d nombre-de-la-rama
+```
 
-El objetivo es que main local vuelva a coincidir con origin/main antes de empezar una nueva tarea.
+El objetivo es que `main` local vuelva a coincidir con `origin/main` antes de empezar una nueva tarea.
