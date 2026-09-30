@@ -81,4 +81,9 @@ Ctrl + C
  ```powershell
 git config --global user.name "[PENDIENTE: NOMBRE Y APELLIDOS]"
 git config --global user.email "[PENDIENTE: EMAIL]"
+git status
+git add .
+git commit -m "Describe los cambios"
+git push
+git pull
 ```
