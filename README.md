@@ -43,6 +43,7 @@ code .
 git status
 git remote -v
 git branch
+git pull
 
 ```
 
