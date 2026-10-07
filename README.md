@@ -20,6 +20,18 @@ Portavoz:
 
 Desarrollar una plataforma para la gestión de alquiler de viviendas siguiendo un proceso iterativo e incremental de ingeniería del software.
 
+## Responsabilidades iniciales
+
+| Área | Responsable | Qué coordina |
+|------|-------------|--------------|
+| Producto y organización del trabajo | [NOMBRE] | Requisitos, criterios de aceptación, priorización de tareas |
+| Configuración | [NOMBRE] | Repositorio, ramas, versiones, integración |
+| Pruebas y verificación | [NOMBRE] | Plan de pruebas, ejecución, resultados |
+| Calidad | [NOMBRE] | Criterios de calidad, Sonar, deuda técnica |
+| Supervisión de IA | [NOMBRE] | Revisión del agente, artefactos, decisiones humanas |
+
+Estas responsabilidades rotarán según las necesidades del equipo. Tener una responsabilidad principal no implica trabajar de forma aislada: todos participan y deben comprender el proceso completo.
+
 ## Estado
 
 Sprint 0 – Preparación y planificación.
