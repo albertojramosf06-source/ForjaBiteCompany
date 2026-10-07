@@ -1,0 +1,28 @@
+   # Maven
+   target/
+   !.mvn/wrapper/maven-wrapper.jar
+
+   # Compilados y logs
+   *.class
+   *.log
+
+   # VS Code
+   .vscode/
+
+   # IntelliJ / Eclipse / NetBeans
+   .idea/
+   *.iml
+   .classpath
+   .project
+   .settings/
+   .apt_generated/
+   .factorypath
+   nbproject/
+
+   # Sistema operativo
+   .DS_Store
+   Thumbs.db
+
+   # Secretos locales
+   .env
+   application-local.properties
