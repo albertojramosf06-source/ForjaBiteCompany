@@ -24,11 +24,11 @@ Desarrollar una plataforma para la gestión de alquiler de viviendas siguiendo u
 
 | Área | Responsable | Qué coordina |
 |------|-------------|--------------|
-| Producto y organización del trabajo | [NOMBRE] | Requisitos, criterios de aceptación, priorización de tareas |
-| Configuración | [NOMBRE] | Repositorio, ramas, versiones, integración |
-| Pruebas y verificación | [NOMBRE] | Plan de pruebas, ejecución, resultados |
-| Calidad | [NOMBRE] | Criterios de calidad, Sonar, deuda técnica |
-| Supervisión de IA | [NOMBRE] | Revisión del agente, artefactos, decisiones humanas |
+| Producto y organización del trabajo | Alberto | Requisitos, criterios de aceptación, priorización de tareas |
+| Configuración | Jorge | Repositorio, ramas, versiones, integración |
+| Pruebas y verificación | Carlos | Plan de pruebas, ejecución, resultados |
+| Calidad | Diego | Criterios de calidad, Sonar, deuda técnica |
+| Supervisión de IA | Alex | Revisión del agente, artefactos, decisiones humanas |
 
 Estas responsabilidades rotarán según las necesidades del equipo. Tener una responsabilidad principal no implica trabajar de forma aislada: todos participan y deben comprender el proceso completo.
 
