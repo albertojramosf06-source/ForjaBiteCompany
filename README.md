@@ -36,6 +36,14 @@ Estas responsabilidades rotarán según las necesidades del equipo. Tener una re
 
 Sprint 0 – Preparación y planificación.
 
+## Documentación del proyecto
+
+La documentación viva del proyecto se mantiene en:
+
+- `docs/technical/`: base técnica y dependencias.
+- `docs/diagrams/`: diagramas y modelos.
+- `docs/decisions/`: decisiones relevantes.
+
 ## Construcción y ejecución
 
 ### Requisitos
