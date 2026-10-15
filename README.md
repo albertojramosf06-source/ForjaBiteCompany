@@ -60,6 +60,8 @@ Sprint 0 – Preparación y planificación.
 
 La documentación viva del proyecto se mantiene en:
 
+- [Plan de Gestión de Configuración](docs/plan-gestion-configuracion.md): ramas, revisión e integración.
+
 - `docs/technical/`: base técnica y dependencias.
 - `docs/diagrams/`: diagramas y modelos.
 - `docs/decisions/`: decisiones relevantes.

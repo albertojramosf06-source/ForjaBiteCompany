@@ -56,6 +56,18 @@ retirar el trabajo; se eliminaron los archivos nuevos, se restauraron los existe
 y se volvió a main. No hubo commit, push ni PR de esa implementación.
 Este registro describe un uso real de IA, no una funcionalidad entregada.
 
+## Plan de Gestión de Configuración — 15 de octubre de 2026
+
+Jorge autoriza a Codex a preparar #20 después de revisar el plan propuesto.
+Se comprueban issues, ramas y PR abiertas para no duplicar trabajo visible.
+Se crea docs/plan-gestion-configuracion.md y se enlaza desde el README.
+Se documenta main sin protección técnica (protected: false); no se cambian
+permisos, responsables ni reglas remotas. El contenido se prepara como propuesta
+para revisión humana, sin atribuir aceptación a Carlos ni a otros integrantes.
+Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 1 prueba sin fallos ni errores;
+diff comprobado sin errores. Esta actividad documental no
+constituye el Hito 1 funcional y el agente no aprueba ni integra la propuesta.
+
 ## Hito 1 – Desarrollo funcional
 
 Pendiente: debe existir una funcionalidad vigente con revisión y evidencias.
