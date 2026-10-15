@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro de usuarios · ForjaBiteCompany</title>
+    <link rel="stylesheet" th:href="@{/css/registro.css}">
+</head>
+<body>
+<header class="cabecera">
+    <a class="marca" th:href="@{/}"><span class="icono-marca" aria-hidden="true">F</span> ForjaBiteCompany</a>
+    <span class="etiqueta">Alquiler entre particulares</span>
+</header>
+<main class="contenedor">
+    <section class="presentacion" aria-labelledby="titulo-bienvenida">
+        <p class="antetitulo">TU PRÓXIMA ESTANCIA EMPIEZA AQUÍ</p>
+        <h1 id="titulo-bienvenida">Un lugar para<br>sentirte en casa.</h1>
+        <p class="descripcion">Crea tu usuario y da el primer paso para encontrar tu próximo alojamiento.</p>
+        <div class="ilustracion" aria-hidden="true"><div class="techo"></div><div class="casa"><span class="ventana"></span><span class="puerta"></span></div><div class="suelo"></div></div>
+        <p class="nota">Plataforma de alquiler de viviendas y habitaciones.</p>
+    </section>
+    <section class="tarjeta" aria-labelledby="titulo-registro">
+        <p class="antetitulo">REGISTRO DE USUARIOS</p>
+        <h2 id="titulo-registro">Crea tu usuario</h2>
+        <p class="ayuda">Completa tus datos. Todos los campos son obligatorios.</p>
+        <div class="mensaje error" role="alert" th:if="${error}" th:text="${error}"></div>
+        <div class="mensaje exito" role="status" th:if="${exito}" th:text="${exito}"></div>
+        <form th:action="@{/usuarios/registro}" method="post">
+            <div class="campo"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="tu@email.com" required maxlength="255" th:value="${email}"></div>
+            <div class="fila">
+                <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" autocomplete="given-name" placeholder="Tu nombre" required maxlength="255" th:value="${nombre}"></div>
+                <div class="campo"><label for="apellidos">Apellidos</label><input id="apellidos" name="apellidos" autocomplete="family-name" placeholder="Tus apellidos" required maxlength="255" th:value="${apellidos}"></div>
+            </div>
+            <div class="campo"><label for="dni">DNI</label><input id="dni" name="dni" placeholder="Tu documento de identidad" required maxlength="255" th:value="${dni}"></div>
+            <button type="submit">Crear usuario <span aria-hidden="true">→</span></button>
+        </form>
+        <a class="volver" th:href="@{/}">← Volver al inicio</a>
+    </section>
+</main>
+<footer>ForjaBiteCompany · Proyecto de Ingeniería del Software II</footer>
+</body>
+</html>
