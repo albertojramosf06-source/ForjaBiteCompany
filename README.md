@@ -20,6 +20,26 @@ Portavoz:
 
 Desarrollar una plataforma para la gestión de alquiler de viviendas siguiendo un proceso iterativo e incremental de ingeniería del software.
 
+## Encargo y planificación inicial (sesión 1)
+
+El cliente solicita una plataforma de alquiler entre particulares: registro de
+inquilinos y propietarios, publicación de viviendas o habitaciones, búsqueda,
+reservas inmediatas o solicitudes confirmadas por el propietario, pago y
+notificaciones. El encargo también contempla lista de deseos y filtros avanzados.
+La búsqueda no exige iniciar sesión. Si una solicitud es rechazada, se devuelve
+el pago y se notifica al inquilino.
+
+Según la presentación S1, la entrega intermedia es el 21 de octubre de 2026 y la
+final el 16 de diciembre de 2026, salvo actualización del profesorado.
+
+Objetivo provisional acordado con Jorge: registro de usuarios persistente y
+comprobable (#10), verificando primero la base técnica de #13. No implica que
+estas funcionalidades estén completadas ni fija todavía los datos de registro.
+
+- [Planificación y comprobación de S1](docs/session1-review.md).
+- [Project del equipo](https://github.com/users/albertojramosf06-source/projects/2).
+- [Dudas para el cliente (#15)](https://github.com/albertojramosf06-source/ForjaBiteCompany/issues/15).
+
 ## Responsabilidades iniciales
 
 | Área | Responsable | Qué coordina |
@@ -35,6 +55,16 @@ Estas responsabilidades rotarán según las necesidades del equipo. Tener una re
 ## Estado
 
 Sprint 0 – Preparación y planificación.
+
+## Documentación del proyecto
+
+La documentación viva del proyecto se mantiene en:
+
+- [Plan de Gestión de Configuración](docs/plan-gestion-configuracion.md): ramas, revisión e integración.
+
+- `docs/technical/`: base técnica y dependencias.
+- `docs/diagrams/`: diagramas y modelos.
+- `docs/decisions/`: decisiones relevantes.
 
 ## Construcción y ejecución
 
