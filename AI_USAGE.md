@@ -1,5 +1,17 @@
 # Registro de uso de IA
 
+## Preparación de la PR del Hito 1 — 15 de octubre de 2026
+
+Jorge autoriza guardar el trabajo, actualizar la rama con main, completar la
+instrucción de revisión JPA, decisiones y modelo, y preparar PR en borrador.
+Se conserva la documentación previa de S1-S3. Los commits se atribuyen a
+JorgeMartinSanchez mediante su correo noreply de GitHub. No se cambia main ni se
+aprueba la propuesta. Las notas anteriores describen el estado local en cada
+paso; desde este punto el trabajo está guardado en commits para preparar su push.
+La prueba manual y la consulta de datos del usuario siguen pendientes de confirmar.
+Verificación tras actualizar la rama: `.\mvnw.cmd verify`, BUILD SUCCESS,
+9 pruebas sin fallos ni errores. Diff revisado, sin errores de espacios.
+
 ## Formulario y documentación del Hito 1 — 15 de octubre de 2026
 
 Jorge autoriza continuar con controlador y formulario y solicita estilos.

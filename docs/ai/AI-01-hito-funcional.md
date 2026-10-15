@@ -48,9 +48,16 @@ confirmación, obligatorios y duplicados. Se revisó visualmente el formulario e
 el navegador en tamaño estrecho y escritorio. Se arrancó una instancia de revisión
 en 8081 al no poder arrancar otra en 8080; no se cambió el puerto configurado.
 Después, por petición de Jorge, se detuvo 8081 y se arrancó en 8080. La instancia
-vigente usa únicamente el puerto original 8080.
+de revisión se detuvo después para liberar 8080 a la ejecución del usuario.
+En la última comprobación no había aplicación escuchando; no se arrancó otra.
+Se utiliza únicamente el puerto original 8080.
 Pendientes: prueba manual de Jorge, consulta de los datos en consola H2, revisión
-del equipo, PR y decisión de integración. No hay commit ni push de estos cambios.
+del equipo y decisión de integración. El trabajo se guardó en un commit con la
+identidad GitHub de Jorge y se actualizó la rama con main sin modificar main.
+Se prepara una PR en borrador; no se declara aprobada ni integrada.
+
+Se añaden la instrucción de revisión de persistencia de S4 en AGENTS.md,
+docs/decisions/registro-usuarios.md y docs/diagrams/registro-usuarios.md.
 
 ## Valor aportado
 
