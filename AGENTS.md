@@ -41,3 +41,12 @@ After implementation:
 - Do not silently change architecture.
 - Do not remove tests to make the build pass.
 - Do not integrate or approve changes.
+
+## Review persistence implementation
+
+When reviewing persistence, inspect entities, repositories, services and controllers.
+Check generated identifiers, nullability, unique constraints and any relationships
+against the issue. Keep business logic outside controllers. Review JPA/H2
+dependencies and configuration. Do not invent relationships or expand scope.
+Report verification results and limitations. The human team runs verify, reviews
+the diff and decides; the agent must not approve or integrate its own changes.

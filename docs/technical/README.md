@@ -19,6 +19,17 @@ En esta carpeta se documentan las decisiones técnicas del proyecto sobre Maven,
 
 Cualquier dependencia nueva debe añadirse aquí con su justificación.
 
+## Persistencia del incremento #10
+
+- `spring-boot-starter-data-jpa`: entidades y repositorios para guardar y recuperar usuarios.
+- `h2` (runtime): base de datos en memoria del laboratorio.
+- `spring-boot-h2console` (runtime): consola web para consultar esa base.
+
+Formulario: http://localhost:8080/usuarios/registro. Consola:
+http://localhost:8080/h2-console/; JDBC `jdbc:h2:mem:rentaldb`, usuario `sa`,
+contraseña vacía. Los datos se pierden al detener la aplicación.
+La página inicial conserva su ruta `/` y enlaza al formulario.
+
 ## Ejecución
 
 Requisito: Java 17.

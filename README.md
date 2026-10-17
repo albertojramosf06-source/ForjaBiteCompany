@@ -61,6 +61,7 @@ Sprint 0 – Preparación y planificación.
 La documentación viva del proyecto se mantiene en:
 
 - [Plan de Gestión de Configuración](docs/plan-gestion-configuracion.md): ramas, revisión e integración.
+- [Modelo del registro](docs/diagrams/registro-usuarios.md) y [decisiones de #10](docs/decisions/registro-usuarios.md).
 
 - `docs/technical/`: base técnica y dependencias.
 - `docs/diagrams/`: diagramas y modelos.
@@ -117,6 +118,37 @@ Ctrl + C
 - spring-boot-starter-thymeleaf → vistas HTML mediante plantillas Thymeleaf.
 - spring-boot-starter-webmvc-test → soporte para pruebas de Spring MVC.
 - spring-boot-starter-thymeleaf-test → soporte para pruebas de Thymeleaf.
+- spring-boot-starter-data-jpa → persistencia de entidades Java mediante repositorios JPA.
+- h2 → base de datos embebida para las pruebas y el laboratorio.
+- spring-boot-h2console → consola web para consultar la base de datos H2.
+
+### Base de datos de laboratorio (S4)
+
+Formulario de registro: http://localhost:8080/usuarios/registro.
+Requiere email, nombre, apellidos y DNI; muestra errores de obligatorios y email
+duplicado. El email se compara exactamente tal como se introduce.
+Evidencia provisional del Hito 1: [AI-01](docs/ai/AI-01-hito-funcional.md).
+
+La configuración actual utiliza H2 en memoria. Tras ejecutar
+`.\mvnw.cmd spring-boot:run`, abrir http://localhost:8080/h2-console/.
+
+- Driver: `org.h2.Driver`.
+- JDBC URL: `jdbc:h2:mem:rentaldb`.
+- Usuario: `sa`.
+- Contraseña: vacía.
+
+La base de datos solo existe durante la ejecución; sus datos se pierden al parar
+la aplicación. Esta configuración es para el laboratorio, no para producción.
+La entidad `domain/Usuario.java` genera la tabla `usuarios` con id, email,
+nombre, apellidos y DNI. El formulario llama al servicio y este al repositorio.
+En la consola se puede comprobar la tabla con `SELECT * FROM USUARIOS;`.
+
+En `application.properties`, `spring.jpa.hibernate.ddl-auto=update` permite a
+Hibernate actualizar las tablas a partir de las entidades cuando existan;
+`spring.jpa.show-sql=true` muestra las consultas SQL en la terminal, y
+`spring.h2.console.enabled=true` habilita la consola web.
+`DB_CLOSE_ON_EXIT=FALSE` desactiva el cierre automático de H2 al salir de la JVM;
+no conserva los datos después de detenerla.
 
 
 ### Git
