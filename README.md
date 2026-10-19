@@ -54,7 +54,7 @@ Estas responsabilidades rotarán según las necesidades del equipo. Tener una re
 
 ## Estado
 
-Sprint 0 – Preparación y planificación.
+Primer incremento – desarrollo y persistencia.
 
 ## Documentación del proyecto
 
