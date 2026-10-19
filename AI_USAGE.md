@@ -1,5 +1,21 @@
 # Registro de uso de IA
 
+## Actualización documental de AI-01 — 19 de octubre de 2026
+
+Jorge autoriza adaptar la ficha a la plantilla oficial que aporta en la raíz del
+repositorio. Codex actualiza solo docs/ai/AI-01-hito-funcional.md y esta referencia,
+conservando el resto de entradas y el trabajo pendiente de los compañeros.
+Se incorporan las evidencias de #10 y #25, la aprobación de Carlos y la integración
+del 17/10, diferenciándolas de su declaración de pruebas en la PR #27 aún abierta.
+Jorge confirma el 19/10 que probó alta, email repetido y consulta H2 con éxito;
+no se inventan datos de prueba exactos, capturas ni decisiones individuales.
+La ficha distingue pruebas del agente, confirmaciones humanas y límites conocidos.
+No se modifica código ni se aprueba o integra esta documentación automáticamente.
+Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 9 pruebas sin fallos ni errores.
+Se comprobaron las diez secciones de la plantilla, los enlaces locales y el diff.
+La actualización se presenta en PR en borrador para revisión humana; no cierra
+por sí sola #16 ni las tareas de otros integrantes.
+
 ## Preparación de la PR del Hito 1 — 15 de octubre de 2026
 
 Jorge autoriza guardar el trabajo, actualizar la rama con main, completar la
