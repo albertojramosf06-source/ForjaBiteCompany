@@ -1,0 +1,228 @@
+# Plan de Calidad — Versión inicial
+
+> **Objetivo:** definir de forma preliminar qué entendemos por calidad en el proyecto, qué problemas, limitaciones y deuda técnica conocemos y qué acciones se irán realizando durante su evolución.
+
+Esta versión inicial se prepara antes de la entrega intermedia con carácter formativo. **El Plan de Calidad se evaluará íntegramente en la entrega final**, una vez incorporadas las evidencias de Sonar y la evolución del proyecto.
+
+## 1. Identificación
+
+- **Equipo / empresa:** ForjaBiteCompany
+- **Fecha:** 17/10/2026
+- **Versión del documento:** 0.1
+- **Responsable de mantener el plan:** Carlos Ramos Cabañas
+- **Sprint actual del equipo:**  Iteration 3 Oct 14 - Oct 26
+
+---
+
+## 2. Alcance del Plan de Calidad
+
+Este plan se aplica al estado actual del proyecto y se irá actualizando a medida que se incorporen nuevas técnicas y herramientas.
+
+En este momento se centra en:
+
+- fiabilidad básica de los flujos funcionales;
+- mantenibilidad de la arquitectura;
+- coherencia entre modelo, código y documentación;
+- gestión correcta de configuración e integración;
+- visibilidad y seguimiento de deuda técnica, limitaciones y problemas conocidos;
+- protección de credenciales y datos sensibles;
+- preparación para las sesiones posteriores de pruebas, verificación automatizada, cobertura, Sonar y mantenimiento de la calidad.
+
+> En esta versión inicial todavía no se establecen objetivos de cobertura ni resultados de Sonar, ya que estas técnicas se introducirán en sesiones posteriores.
+>
+> Esta versión se revisa en la entrega intermedia con finalidad formativa; la dimensión de **Calidad se evalúa al 100 % en la entrega final**.
+
+---
+
+## 3. Objetivos de calidad
+
+### 3.1. Fiabilidad
+
+Objetivo:
+
+> Los flujos funcionales implementados deben poder ejecutarse de forma repetible y sin errores no controlados.
+
+Criterios actuales:
+
+- la aplicación arranca correctamente desde `main`;
+- el build desde limpio finaliza correctamente;
+- los datos persistentes se guardan y recuperan correctamente;
+- las entradas inválidas reciben un tratamiento controlado;
+- los errores conocidos no se ocultan.
+
+---
+
+### 3.2. Mantenibilidad
+
+Objetivo:
+
+> El código debe mantener una estructura comprensible y coherente con la arquitectura definida.
+
+Criterios actuales:
+
+- separación clara entre Controller, Service, Repository y entidades;
+- la lógica de negocio no se concentra en los controladores;
+- las clases y métodos tienen responsabilidades acotadas;
+- las issues se mantienen con un alcance razonable;
+- los cambios incluidos en una PR son comprensibles y están relacionados con su issue;
+- las decisiones técnicas relevantes quedan documentadas.
+
+---
+
+### 3.3. Trazabilidad y configuración
+
+Objetivo:
+
+> Todo cambio relevante debe poder seguirse desde su requisito o issue hasta su integración.
+
+Criterios actuales:
+
+- cada funcionalidad relevante tiene issue;
+- las ramas siguen la convención del proyecto;
+- existe una Pull Request para integrar cambios;
+- otra persona revisa la PR;
+- `main` no recibe cambios directos injustificados;
+- GitHub Project refleja el estado real del trabajo;
+- la versión entregada puede identificarse y recuperarse.
+
+---
+
+### 3.4. Seguridad básica
+
+Objetivo:
+
+> El repositorio no debe contener información sensible ni configuraciones inseguras evidentes.
+
+Criterios actuales:
+
+- no se versionan contraseñas;
+- no se versionan tokens;
+- no se incluyen códigos temporales de autenticación;
+- no se incluyen datos personales innecesarios;
+- los archivos locales o sensibles se excluyen mediante `.gitignore` cuando corresponda.
+
+---
+
+### 3.5. Usabilidad mínima
+
+Objetivo:
+
+> La interfaz puede ser sencilla, pero debe permitir demostrar correctamente los casos de uso implementados.
+
+Criterios actuales:
+
+- los flujos principales son accesibles;
+- los formularios muestran los campos necesarios;
+- los mensajes de error son comprensibles;
+- el resultado de una operación puede comprobarse;
+- la demo puede repetirse desde una versión recuperada de `main`.
+
+---
+## 4. Problemas, limitaciones y aspectos pendientes
+
+| Aspecto pendiente | Tipo | Acción prevista | Responsable | Estado |
+|---|---|---|---|---|
+| Modelo de usuario provisional: el diagrama del cliente incluye login, contraseña y dirección; el registro implementado guarda email, nombre, apellidos y DNI | Diseño / Dependencia | Trasladar al cliente las dudas de #15 y actualizar el modelo y `docs/diagrams` según su respuesta | Jorge (portavoz) | Pendiente |
+| Se solicita y almacena el DNI, un dato personal cuya necesidad no ha confirmado el cliente | Seguridad básica | Confirmar con el cliente (#15) si es necesario; si no lo es, dejar de pedirlo | Equipo | Pendiente |
+| La ficha AI-01 no sigue la plantilla oficial | Documentación | Completar `docs/ai/AI-01-hito-funcional.md` con la plantilla | Jorge (Carlos aporta Verificación y Revisión) | Pendiente |
+| README con el estado desactualizado ("Sprint 0") | Documentación | Actualizar el estado y revisar las instrucciones antes de la entrega | Diego | Pendiente |
+| `main` sin protección técnica (`protected: false`); las normas se aplican mediante revisión humana | Configuración | Activar la protección si el plan de GitHub lo permite o documentar la limitación | Alberto | Pendiente |
+| Construcción de `main` tras cada integración | Integración | Ejecutar `.\mvnw.cmd clean verify` antes y después de cada merge | Todo el equipo | Comprobado 17/10 |
+| Información sensible en el repositorio | Configuración | Revisar `.gitignore` y el diff antes de cada commit; `application.properties` solo contiene la configuración H2 de laboratorio | Todo el equipo | Revisado 17/10 |
+
+---
+
+## 5. Deuda técnica conocida
+
+Registrar únicamente deuda que el equipo conoce y ha decidido posponer de forma consciente.
+
+| Deuda técnica | Motivo por el que se pospone | Prioridad | Acción futura |
+|---|---|---|---|
+| Validaciones del registro incompletas: el formato del email solo lo comprueba el navegador, el email se compara sin normalizar mayúsculas y el DNI no valida la letra ni es único | El Hito 1 se acotó a campos obligatorios y email repetido; las reglas dependen de las respuestas del cliente (#15) | Media | Acordar las reglas y añadir la validación en `UsuarioService` con sus pruebas (S6) |
+| Base de datos H2 en memoria: los datos se pierden al parar la aplicación | Es la base de datos de laboratorio de S4 y basta para demostrar la persistencia | Baja | Valorar una base de datos persistente cuando el proyecto lo necesite |
+| `ddl-auto=update`, `show-sql=true` y consola H2 activados | Facilitan el desarrollo; no son configuración de producción (S4 diap. 15) | Baja | Mantenerlos solo para desarrollo y revisarlos antes de la entrega final |
+| Sin inicio de sesión ni roles (inquilino / propietario) | Fuera del alcance del Hito 1; depende de #11, #12 y de las respuestas de #15 | Media | Abordarlo en las issues #11 y #12 |
+
+> La deuda técnica no es un error oculto. Debe ser visible, justificada y planificada.
+
+---
+
+## 6. Criterios de revisión actuales
+
+Antes de considerar una issue lista para integrarse, se comprobará:
+
+- [ ] tiene criterios de aceptación;
+- [ ] el cambio es trazable y está correctamente aislado cuando corresponde;
+- [ ] el código compila;
+- [ ] el proyecto ejecuta el build acordado;
+- [ ] existe una Pull Request cuando el cambio vaya a integrarse en `main`;
+- [ ] otra persona ha revisado el cambio;
+- [ ] el equipo comprende los cambios realizados;
+- [ ] la documentación afectada está actualizada;
+- [ ] el modelo está actualizado cuando corresponde;
+- [ ] el uso relevante de IA está declarado;
+- [ ] no se han incluido credenciales o datos sensibles.
+
+---
+
+## 7. Acciones iniciales antes de la entrega intermedia
+
+| Acción | Responsable | Fecha límite | Estado |
+|---|---|---|---|
+| Comprobar `main` desde limpio | Carlos | 17/10/2026 | Hecho |
+| Cerrar e integrar el Hito 1 | Jorge (revisión: Carlos) | 20/10/2026 | En curso: integrado en la PR #25; falta completar la AI-01 |
+| Completar `AI-01-hito-funcional.md` | Jorge (Carlos: Verificación y Revisión) | 20/10/2026 | Pendiente |
+| Añadir la skill S5 "Review change before integration" a `AGENTS.md` | Alex | 20/10/2026 | Pendiente |
+| Revisar README y documentación | Diego | 20/10/2026 | Pendiente |
+| Actualizar modelo/diagramas | Jorge | 15/10/2026 | Hecho (`docs/diagrams/registro-usuarios.md`) |
+| Revisar problemas pendientes y deuda técnica | Carlos | 17/10/2026 | En curso (este plan) |
+| Poner el Project al día y replanificar el resto de issues | Alberto | 20/10/2026 | Pendiente |
+| Identificar versión intermedia | Jorge | 21/10/2026 | Pendiente (tag solo si lo indica el profesorado) |
+| Preparar demo | Todo el equipo | 20/10/2026 | Pendiente |
+
+---
+
+## 8. Preparación para el siguiente bloque de trabajo
+
+Antes de la Sesión 6, el equipo debería identificar:
+
+- **Flujo más crítico:** registro de usuarios (`/usuarios/registro` → `UsuarioController` → `UsuarioService.registrarUsuario`).
+- **Comportamientos más propensos a fallo:** email repetido (también en registros simultáneos, controlado por la restricción única de la base de datos) y campos vacíos o con solo espacios.
+- **Entradas válidas:** los cuatro campos con texto y un email no registrado.
+- **Entradas inválidas:** campos `null`, vacíos o con solo espacios, y email ya registrado.
+- **Casos límite:** el mismo email con distintas mayúsculas, campos de 255 caracteres (longitud de las columnas) y DNI con formato incorrecto.
+- **Zonas que necesitarán mayor verificación:** las validaciones de `UsuarioService` y la gestión de errores de `UsuarioController`.
+
+Estos elementos servirán como punto de partida para:
+
+- **S6:** diseño e implementación de pruebas con JUnit;
+- **S7:** verificación automatizada con Maven, Surefire y JaCoCo;
+- **S8:** análisis de calidad con Sonar;
+- **Hito 2:** pruebas y verificación con IA agéntica.
+
+El equipo deberá incorporar estas actividades a sus propios sprints o iteraciones, de acuerdo con su planificación y estado real del proyecto.
+
+---
+
+## 9. Revisión del plan
+
+Este documento debe actualizarse cuando:
+
+- cambie el alcance del proyecto;
+- aparezcan nuevos problemas, limitaciones o dependencias relevantes;
+- se detecte nueva deuda técnica;
+- se incorporen pruebas;
+- se obtenga la línea base de Sonar;
+- se introduzcan métricas o criterios nuevos;
+- se cierre una acción de calidad relevante.
+
+### Próxima revisión prevista
+
+- **Fecha / sesión:** Sesión 6 (inicio del bloque de pruebas)
+- **Responsable:** Carlos Ramos Cabañas
+
+---
+
+## 10. Resumen
+
+Ahora mismo los objetivos de calidad del equipo son que el registro de usuarios funcione de forma fiable y repetible desde `main`, mantener la separación por capas y la trazabilidad issue → PR → revisión. La limitación más importante es que el modelo de usuario es provisional y depende de las respuestas del cliente (#15), lo que afecta a las validaciones y al uso del DNI. La acción prioritaria antes de la entrega intermedia es completar la ficha AI-01 con la plantilla oficial y dejar `main` recuperable con la demo preparada.

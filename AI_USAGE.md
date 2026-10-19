@@ -150,6 +150,25 @@ constituye el Hito 1 funcional y el agente no aprueba ni integra la propuesta.
 
 Pendiente: debe existir una funcionalidad vigente con revisión y evidencias.
 
+## Verificación y revisión de la PR #25 (Hito 1) — 17 de octubre de 2026
+
+**Responsable:** Carlos Ramos Cabañas.
+**Herramienta:** Claude, como asistente, con acceso de solo lectura a mi copia local del repositorio. No modificó archivos ni ejecutó comandos en el repositorio.
+**En qué ayudó:** explicar los pasos de verificación de S4 y los comandos de Git necesarios.
+**Qué hice yo:** ejecuté `.\mvnw.cmd clean verify` (9 pruebas, 0 fallos), probé el formulario (alta correcta, email repetido y campos vacíos o con espacios), comprobé los datos en la consola H2 y revisé `git status` y `git diff`. Aprobé la PR #25 y realicé el merge.
+**Propuesta descartada:** la IA sugirió añadir un listado de usuarios dentro de la PR #25. Lo descarté antes de subirlo porque modificaba la PR de otro compañero sin su acuerdo. Pero me pareció buena idea para hablarla con los compañeros.
+**Verificación:** resultados obtenidos por mí en local. La IA comprobó en mi copia que no quedaba ningún cambio sin subir y que el merge coincidía con la rama revisada.
+
+## Plan de Calidad inicial (#26) — 17 de octubre de 2026
+
+**Responsable:** Carlos Ramos Cabañas.
+**Herramienta:** Claude, como asistente.
+**Qué hice yo:** elegí la tarea, creé la issue #26 y la rama, y aporté la información base: los resultados de mi verificación del registro y las limitaciones que detecté al probarlo, como el uso del DNI como dato personal. Revisé el contenido y decidí qué problemas, deuda y acciones mantener.
+**En qué ayudó la IA:** estructurar y redactar bien el plan a partir de la plantilla de S5, la PR #25 y la información de mi verificación. Además de darme alguna idea que añadí, mientras le decía mis ideas o lo que quería poner
+**Qué modifiqué:** completé la identificación con la iteración actual del Project (Iteration 3).
+**Verificación:** `.\mvnw.cmd clean verify` → BUILD SUCCESS; revisión del diff; revisión de otra persona en la PR.
+**Valor aportado:** me ayudó a ordenar la información en la estructura de la plantilla y algunas de las decisiones que yo no planteaba
+
 ### Plantilla de uso de IA — [PENDIENTE: FECHA / IDENTIFICADOR]
 
 **Tarea delegada:**  
