@@ -1,6 +1,10 @@
 # Decisiones del registro de usuarios (#10)
 
-Fecha: 15/10/2026. Implementación propuesta, pendiente de revisión del equipo.
+Fecha original: 15/10/2026. En esa fecha era una propuesta pendiente de revisión.
+
+Actualización de estado — 20/10/2026: implementación revisada por Carlos e integrada
+el 17/10 mediante [#25](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/25). Se conservan las decisiones y los límites originales;
+esta actualización documental queda pendiente de su propia revisión.
 
 ## Alcance
 
@@ -40,6 +44,8 @@ pero no los conserva al detener la aplicación. ddl-auto=update y la consola H2
 son opciones del laboratorio; no se presentan como configuración de producción.
 Las pruebas usan bases de datos de prueba independientes de la instancia en 8080.
 
-Pendiente del equipo: prueba manual de registro, consulta SELECT * FROM USUARIOS,
-revisión del diff y decisiones sobre los límites indicados. No se inventan esas
-comprobaciones. Ver ficha AI-01 y resultado de verify en la PR.
+El 15/10 estaban pendientes la prueba manual, la consulta H2 y la revisión del diff.
+Jorge confirmó el 19/10 alta, email repetido y `SELECT * FROM USUARIOS` correctos.
+Carlos aprobó #25 y dejó su testimonio de verificación en [#27](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/27).
+No se atribuyen datos exactos ni nuevas pruebas humanas. Las decisiones sobre los
+límites indicados siguen pendientes del cliente (#15). Ver [AI-01](../ai/AI-01-hito-funcional.md).
