@@ -326,5 +326,7 @@ explica la evolución sin atribuir estas decisiones al plan original.
   detecta una misma persona con documentos distintos ni hay migración de una
   base antigua persistente. Reglas completas en [decisiones](../decisions/registro-usuarios.md).
 
-La nueva limpieza documental local requiere su propia revisión. No se declara
-cerrada toda la entrega ni se sustituyen las evidencias históricas de #25.
+La reconciliación documental fue aprobada por Alex e integrada en
+[#37](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/37), el 20/10/2026. No se declara cerrada toda la
+entrega ni se sustituyen las evidencias históricas de #25. Las verificaciones
+posteriores se registran en la base técnica y AI_USAGE.

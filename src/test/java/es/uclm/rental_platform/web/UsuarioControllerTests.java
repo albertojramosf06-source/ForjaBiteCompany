@@ -108,4 +108,46 @@ class UsuarioControllerTests {
         assertEquals(0, usuarioRepository.count());
     }
 
+
+    @Test
+    void rechazarPeticionSinDocumento() throws Exception {
+        mockMvc.perform(post("/usuarios/registro").param("email", "ana@example.com")
+                        .param("nombre", "Ana").param("apellidos", "García"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("error", "Todos los campos son obligatorios."));
+        assertEquals(0, usuarioRepository.count());
+    }
+
+    @Test
+    void dosRegistrosSimultaneosConMismoEmailCreanUnaSolaFila() throws Exception {
+        var ejecutor = java.util.concurrent.Executors.newFixedThreadPool(2);
+        var salida = new java.util.concurrent.CountDownLatch(1);
+        try {
+            var primera = ejecutor.submit(() -> {
+                salida.await();
+                return mockMvc.perform(post("/usuarios/registro").param("email", "ANA@EXAMPLE.COM")
+                        .param("nombre", "Ana").param("apellidos", "García")
+                        .param("tipoDocumento", "DNI").param("numeroDocumento", "12345678Z"))
+                        .andReturn().getResponse().getStatus();
+            });
+            var segunda = ejecutor.submit(() -> {
+                salida.await();
+                return mockMvc.perform(post("/usuarios/registro").param("email", "ana@example.com")
+                        .param("nombre", "Otra").param("apellidos", "Persona")
+                        .param("tipoDocumento", "DNI").param("numeroDocumento", "87654321X"))
+                        .andReturn().getResponse().getStatus();
+            });
+            salida.countDown();
+            var estados = new java.util.ArrayList<>(java.util.List.of(
+                    primera.get(20, java.util.concurrent.TimeUnit.SECONDS),
+                    segunda.get(20, java.util.concurrent.TimeUnit.SECONDS)));
+            java.util.Collections.sort(estados);
+            assertEquals(java.util.List.of(200, 302), estados);
+            assertEquals(1, usuarioRepository.count());
+            assertEquals("ana@example.com", usuarioRepository.findAll().get(0).getEmail());
+        } finally {
+            ejecutor.shutdownNow();
+        }
+    }
+
 }

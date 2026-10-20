@@ -1,6 +1,39 @@
 # Registro de uso de IA
 Este documento recoge los usos relevantes de inteligencia artificial realizados durante el proyecto.
 
+## Publicación de la revisión conjunta — 20 de octubre de 2026
+
+Jorge autoriza expresamente guardar y subir todo el paquete revisado y abrir una
+PR desde su cuenta. Se incluyen documentación, informe consolidado y siete
+pruebas nuevas, incluidos los archivos nuevos del informe y del test de error.
+Se conservan las notas de trabajo local como historial del momento en que se
+escribieron. El contenido publicado requiere revisión de otro integrante; Codex
+no aprueba ni integra cambios. No se incluyen PDF, capturas, plantilla personal,
+respaldos ni informes generados de target. Las 29 pruebas pasan y los enlaces
+locales se han comprobado. La autorización de publicar sustituye la restricción
+anterior de mantener este paquete únicamente en local.
+
+## Revisión conjunta previa al material de defensa — 20 de octubre de 2026
+
+Jorge pide consolidar la revisión y los arreglos, sin fragmentarlos en nuevas
+rondas. Codex sincroniza main con #37 integrada y aísla el trabajo local en
+`codex/revision-final-defensa`. Las notas siguientes son un historial fechado:
+los estados de preparación no deben interpretarse como estados actuales.
+
+- #37: aprobada por Alex e integrada; se actualizan las referencias de estado.
+- README: recuperación de Git sin reset destructivo, explicando que una rama de
+  respaldo no guarda modificaciones sin commit ni archivos nuevos.
+- Pruebas: se añaden casos de email de 255/256 caracteres, ceros del DNI, tipo
+  ausente, DNI duplicado en BD, petición sin documento, dos peticiones concurrentes
+  y tratamiento de una excepción de integridad conservando los seis datos.
+- No se cambia la lógica del registro, ni dependencias, estilos o puerto.
+- Los acuerdos de #34, la duda sobre el acta y las respuestas del cliente siguen
+  pendientes de decisiones humanas. No se inventan responsables ni fechas.
+- Resultado: `.\mvnw.cmd clean verify`, BUILD SUCCESS; 29 pruebas, 0 fallos,
+  0 errores y 0 omitidas. Verificados enlaces locales, bloques Markdown y diff.
+- Informe consolidado: `docs/revision-conjunta-defensa.md`. Cambios sin commit,
+  push ni PR durante esta revisión. Las pruebas previas de 22 siguen como historial.
+
 ## Reconciliación documental posterior a #36 — 20 de octubre de 2026
 
 **Plan y autorización:** Jorge pide corregir primero las incoherencias antes de

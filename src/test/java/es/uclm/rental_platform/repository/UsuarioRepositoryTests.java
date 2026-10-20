@@ -53,4 +53,12 @@ class UsuarioRepositoryTests {
                 () -> usuarioRepository.saveAndFlush(new Usuario("otra@example.com", "Otra", "Persona", "PASAPORTE", "FR", "AB12345")));
     }
 
+
+    @Test
+    void baseDeDatosImpideDniRepetido() {
+        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z"));
+        org.junit.jupiter.api.Assertions.assertThrows(org.springframework.dao.DataIntegrityViolationException.class,
+                () -> usuarioRepository.saveAndFlush(new Usuario("otra@example.com", "Otra", "Persona", "DNI", "ES", "12345678Z")));
+    }
+
 }

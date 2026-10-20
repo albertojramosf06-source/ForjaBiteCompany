@@ -46,7 +46,25 @@ Con la aplicación arrancada, http://localhost:8080/ muestra el inicio
 registro. El logo permite volver al inicio. Ambas vistas comparten `registro.css`.
 `registro.js` muestra los campos del documento elegido y requiere JavaScript.
 
-## Verificación del registro actual
+## Verificación local conjunta del 20/10/2026
+
+La funcionalidad integrada no se modifica. Sobre main de referencia
+`614bae73db51b60a6b6c717806fa76dfbb93ea89` se amplían las pruebas locales:
+`.\mvnw.cmd clean verify` termina con BUILD SUCCESS, **29 pruebas**, 0 fallos,
+0 errores y 0 omitidas. Desglose: arranque 1, repositorio 4, servicio 14,
+web de integración 9 y controlador de errores 1.
+
+Se comprueban también email de 255/256 caracteres, DNI con ceros iniciales,
+tipo ausente, DNI duplicado en BD, petición sin documento, dos peticiones
+simultáneas con el mismo email y conservación de datos ante un error de integridad.
+El caso concurrente comprueba una sola fila, una respuesta de éxito y otra
+controlada; no es una prueba de carga ni garantiza todos los entrelazados posibles.
+
+Estado completo y límites: [revisión conjunta](../revision-conjunta-defensa.md).
+Los resultados siguientes de 22 pruebas son la evidencia anterior de #36 y no se
+sustituyen retroactivamente por los 29 de esta revisión local.
+
+## Verificación histórica de la versión integrada por #36
 
 Versión integrada por #36: `1258bb7289c49d898336e8163368434afc24afd4`.
 El 20/10/2026, `.\mvnw.cmd clean verify` terminó correctamente: 22 pruebas

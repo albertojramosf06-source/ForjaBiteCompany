@@ -57,7 +57,10 @@ Estas responsabilidades rotarán según las necesidades del equipo. Tener una re
 
 Primer incremento de registro integrado mediante #25 y ampliado mediante
 [#36](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/36), revisada por Alex e integrada el 20/10/2026.
-La versión de código comprobada es `1258bb7289c49d898336e8163368434afc24afd4`: 22 pruebas correctas.
+La funcionalidad de #36 se conserva en `main`; la reconciliación documental está
+integrada mediante [#37](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/37), revisada por Alex.
+Ver [base técnica](docs/technical/README.md) para el estado de verificación y
+[Plan de Calidad](docs/quality/QUALITY_PLAN.md) para los pendientes reales.
 
 ## Documentación del proyecto
 
@@ -91,7 +94,7 @@ code .
 git status
 git remote -v
 git branch
-git pull
+git pull --ff-only
 
 ```
 
@@ -164,7 +167,7 @@ git status
 git add ruta/del/archivo-revisado
 git commit -m "Describe los cambios"
 git push
-git pull
+git pull --ff-only
 ```
 ### Sincronización del repositorio local con GitHub
 
@@ -191,39 +194,27 @@ nothing to commit, working tree clean
 
 A partir de este punto se puede crear una nueva rama asociada a la tarea o issue correspondiente.
 
-#### Recuperación ante una rama `main` divergente
+#### Si `main` diverge o hay trabajo pendiente
 
-Si Git indica que `main` y `origin/main` han divergido, primero debe comprobarse qué commits existen únicamente en local:
-
-```powershell
-git log --oneline origin/main..main
-```
-
-Si existe algún commit local que se quiera conservar, se crea primero una rama de seguridad:
-
-```powershell
-git branch backup/local-main-before-sync
-```
-
-Después se actualiza la información del repositorio remoto:
-
-```powershell
-git fetch origin
-```
-
-Finalmente, si se ha comprobado que el trabajo local está protegido y se desea que `main` vuelva a coincidir exactamente con GitHub:
-
-```powershell
-git reset --hard origin/main
-```
-
-Se verifica el resultado con:
+No forzar la sincronización. `git pull --ff-only` se detiene si necesita mezclar
+historias; ese resultado no borra trabajo. Primero inspeccionar:
 
 ```powershell
 git status
+git diff
+git diff --staged
+git fetch origin
+git log --oneline --left-right main...origin/main
 ```
 
-**Importante:** `git reset --hard origin/main` no forma parte del flujo normal de trabajo. Se utiliza únicamente para recuperar una rama local cuando se ha comprobado previamente que no se perderá trabajo.
+Una rama de respaldo conserva commits, pero no guarda cambios sin commit ni
+archivos nuevos. Para conservar modificaciones, preparar en una rama de trabajo
+un commit con los archivos revisados o guardar una copia fuera del repositorio;
+no incluir automáticamente capturas, PDF, credenciales ni respaldos personales.
+
+Después, revisar los commits distintos con el equipo y decidir cómo integrar o
+recuperar el trabajo. No usar `reset --hard` ni push forzado como paso de esta guía.
+Si no está claro qué hay que conservar, detenerse antes de modificar el historial.
 
 #### Regla de trabajo
 
@@ -258,7 +249,7 @@ Si se han modificado archivos en GitHub o se ha hecho merge de una Pull Request 
 
 ```powershell
 git checkout main
-git pull
+git pull --ff-only
 git status
 ```
 
@@ -270,7 +261,7 @@ Antes de crear una nueva rama:
 
 ```powershell
 git checkout main
-git pull
+git pull --ff-only
 git status
 ```
 
@@ -301,7 +292,7 @@ Cuando una Pull Request haya sido revisada y fusionada en `main`:
 
 ```powershell
 git checkout main
-git pull
+git pull --ff-only
 ```
 
 Si la rama local ya no se necesita:

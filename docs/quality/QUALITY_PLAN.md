@@ -6,8 +6,9 @@ Esta versión inicial se prepara antes de la entrega intermedia con carácter fo
 
 > **Actualización de estados — 20/10/2026:** se conservan responsables y fechas
 > del plan inicial. La actualización anterior fue aprobada por Alex e integrada
-> mediante [#31](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/31). La presente limpieza documental es local
-> y requiere su propia revisión. No cierra toda la entrega.
+> mediante [#31](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/31). La reconciliación posterior fue
+> aprobada por Alex e integrada en [#37](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/37) el 20/10/2026.
+> Esta nota registra hechos comprobados, no la aceptación final de toda la entrega.
 
 > **Ampliación integrada del 20/10:** validación de email y documento,
 > normalización y límites revisados por Alex e integrados en [#36](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/36).
@@ -19,7 +20,8 @@ Esta versión inicial se prepara antes de la entrega intermedia con carácter fo
 - **Equipo / empresa:** ForjaBiteCompany
 - **Fecha:** 17/10/2026
 - **Versión original:** 0.1 (17/10/2026).
-- **Revisión local:** 0.2 (20/10/2026), estados posteriores a #31 y #36, pendiente de revisión.
+- **Revisión:** 0.2 (20/10/2026), integrada por #37 tras revisión de Alex.
+- **Nota de mantenimiento:** las verificaciones posteriores se registran en la base técnica y AI_USAGE; esta tabla conserva las fechas originales.
 - **Responsable de mantener el plan:** Carlos Ramos Cabañas
 - **Iteración citada en el plan inicial:** Iteration 3, Oct 14 - Oct 26.
   El Project configura inicio 14/10 y duración 14 días; la discrepancia de fechas
@@ -138,7 +140,7 @@ Criterios actuales:
 | Modelo de usuario provisional: el diagrama del cliente incluye login, contraseña y dirección; el registro actual guarda email, nombre, apellidos y DNI español o pasaporte con país emisor | Diseño / Dependencia | Trasladar al cliente las dudas de #15 y actualizar el modelo y `docs/diagrams` según su respuesta | Jorge (portavoz) | Pendiente |
 | Se solicita y almacena un documento de identidad, cuya necesidad no ha confirmado el cliente | Seguridad básica | Confirmar con el cliente (#15) si es necesario el documento; la validación pedida por Jorge no sustituye esa respuesta | Equipo | Pendiente |
 | Adaptación de AI-01 a la plantilla oficial (carencia detectada el 17/10) | Documentación | Completar `docs/ai/AI-01-hito-funcional.md` con la plantilla | Jorge (Carlos aporta Verificación y Revisión) | Resuelto: [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), integrada el 20/10 |
-| README con estado "Sprint 0" (carencia detectada el 17/10) | Documentación | Actualizar el estado y revisar las instrucciones antes de la entrega | Diego | Estado corregido en [#30](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/30), integrada el 20/10; estilos y validaciones integrados en #36; limpieza documental local en revisión |
+| README con estado "Sprint 0" (carencia detectada el 17/10) | Documentación | Actualizar el estado y revisar las instrucciones antes de la entrega | Diego | Estado corregido en [#30](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/30), integrada el 20/10; estilos y validaciones integrados en #36; reconciliación documental integrada en #37 |
 | `main` sin protección técnica (`protected: false`); las normas se aplican mediante revisión humana | Configuración | Activar la protección si el plan de GitHub lo permite o documentar la limitación | Alberto | Pendiente |
 | Construcción de `main` tras cada integración | Integración | Ejecutar `.\mvnw.cmd clean verify` antes y después de cada merge | Todo el equipo | Agente: clean verify en main `1258bb7`, 20/10, 22 pruebas correctas; se conserva la comprobación humana del 17/10 |
 | Información sensible en el repositorio | Configuración | Revisar `.gitignore` y el diff antes de cada commit; `application.properties` solo contiene la configuración H2 de laboratorio | Todo el equipo | Revisado 17/10 |
@@ -190,7 +192,7 @@ Antes de considerar una issue lista para integrarse, se comprobará:
 | Cerrar e integrar el Hito 1 | Jorge (revisión: Carlos) | 20/10/2026 | Implementación integrada en [#25](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/25), 17/10; ficha integrada en [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), 20/10. No equivale al cierre de toda la entrega |
 | Completar `AI-01-hito-funcional.md` | Jorge (Carlos: Verificación y Revisión) | 20/10/2026 | Hecho: [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), revisión de Carlos e integración el 20/10 |
 | Añadir la skill S5 "Review change before integration" a `AGENTS.md` | Alex | 20/10/2026 | Hecho: [#29](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/29), integrada el 20/10 |
-| Revisar README y documentación | Diego | 20/10/2026 | README y AI_USAGE integrados en [#30](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/30), 20/10; ampliación #36 integrada; presente limpieza local pendiente de revisión |
+| Revisar README y documentación | Diego | 20/10/2026 | README y AI_USAGE integrados en [#30](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/30), 20/10; ampliación #36 integrada; reconciliación integrada en #37 |
 | Actualizar modelo/diagramas | Jorge | 15/10/2026 | Hecho (`docs/diagrams/registro-usuarios.md`) |
 | Revisar problemas pendientes y deuda técnica | Carlos | 17/10/2026 | En curso (este plan) |
 | Poner el Project al día y replanificar el resto de issues | Alberto | 20/10/2026 | #16 cerrada y Done; #32–#33 descartadas; #34 Ready para replanificar. Acuerdos de responsables/iteraciones pendientes |
@@ -207,7 +209,7 @@ Antes de la Sesión 6, el equipo debería identificar:
 - **Comportamientos más propensos a fallo:** email repetido (también en registros simultáneos, controlado por la restricción única de la base de datos) y campos vacíos o con solo espacios.
 - **Entradas válidas:** email válido no registrado, nombre y apellidos no vacíos y documento válido no repetido. Para pasaporte, país obligatorio.
 - **Entradas inválidas:** obligatorios `null`/vacíos/espacios, email incorrecto o duplicado, longitudes excesivas, DNI incorrecto/repetido y pasaporte sin país válido o con número inválido/repetido.
-- **Casos límite:** normalización y duplicados simultáneos; 255/256 caracteres en nombre y apellidos, 64/65 en parte local del email, 32/33 en pasaporte; mismo pasaporte con países distintos. Hay pruebas de varios de estos casos; no se declara cobertura exhaustiva ni prueba de concurrencia.
+- **Casos límite:** normalización y duplicados simultáneos; 255/256 caracteres en nombre y apellidos, 64/65 en parte local del email, 32/33 en pasaporte; mismo pasaporte con países distintos. La revisión de pruebas incluye límites y dos peticiones concurrentes con el mismo email, además de error de integridad del controlador. No se declara cobertura exhaustiva ni una prueba de carga.
 - **Zonas que necesitarán mayor verificación:** las validaciones de `UsuarioService` y la gestión de errores de `UsuarioController`.
 
 Estos elementos servirán como punto de partida para:
@@ -242,4 +244,4 @@ Este documento debe actualizarse cuando:
 
 ## 10. Resumen
 
-Ahora mismo los objetivos de calidad del equipo son que el registro de usuarios funcione de forma fiable y repetible desde `main`, mantener la separación por capas y la trazabilidad issue → PR → revisión. La limitación más importante es que el modelo de usuario es provisional y depende de las respuestas del cliente (#15), lo que afecta a las validaciones y al uso del DNI. El 17/10 se identificó como prioridad completar AI-01; la ficha ya está integrada mediante #28. La ampliación #36 está integrada y el código se identifica por `1258bb7`, con 22 pruebas correctas. #16 está cerrada; las tareas adicionales #32 y #33 fueron descartadas, no completadas. Quedan acuerdos de planificación en #34 y aclarar el acta de seguimiento; #35 recoge el seguimiento posterior. La nueva petición de preparar un PDF es material de estudio, no evidencia de un ensayo colectivo. Se conserva el historial y no se declara cerrada toda la entrega.
+Ahora mismo los objetivos de calidad del equipo son que el registro de usuarios funcione de forma fiable y repetible desde `main`, mantener la separación por capas y la trazabilidad issue → PR → revisión. La limitación más importante es que el modelo de usuario es provisional y depende de las respuestas del cliente (#15), lo que afecta a las validaciones y al uso del DNI. El 17/10 se identificó como prioridad completar AI-01; la ficha ya está integrada mediante #28. La ampliación #36 está integrada y el código se identifica por `1258bb7`, con 22 pruebas correctas. #16 está cerrada; las tareas adicionales #32 y #33 fueron descartadas, no completadas. Quedan acuerdos de planificación en #34 y aclarar el acta de seguimiento; #35 recoge el seguimiento posterior. Son decisiones o evidencias pendientes, no fallos de código que deban rellenarse por suposición. La nueva petición de preparar un PDF es material de estudio, no evidencia de un ensayo colectivo. Se conserva el historial y no se declara cerrada toda la entrega.
