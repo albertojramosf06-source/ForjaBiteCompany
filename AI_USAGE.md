@@ -153,6 +153,52 @@ paso; desde este punto el trabajo está guardado en commits para preparar su pus
 La prueba manual y la consulta de datos del usuario siguen pendientes de confirmar.
 Verificación tras actualizar la rama: `.\mvnw.cmd verify`, BUILD SUCCESS,
 9 pruebas sin fallos ni errores. Diff revisado, sin errores de espacios.
+
+
+## Verificación y revisión de la PR #25 (Hito 1) — 17 de octubre de 2026
+
+**Responsable:** Carlos Ramos Cabañas.
+
+**Herramienta:** Claude, como asistente, con acceso de solo lectura a mi copia local del repositorio. No modificó archivos ni ejecutó comandos en el repositorio.
+
+**En qué ayudó:** explicar los pasos de verificación de S4 y los comandos de Git necesarios.
+
+**Qué hice yo:** ejecuté `.\mvnw.cmd clean verify` (9 pruebas, 0 fallos), probé el formulario (alta correcta, email repetido y campos vacíos o con espacios), comprobé los datos en la consola H2 y revisé `git status` y `git diff`. Aprobé la PR #25 y realicé el merge.
+
+**Propuesta descartada:** la IA sugirió añadir un listado de usuarios dentro de la PR #25. Lo descarté antes de subirlo porque modificaba la PR de otro compañero sin su acuerdo. Pero me pareció buena idea para hablarla con los compañeros.
+
+**Verificación:** resultados obtenidos por mí en local. La IA comprobó en mi copia que no quedaba ningún cambio sin subir y que el merge coincidía con la rama revisada.
+
+## Plan de Calidad inicial (#26)  17 de octubre de 2026
+
+**Responsable:** Carlos Ramos Cabañas.
+
+**Herramienta:** Claude, como asistente.
+
+**Qué hice yo:** elegí la tarea, creé la issue #26 y la rama, y aporté la información base: los resultados de mi verificación del registro y las limitaciones que detecté al probarlo, como el uso del DNI como dato personal. Revisé el contenido y decidí qué problemas, deuda y acciones mantener.
+
+**En qué ayudó la IA:** estructurar y redactar bien el plan a partir de la plantilla de S5, la PR #25 y la información de mi verificación. Además, me dio alguna idea que añadí mientras le explicaba mis ideas o lo que quería poner.
+
+**Qué modifiqué:** completé la identificación con la iteración actual del Project (Iteration 3).
+
+**Verificación:** `.\mvnw.cmd clean verify` → BUILD SUCCESS; revisión del diff; revisión de otra persona en la PR.
+
+**Valor aportado:** me ayudó a ordenar la información en la estructura de la plantilla y a plantear algunas decisiones que yo no había considerado.
+## Actualizacion documental de AI-01  19 de octubre de 2026
+
+Jorge autoriza adaptar la ficha a la plantilla oficial que aporta en la raíz del
+repositorio. Codex actualiza solo docs/ai/AI-01-hito-funcional.md y esta referencia,
+conservando el resto de entradas y el trabajo pendiente de los compañeros.
+Se incorporan las evidencias de #10 y #25, la aprobación de Carlos y la integración
+del 17/10, diferenciándolas de su declaración de pruebas en la PR #27 aún abierta.
+Jorge confirma el 19/10 que probó alta, email repetido y consulta H2 con éxito;
+no se inventan datos de prueba exactos, capturas ni decisiones individuales.
+La ficha distingue pruebas del agente, confirmaciones humanas y límites conocidos.
+No se modifica código ni se aprueba o integra esta documentación automáticamente.
+Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 9 pruebas sin fallos ni errores.
+Se comprobaron las diez secciones de la plantilla, los enlaces locales y el diff.
+La actualización se presenta en PR en borrador para revisión humana; no cierra
+por sí sola #16 ni las tareas de otros integrantes.
 ### Plantilla de uso de IA — [PENDIENTE: FECHA / IDENTIFICADOR]
 
 **Tarea delegada:**  

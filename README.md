@@ -32,9 +32,10 @@ el pago y se notifica al inquilino.
 Según la presentación S1, la entrega intermedia es el 21 de octubre de 2026 y la
 final el 16 de diciembre de 2026, salvo actualización del profesorado.
 
-Objetivo provisional acordado con Jorge: registro de usuarios persistente y
-comprobable (#10), verificando primero la base técnica de #13. No implica que
-estas funcionalidades estén completadas ni fija todavía los datos de registro.
+El registro persistente de usuarios (#10) ya está implementado e integrado
+en `main` mediante la PR #25. La planificación inicial se conserva como
+contexto histórico del proyecto; las referencias a implementación o revisión
+pendiente corresponden al estado anterior a dicha integración.
 
 - [Planificación y comprobación de S1](docs/session1-review.md).
 - [Project del equipo](https://github.com/users/albertojramosf06-source/projects/2).
@@ -107,7 +108,7 @@ Ejecución: .\mvnw.cmd spring-boot:run
  ```powershell
 .\mvnw.cmd spring-boot:run
 ```
-### Ver 
+### Ver
 http://localhost:8080/
 
 ### Parar
@@ -127,7 +128,7 @@ Ctrl + C
 Formulario de registro: http://localhost:8080/usuarios/registro.
 Requiere email, nombre, apellidos y DNI; muestra errores de obligatorios y email
 duplicado. El email se compara exactamente tal como se introduce.
-Evidencia provisional del Hito 1: [AI-01](docs/ai/AI-01-hito-funcional.md).
+Evidencia del Hito 1: [AI-01](docs/ai/AI-01-hito-funcional.md).
 
 La configuración actual utiliza H2 en memoria. Tras ejecutar
 `.\mvnw.cmd spring-boot:run`, abrir http://localhost:8080/h2-console/.
