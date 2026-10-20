@@ -1,99 +1,4 @@
 # Registro de uso de IA
-
-## Actualización documental de AI-01 — 19 de octubre de 2026
-
-Jorge autoriza adaptar la ficha a la plantilla oficial que aporta en la raíz del
-repositorio. Codex actualiza solo docs/ai/AI-01-hito-funcional.md y esta referencia,
-conservando el resto de entradas y el trabajo pendiente de los compañeros.
-Se incorporan las evidencias de #10 y #25, la aprobación de Carlos y la integración
-del 17/10, diferenciándolas de su declaración de pruebas en la PR #27 aún abierta.
-Jorge confirma el 19/10 que probó alta, email repetido y consulta H2 con éxito;
-no se inventan datos de prueba exactos, capturas ni decisiones individuales.
-La ficha distingue pruebas del agente, confirmaciones humanas y límites conocidos.
-No se modifica código ni se aprueba o integra esta documentación automáticamente.
-Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 9 pruebas sin fallos ni errores.
-Se comprobaron las diez secciones de la plantilla, los enlaces locales y el diff.
-La actualización se presenta en PR en borrador para revisión humana; no cierra
-por sí sola #16 ni las tareas de otros integrantes.
-
-## Preparación de la PR del Hito 1 — 15 de octubre de 2026
-
-Jorge autoriza guardar el trabajo, actualizar la rama con main, completar la
-instrucción de revisión JPA, decisiones y modelo, y preparar PR en borrador.
-Se conserva la documentación previa de S1-S3. Los commits se atribuyen a
-JorgeMartinSanchez mediante su correo noreply de GitHub. No se cambia main ni se
-aprueba la propuesta. Las notas anteriores describen el estado local en cada
-paso; desde este punto el trabajo está guardado en commits para preparar su push.
-La prueba manual y la consulta de datos del usuario siguen pendientes de confirmar.
-Verificación tras actualizar la rama: `.\mvnw.cmd verify`, BUILD SUCCESS,
-9 pruebas sin fallos ni errores. Diff revisado, sin errores de espacios.
-
-## Formulario y documentación del Hito 1 — 15 de octubre de 2026
-
-Jorge autoriza continuar con controlador y formulario y solicita estilos.
-Se añaden UsuarioController, registro.html, CSS propio y pruebas del flujo web.
-La lógica de registro se conserva en el servicio. El controlador muestra errores
-sin descartar los datos introducidos y redirige tras el éxito.
-La ficha provisional está en [AI-01](docs/ai/AI-01-hito-funcional.md); registra plan,
-decisiones conocidas, límites y comprobaciones pendientes. No se inventan reviews.
-Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 9 pruebas sin fallos ni errores;
-revisión visual del formulario en navegador en tamaños estrecho y escritorio.
-Instancia de revisión arrancada en 8081, sin modificar el puerto configurado.
-Por petición de Jorge se detuvo esa instancia y se arrancó la aplicación en el
-puerto original 8080. A partir de este punto se utiliza únicamente 8080.
-Cambios locales sin commit ni PR; comprobación manual del equipo pendiente.
-
-## Servicio de usuarios — 15 de octubre de 2026
-
-Jorge aprueba crear UsuarioService, añadir existsByEmail al repositorio y probar
-registro válido, campos null/vacíos/espacios y email repetido. El servicio recibe
-los cuatro campos, valida antes de guardar y comunica los errores mediante
-IllegalArgumentException con mensajes claros. No se incorpora lógica al controlador.
-El email se compara tal como se recibe: no se han acordado reglas nuevas de
-normalización o formato. La restricción única de BD sigue protegiendo duplicados
-concurrentes; su tratamiento web se revisará al preparar el controlador.
-Las pruebas usan H2 independiente y transacciones que se revierten al terminar.
-No se añaden formularios en este paso. `.\mvnw.cmd verify`: BUILD SUCCESS,
-5 pruebas sin fallos ni errores (arranque, repositorio y tres del servicio).
-Diff comprobado sin errores de espacios. Revisión humana pendiente.
-
-## Repositorio de usuarios — 15 de octubre de 2026
-
-Jorge aprueba añadir UsuarioRepository y una prueba de guardado y recuperación.
-La interfaz extiende JpaRepository<Usuario, Long>, sin consultas personalizadas.
-La prueba usa una base H2 en memoria independiente (usuarios_test), guarda con
-saveAndFlush y limpia la caché de JPA antes de recuperar por id y comprobar todos
-los campos. La transacción del test se revierte al terminar. Los datos de ejemplo
-no aparecen en la consola de la aplicación: son datos de prueba, no registros reales.
-No se añaden servicio, validaciones de registro, controlador ni formulario.
-Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 2 pruebas sin fallos ni errores
-(arranque y guardado/recuperación). Hibernate ejecutó INSERT y SELECT sobre H2.
-Diff revisado sin errores de espacios. Revisión humana e integración pendientes.
-
-## Primera entidad Usuario — 15 de octubre de 2026
-
-Jorge revisó y aceptó crear únicamente la entidad Usuario en domain con id Long
-generado y email, nombre, apellidos y DNI obligatorios; email único. Estos campos
-proceden del plan humano provisional de #10, no de respuestas del cliente.
-Codex utiliza anotaciones JPA, constructores y métodos de acceso explícitos,
-acordes con el nivel y las técnicas de clase. No se añaden repositorios,
-formularios ni relaciones entre usuario y propietario. Las columnas no nulas no
-sustituyen la validación de cadenas vacías del futuro flujo de registro.
-Hibernate genera la tabla usuarios con las cinco columnas y la restricción única
-del email durante la prueba de arranque. `.\mvnw.cmd verify` termina en BUILD
-SUCCESS: 1 prueba sin fallos ni errores. No se ha probado todavía guardar usuarios.
-
-## Ajuste de configuración JPA/H2 — 15 de octubre de 2026
-
-Jorge autorizó a Codex a quitar la propiedad spring.application.name duplicada,
-corregir la sangría de una dependencia y documentar las dependencias JPA/H2,
-la conexión de la consola y el carácter temporal de los datos en memoria.
-Se mantiene la configuración previa, sin nuevas entidades, formularios ni reglas
-de registro. Jorge pide código sencillo y acorde con las técnicas de clase.
-La revisión humana sigue pendiente; este ajuste no completa el Hito 1.
-Verificación del ajuste: `.\mvnw.cmd verify`, BUILD SUCCESS, 1 prueba sin fallos
-ni errores; diff revisado sin errores de espacios (respetando CRLF).
-
 Este documento recoge los usos relevantes de inteligencia artificial realizados durante el proyecto.
 
 ## Principios
@@ -162,29 +67,138 @@ Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 1 prueba sin fallos ni errore
 diff comprobado sin errores. Esta actividad documental no
 constituye el Hito 1 funcional y el agente no aprueba ni integra la propuesta.
 
-## Hito 1 – Desarrollo funcional
 
-Pendiente: debe existir una funcionalidad vigente con revisión y evidencias.
+## Hito 1 – Desarrollo funcional
+El Hito 1 corresponde al desarrollo del registro persistente de usuarios (#10).
+El agente apoyó la implementación de forma incremental y cada paso fue
+supervisado y verificado antes de continuar
+
+### Ajuste de configuración JPA/H2 — 15 de octubre de 2026
+
+Jorge autorizó a Codex a quitar la propiedad spring.application.name duplicada,
+corregir la sangría de una dependencia y documentar las dependencias JPA/H2,
+la conexión de la consola y el carácter temporal de los datos en memoria.
+Se mantiene la configuración previa, sin nuevas entidades, formularios ni reglas
+de registro. Jorge pide código sencillo y acorde con las técnicas de clase.
+La revisión humana sigue pendiente; este ajuste no completa el Hito 1.
+Verificación del ajuste: `.\mvnw.cmd verify`, BUILD SUCCESS, 1 prueba sin fallos
+ni errores; diff revisado sin errores de espacios (respetando CRLF).
+
+### Primera entidad Usuario — 15 de octubre de 2026
+
+Jorge revisó y aceptó crear únicamente la entidad Usuario en domain con id Long
+generado y email, nombre, apellidos y DNI obligatorios; email único. Estos campos
+proceden del plan humano provisional de #10, no de respuestas del cliente.
+Codex utiliza anotaciones JPA, constructores y métodos de acceso explícitos,
+acordes con el nivel y las técnicas de clase. No se añaden repositorios,
+formularios ni relaciones entre usuario y propietario. Las columnas no nulas no
+sustituyen la validación de cadenas vacías del futuro flujo de registro.
+Hibernate genera la tabla usuarios con las cinco columnas y la restricción única
+del email durante la prueba de arranque. `.\mvnw.cmd verify` termina en BUILD
+SUCCESS: 1 prueba sin fallos ni errores. No se ha probado todavía guardar usuarios.
+
+### Repositorio de usuarios — 15 de octubre de 2026
+
+Jorge aprueba añadir UsuarioRepository y una prueba de guardado y recuperación.
+La interfaz extiende JpaRepository<Usuario, Long>, sin consultas personalizadas.
+La prueba usa una base H2 en memoria independiente (usuarios_test), guarda con
+saveAndFlush y limpia la caché de JPA antes de recuperar por id y comprobar todos
+los campos. La transacción del test se revierte al terminar. Los datos de ejemplo
+no aparecen en la consola de la aplicación: son datos de prueba, no registros reales.
+No se añaden servicio, validaciones de registro, controlador ni formulario.
+Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 2 pruebas sin fallos ni errores
+(arranque y guardado/recuperación). Hibernate ejecutó INSERT y SELECT sobre H2.
+Diff revisado sin errores de espacios. Revisión humana e integración pendientes.
+
+
+### Servicio de usuarios — 15 de octubre de 2026
+
+Jorge aprueba crear UsuarioService, añadir existsByEmail al repositorio y probar
+registro válido, campos null/vacíos/espacios y email repetido. El servicio recibe
+los cuatro campos, valida antes de guardar y comunica los errores mediante
+IllegalArgumentException con mensajes claros. No se incorpora lógica al controlador.
+El email se compara tal como se recibe: no se han acordado reglas nuevas de
+normalización o formato. La restricción única de BD sigue protegiendo duplicados
+concurrentes; su tratamiento web se revisará al preparar el controlador.
+Las pruebas usan H2 independiente y transacciones que se revierten al terminar.
+No se añaden formularios en este paso. `.\mvnw.cmd verify`: BUILD SUCCESS,
+5 pruebas sin fallos ni errores (arranque, repositorio y tres del servicio).
+Diff comprobado sin errores de espacios. Revisión humana pendiente.
+
+
+### Formulario y documentación del Hito 1 — 15 de octubre de 2026
+
+Jorge autoriza continuar con controlador y formulario y solicita estilos.
+Se añaden UsuarioController, registro.html, CSS propio y pruebas del flujo web.
+La lógica de registro se conserva en el servicio. El controlador muestra errores
+sin descartar los datos introducidos y redirige tras el éxito.
+La ficha provisional está en [AI-01](docs/ai/AI-01-hito-funcional.md); registra plan,
+decisiones conocidas, límites y comprobaciones pendientes. No se inventan reviews.
+Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 9 pruebas sin fallos ni errores;
+revisión visual del formulario en navegador en tamaños estrecho y escritorio.
+Instancia de revisión arrancada en 8081, sin modificar el puerto configurado.
+Por petición de Jorge se detuvo esa instancia y se arrancó la aplicación en el
+puerto original 8080. A partir de este punto se utiliza únicamente 8080.
+Cambios locales sin commit ni PR; comprobación manual del equipo pendiente.
+
+
+### Preparación de la PR del Hito 1 — 15 de octubre de 2026
+
+Jorge autoriza guardar el trabajo, actualizar la rama con main, completar la
+instrucción de revisión JPA, decisiones y modelo, y preparar PR en borrador.
+Se conserva la documentación previa de S1-S3. Los commits se atribuyen a
+JorgeMartinSanchez mediante su correo noreply de GitHub. No se cambia main ni se
+aprueba la propuesta. Las notas anteriores describen el estado local en cada
+paso; desde este punto el trabajo está guardado en commits para preparar su push.
+La prueba manual y la consulta de datos del usuario siguen pendientes de confirmar.
+Verificación tras actualizar la rama: `.\mvnw.cmd verify`, BUILD SUCCESS,
+9 pruebas sin fallos ni errores. Diff revisado, sin errores de espacios.
+
 
 ## Verificación y revisión de la PR #25 (Hito 1) — 17 de octubre de 2026
 
 **Responsable:** Carlos Ramos Cabañas.
+
 **Herramienta:** Claude, como asistente, con acceso de solo lectura a mi copia local del repositorio. No modificó archivos ni ejecutó comandos en el repositorio.
+
 **En qué ayudó:** explicar los pasos de verificación de S4 y los comandos de Git necesarios.
+
 **Qué hice yo:** ejecuté `.\mvnw.cmd clean verify` (9 pruebas, 0 fallos), probé el formulario (alta correcta, email repetido y campos vacíos o con espacios), comprobé los datos en la consola H2 y revisé `git status` y `git diff`. Aprobé la PR #25 y realicé el merge.
+
 **Propuesta descartada:** la IA sugirió añadir un listado de usuarios dentro de la PR #25. Lo descarté antes de subirlo porque modificaba la PR de otro compañero sin su acuerdo. Pero me pareció buena idea para hablarla con los compañeros.
+
 **Verificación:** resultados obtenidos por mí en local. La IA comprobó en mi copia que no quedaba ningún cambio sin subir y que el merge coincidía con la rama revisada.
 
-## Plan de Calidad inicial (#26) — 17 de octubre de 2026
+## Plan de Calidad inicial (#26)  17 de octubre de 2026
 
 **Responsable:** Carlos Ramos Cabañas.
-**Herramienta:** Claude, como asistente.
-**Qué hice yo:** elegí la tarea, creé la issue #26 y la rama, y aporté la información base: los resultados de mi verificación del registro y las limitaciones que detecté al probarlo, como el uso del DNI como dato personal. Revisé el contenido y decidí qué problemas, deuda y acciones mantener.
-**En qué ayudó la IA:** estructurar y redactar bien el plan a partir de la plantilla de S5, la PR #25 y la información de mi verificación. Además de darme alguna idea que añadí, mientras le decía mis ideas o lo que quería poner
-**Qué modifiqué:** completé la identificación con la iteración actual del Project (Iteration 3).
-**Verificación:** `.\mvnw.cmd clean verify` → BUILD SUCCESS; revisión del diff; revisión de otra persona en la PR.
-**Valor aportado:** me ayudó a ordenar la información en la estructura de la plantilla y algunas de las decisiones que yo no planteaba
 
+**Herramienta:** Claude, como asistente.
+
+**Qué hice yo:** elegí la tarea, creé la issue #26 y la rama, y aporté la información base: los resultados de mi verificación del registro y las limitaciones que detecté al probarlo, como el uso del DNI como dato personal. Revisé el contenido y decidí qué problemas, deuda y acciones mantener.
+
+**En qué ayudó la IA:** estructurar y redactar bien el plan a partir de la plantilla de S5, la PR #25 y la información de mi verificación. Además, me dio alguna idea que añadí mientras le explicaba mis ideas o lo que quería poner.
+
+**Qué modifiqué:** completé la identificación con la iteración actual del Project (Iteration 3).
+
+**Verificación:** `.\mvnw.cmd clean verify` → BUILD SUCCESS; revisión del diff; revisión de otra persona en la PR.
+
+**Valor aportado:** me ayudó a ordenar la información en la estructura de la plantilla y a plantear algunas decisiones que yo no había considerado.
+## Actualizacion documental de AI-01  19 de octubre de 2026
+
+Jorge autoriza adaptar la ficha a la plantilla oficial que aporta en la raíz del
+repositorio. Codex actualiza solo docs/ai/AI-01-hito-funcional.md y esta referencia,
+conservando el resto de entradas y el trabajo pendiente de los compañeros.
+Se incorporan las evidencias de #10 y #25, la aprobación de Carlos y la integración
+del 17/10, diferenciándolas de su declaración de pruebas en la PR #27 aún abierta.
+Jorge confirma el 19/10 que probó alta, email repetido y consulta H2 con éxito;
+no se inventan datos de prueba exactos, capturas ni decisiones individuales.
+La ficha distingue pruebas del agente, confirmaciones humanas y límites conocidos.
+No se modifica código ni se aprueba o integra esta documentación automáticamente.
+Verificación: `.\mvnw.cmd verify`, BUILD SUCCESS, 9 pruebas sin fallos ni errores.
+Se comprobaron las diez secciones de la plantilla, los enlaces locales y el diff.
+La actualización se presenta en PR en borrador para revisión humana; no cierra
+por sí sola #16 ni las tareas de otros integrantes.
 ### Plantilla de uso de IA — [PENDIENTE: FECHA / IDENTIFICADOR]
 
 **Tarea delegada:**  
