@@ -1,6 +1,29 @@
 # Registro de uso de IA
 Este documento recoge los usos relevantes de inteligencia artificial realizados durante el proyecto.
 
+## Reconciliación documental posterior a #36 — 20 de octubre de 2026
+
+**Plan y autorización:** Jorge pide corregir primero las incoherencias antes de
+crear el PDF de defensa y acepta el plan de actualización local. Codex revisa
+README, AI-01, decisiones, modelo, Plan de Calidad, base técnica y Plan de
+Configuración; registra los resultados aquí. No modifica el código ni GitHub.
+**Estado comprobado:** #31 fue aprobada e integrada por Alex; #36 fue aprobada
+por Alex e integrada el 20/10. Código main: `1258bb7289c49d898336e8163368434afc24afd4`.
+Las entradas anteriores conservan los estados locales del momento en que se
+escribieron; no describen propuestas todavía sin integrar. AI-01 distingue las
+nueve pruebas originales de #25 de las 22 de la versión #36.
+**Seguimiento:** #16 cerrada con evidencia; #32 y #33 cerradas como no previstas
+por petición de Jorge, sin presentarlas como trabajo realizado. #34 Ready y #35
+Backlog. La solicitud posterior de un PDF de estudio no reabre esas tareas.
+Jorge confirma que probó la aplicación y H2 con éxito; no se inventan entradas
+exactas, capturas ni una práctica colectiva de defensa. El acta no está localizada.
+**Verificación de esta revisión documental:** `.\mvnw.cmd clean verify`, BUILD
+SUCCESS, 22 pruebas, 0 fallos, 0 errores y 0 omitidas el 20/10/2026. Revisados
+los ocho documentos, 19 enlaces locales, las diez secciones históricas de AI-01
+y la ausencia de cambios de código. Diff sin errores de espacios.
+**Estado de esta revisión:** solo local, sin commit, push, PR ni aceptación final.
+Las revisiones previas de #31 y #36 no aprueban automáticamente estos cambios.
+
 ## Preparación de PR de estilos y validaciones — 20 de octubre de 2026
 
 Jorge autoriza publicar los cambios locales después de revisarlos por pasos.

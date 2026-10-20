@@ -4,6 +4,10 @@
 > Adaptación a la plantilla oficial facilitada por Jorge.
 > Implementación: 15/10/2026. Integración: 17/10/2026. Actualización inicial: 19/10/2026. Estados contrastados: 20/10/2026.
 
+> **Lectura de la ficha:** las diez secciones conservan la evidencia del Hito 1
+> original (#25, nueve pruebas). La actualización diferenciada al final describe
+> la ampliación integrada por #36 y sus 22 pruebas; no reescribe el plan original.
+
 ## 1. Identificación
 
 - **Equipo / empresa:** ForjaBiteCompany.
@@ -216,7 +220,8 @@ No se afirma conservación entre reinicios.
 Se revisaron status y diff y se comprobó el formato antes de publicar #25.
 La PR no incluye PDF, capturas ni respaldos personales. La adaptación de la
 ficha se revisó separadamente del código: Carlos aprobó [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28),
-integrada el 20/10/2026. La presente actualización de estados necesita su propia revisión.
+integrada el 20/10/2026. Los estados fueron revisados por Alex e integrados
+mediante [#31](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/31).
 
 ## 8. Evidencias
 
@@ -273,7 +278,8 @@ las 12:05:07. No se rellenó una checklist detallada en su review; no se inventa
 - [x] Diff revisado en #25; modelo, decisiones y límites documentados.
 - [x] Evidencias organizadas con fuentes explícitas conforme a la plantilla oficial.
 - [x] Adaptación documental a la plantilla revisada por Carlos e integrada en [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), el 20/10/2026.
-- [ ] Revisión de la actualización de estados del 20/10/2026 y aceptación final de la entrega por el equipo.
+- [x] Actualización de estados revisada por Alex e integrada mediante [#31](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/31).
+- [ ] Aceptación final de toda la entrega por el equipo; no se deduce de una PR aprobada.
 
 No se declara terminada toda la entrega intermedia: quedan acciones de calidad,
 documentación y planificación asignadas al resto del equipo.
@@ -289,3 +295,36 @@ el agente implementa y el equipo comprende, revisa y decide la integración.
 
 > La IA puede proponer e implementar cambios, pero no puede aprobar su propio trabajo.
 > El equipo responde por lo que revisa, verifica y justifica.
+
+## Actualización diferenciada: ampliación integrada por #36
+
+Fecha de contraste: 20/10/2026. La ficha anterior describe #25; esta sección
+explica la evolución sin atribuir estas decisiones al plan original.
+
+- **Petición humana:** Jorge solicita estilos comunes, menos enlaces repetidos,
+  normalización y validación de email, límites y elección de DNI español o
+  pasaporte, también extranjero. Acepta validación básica de pasaportes.
+- **Implementación:** el servicio normaliza email en minúsculas y documento en
+  mayúsculas, valida obligatorios y longitudes, formato de email, letra de DNI
+  y país/número de pasaporte. Se impiden duplicados de email y de documento
+  por tipo + país + número, con restricciones en BD. El controlador coordina.
+- **Modelo:** dni se sustituye por tipoDocumento, paisEmisor y numeroDocumento.
+  El identificador generado y el resto de campos se conservan.
+- **Interfaz:** inicio y registro comparten CSS. Tras seleccionar documento se
+  muestra el número y, solo para pasaporte, el país. La dinámica necesita JavaScript.
+- **Revisión humana:** Alex (`alexxjgo`) aprobó el commit `1ea369b` con
+  «Todo correcto». [#36](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/36) se integró el 20/10/2026.
+- **Código de referencia:** `1258bb7289c49d898336e8163368434afc24afd4`.
+- **Verificación del agente:** `.\mvnw.cmd clean verify` sobre main integrado,
+  20/10/2026: BUILD SUCCESS, 22 pruebas, 0 fallos, 0 errores y 0 omitidas.
+  Desglose: arranque 1, repositorio 3, servicio 11, web 7.
+- **Confirmación humana actual:** Jorge confirma en la conversación del 20/10
+  que probó la aplicación y H2 con éxito; no se registran entradas exactas nuevas.
+- **Límites vigentes:** H2 pierde datos al parar; no hay login ni roles; no se
+  verifica el buzón ni la autenticidad documental. Pasaportes: regla básica de
+  1 a 32 letras ASCII/cifras y país ISO, sin formato oficial por país. No se
+  detecta una misma persona con documentos distintos ni hay migración de una
+  base antigua persistente. Reglas completas en [decisiones](../decisions/registro-usuarios.md).
+
+La nueva limpieza documental local requiere su propia revisión. No se declara
+cerrada toda la entrega ni se sustituyen las evidencias históricas de #25.

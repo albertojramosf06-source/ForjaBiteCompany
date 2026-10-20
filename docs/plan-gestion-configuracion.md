@@ -4,7 +4,9 @@ Propuesta del equipo para la issue #20, preparada el 15 de octubre de 2026.
 
 Actualización de estado — 20/10/2026: el plan fue revisado por Alex y Alberto e
 integrado el 15/10 mediante [#24](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/24). Las reglas siguientes corresponden
-al plan integrado. La presente actualización documental necesita revisión propia.
+al plan integrado. La actualización de estados fue aprobada por Alex e integrada
+mediante [#31](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/31) el 20/10/2026.
+La nueva revisión documental local se registra en AI_USAGE y todavía no está integrada.
 
 ## Rama principal y contrato Git
 
