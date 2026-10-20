@@ -8,6 +8,11 @@ Esta versión inicial se prepara antes de la entrega intermedia con carácter fo
 > del plan inicial. Los estados se contrastan con las PR integradas; esta actualización
 > documental sigue pendiente de revisión humana. No cierra toda la entrega.
 
+> **Ampliación local posterior del 20/10:** validación de email y documento,
+> normalización y límites en servidor en preparación. Las tablas conservan la
+> deuda conocida en la versión integrada; no se cierra hasta revisión e integración.
+> Reglas actuales y límites: [decisiones](../decisions/registro-usuarios.md).
+
 ## 1. Identificación
 
 - **Equipo / empresa:** ForjaBiteCompany

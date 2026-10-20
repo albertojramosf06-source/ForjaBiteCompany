@@ -35,7 +35,7 @@ class UsuarioControllerTests {
         mockMvc.perform(get("/usuarios/registro"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("/css/registro.css")))
-                .andExpect(content().string(containsString("name=\"dni\"")));
+                .andExpect(content().string(containsString("name=\"numeroDocumento\"")));
         mockMvc.perform(get("/css/registro.css")).andExpect(status().isOk());
     }
 
@@ -43,7 +43,7 @@ class UsuarioControllerTests {
     void registrarDesdeFormularioYMostrarConfirmacion() throws Exception {
         var resultado = mockMvc.perform(post("/usuarios/registro")
                         .param("email", "ana@example.com").param("nombre", "Ana")
-                        .param("apellidos", "García").param("dni", "12345678Z"))
+                        .param("apellidos", "García").param("tipoDocumento", "DNI").param("paisEmisor", "ES").param("numeroDocumento", "12345678Z"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/usuarios/registro"))
                 .andExpect(flash().attribute("exito", "Tu usuario se ha registrado correctamente."))
@@ -56,7 +56,7 @@ class UsuarioControllerTests {
     @Test
     void rechazarCamposVaciosYConservarDatos() throws Exception {
         mockMvc.perform(post("/usuarios/registro").param("email", "ana@example.com")
-                        .param("nombre", "   ").param("apellidos", "García").param("dni", "12345678Z"))
+                        .param("nombre", "   ").param("apellidos", "García").param("tipoDocumento", "DNI").param("paisEmisor", "ES").param("numeroDocumento", "12345678Z"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("error", "Todos los campos son obligatorios."))
                 .andExpect(content().string(containsString("value=\"ana@example.com\"")));
@@ -65,11 +65,47 @@ class UsuarioControllerTests {
 
     @Test
     void rechazarEmailRepetidoDesdeFormulario() throws Exception {
-        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "12345678Z");
+        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z");
         mockMvc.perform(post("/usuarios/registro").param("email", "ana@example.com")
-                        .param("nombre", "Otra").param("apellidos", "Persona").param("dni", "87654321X"))
+                        .param("nombre", "Otra").param("apellidos", "Persona").param("tipoDocumento", "DNI").param("paisEmisor", "ES").param("numeroDocumento", "87654321X"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Ya existe un usuario con ese email.")));
         assertEquals(1, usuarioRepository.count());
     }
+
+    @Test
+    void validarDniEnServidorYConservarDocumento() throws Exception {
+        mockMvc.perform(post("/usuarios/registro").param("email", "ana@example.com")
+                        .param("nombre", "Ana").param("apellidos", "García")
+                        .param("tipoDocumento", "DNI").param("paisEmisor", "ES").param("numeroDocumento", "12345678A"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("numeroDocumento", "12345678A"))
+                .andExpect(model().attribute("error", "El DNI debe tener ocho cifras y una letra de control correcta."));
+        assertEquals(0, usuarioRepository.count());
+    }
+
+    @Test
+    void registrarPasaporteDesdeFormulario() throws Exception {
+        mockMvc.perform(post("/usuarios/registro").param("email", "ANA@EXAMPLE.COM")
+                        .param("nombre", "Ana").param("apellidos", "García")
+                        .param("tipoDocumento", "PASAPORTE").param("paisEmisor", "FR").param("numeroDocumento", "ab12345"))
+                .andExpect(status().is3xxRedirection());
+        var usuario = usuarioRepository.findAll().get(0);
+        assertEquals("ana@example.com", usuario.getEmail());
+        assertEquals("PASAPORTE", usuario.getTipoDocumento());
+        assertEquals("FR", usuario.getPaisEmisor());
+        assertEquals("AB12345", usuario.getNumeroDocumento());
+    }
+
+    @Test
+    void peticionDirectaRechazaEmailIncorrectoYLongitudExcesiva() throws Exception {
+        for (String email : new String[]{"sin-arroba", "a".repeat(256) + "@example.com"}) {
+            mockMvc.perform(post("/usuarios/registro").param("email", email)
+                            .param("nombre", "Ana").param("apellidos", "García")
+                            .param("tipoDocumento", "DNI").param("numeroDocumento", "12345678Z"))
+                    .andExpect(status().isOk()).andExpect(model().attributeExists("error"));
+        }
+        assertEquals(0, usuarioRepository.count());
+    }
+
 }

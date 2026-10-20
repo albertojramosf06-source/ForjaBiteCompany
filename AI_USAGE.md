@@ -1,6 +1,71 @@
 # Registro de uso de IA
 Este documento recoge los usos relevantes de inteligencia artificial realizados durante el proyecto.
 
+## Preparación de PR de estilos y validaciones — 20 de octubre de 2026
+
+Jorge autoriza publicar los cambios locales después de revisarlos por pasos.
+Codex prepara la rama `codex/registro-validaciones-estilos`, commit con identidad
+JorgeMartinSanchez y PR para revisión de otro integrante. Las entradas anteriores
+conservan el estado local en que se realizaron; esta autorización sustituye la
+restricción anterior de no publicar. El agente no aprueba ni integra los cambios.
+Verificación del conjunto: clean verify, 22 pruebas sin fallos, errores ni omitidas;
+diff sin errores de espacios. Solo código, pruebas y documentación relacionados;
+no se incorporan PDF, capturas ni respaldos personales. Limitaciones en decisiones.
+
+## Simplificación de navegación — 20 de octubre de 2026
+
+Jorge pide retirar la franja inferior de inicio y los accesos redundantes de las
+capturas. Codex elimina el registro de la cabecera, ambos enlaces de volver al
+inicio y el bloque inferior con otro acceso al formulario. Se conserva el botón
+principal de registro y el logo enlazado al inicio, sin cambiar el envío del
+formulario ni las validaciones. Se retiran las reglas CSS sin uso de esos bloques.
+Cambios locales, sin publicar. Verificación: clean verify correcto, 22 pruebas
+sin fallos, errores ni omitidas; diff sin errores de espacios y enlaces
+restantes comprobados en las plantillas.
+
+## Ajuste del selector documental — 20 de octubre de 2026
+
+Jorge solicita elegir primero DNI o pasaporte y mostrar después los campos,
+sin instrucciones visibles y manteniendo los estilos. Codex añade JavaScript
+sencillo para revelar el número y, solo para pasaporte, el país. Los campos
+ocultos se deshabilitan. El estado se restaura tras errores del servidor.
+Se conservan las validaciones del servicio. Cambios solo locales.
+Verificación: clean verify correcto, 22 pruebas sin fallos ni errores. En navegador
+se comprobó el estado inicial oculto, DNI sin país y pasaporte con país y número;
+estilos revisados. Instancia temporal en 8080 detenida tras la revisión.
+
+## Validación de email y documentos — 20 de octubre de 2026
+
+**Solicitante:** Jorge acepta el plan, solicita DNI español o pasaporte extranjero,
+email y documento únicos y acepta validación básica de pasaportes sin formato
+oficial por país. Pide conservar el trabajo en local.
+**Herramienta:** Codex.
+**Cambio:** normalización de email/documento, longitudes en servidor, DNI con
+letra de control, país de pasaporte y unicidad compuesta en BD. Formulario,
+modelo y decisiones actualizados. Sin nuevas dependencias ni cambios de puerto.
+**Límites:** no verifica autenticidad ni buzón, no detecta misma persona con
+varios documentos y no incluye migración de una BD antigua persistente.
+**Verificación:** `.\mvnw.cmd clean verify`: BUILD SUCCESS, 22 pruebas,
+0 fallos, 0 errores y 0 omitidas. Se comprueban normalización, emails incorrectos,
+longitudes, DNI, pasaporte, duplicados en servicio y restricciones reales en BD,
+además de peticiones web directas. Diff revisado sin errores de espacios.
+**Estado:** cambios locales, sin commit, push, PR ni aprobación automática.
+
+## Estilo común de inicio y registro — 20 de octubre de 2026
+
+**Solicitante:** Jorge. Autoriza el plan visual y pide conservar todo en local.
+**Herramienta:** Codex.
+**Cambio:** inicio con presentación e ilustración SVG propia; ambas páginas
+comparten CSS, paleta, cabecera, navegación, pie y estilos adaptables. Se conservan
+rutas, campos, validaciones y mensajes. No se anuncian búsqueda o reservas como
+funcionalidades disponibles. Sin dependencias nuevas ni cambios de persistencia.
+**Decisión humana:** mantener por ahora H2 en memoria y no publicar cambios.
+**Verificación:** `.\mvnw.cmd clean verify`: BUILD SUCCESS, 9 pruebas sin fallos,
+errores ni omitidas. Inicio y registro revisados visualmente en navegador en
+escritorio y a 375 px; navegación al formulario comprobada. Instancia temporal
+en 8080 detenida después de revisar. Diff comprobado sin errores de espacios.
+**Estado:** propuesta local, sin commit, push, PR ni revisión humana final.
+
 ## Actualización de estados documentales — 20 de octubre de 2026
 
 **Solicitante y revisión del plan:** Jorge autoriza corregir los estados tras la

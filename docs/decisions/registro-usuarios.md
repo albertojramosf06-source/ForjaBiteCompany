@@ -6,6 +6,41 @@ Actualización de estado — 20/10/2026: implementación revisada por Carlos e i
 el 17/10 mediante [#25](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/25). Se conservan las decisiones y los límites originales;
 esta actualización documental queda pendiente de su propia revisión.
 
+## Ampliación local de validaciones — 20/10/2026
+
+Jorge solicita y acepta ampliar el registro con validación en servidor y selector
+DNI español / pasaporte, incluidos extranjeros. Es una decisión explícita del
+usuario para esta ampliación, no una respuesta nueva del profesorado ni un cambio
+retrospectivo de los criterios originales de #10. Propuesta local sin integrar.
+
+- Email: espacios exteriores eliminados, minúsculas con Locale.ROOT, máximo 255
+  caracteres y parte local de hasta 64. Se admite formato ASCII habitual con
+  dominio de varias etiquetas; no direcciones entrecomilladas ni emails
+  internacionalizados. No verifica que exista el buzón. La búsqueda de duplicados
+  ignora mayúsculas y el valor normalizado tiene restricción única en BD.
+- Nombre y apellidos: obligatorios tras quitar espacios exteriores, hasta 255
+  caracteres; no se eliminan tildes, guiones ni apóstrofos.
+- DNI: ocho cifras y letra correcta según módulo 23, número conservado como texto
+  para no perder ceros iniciales. Letra en mayúsculas y país ES fijado en servidor.
+- Pasaporte: país ISO de dos letras reconocido por Java, obligatorio; número en
+  mayúsculas de 1 a 32 letras ASCII o cifras sin espacios internos ni signos.
+  Es una regla básica del proyecto, no el formato oficial de cada país.
+- Identidad documental única por tipo + país + número, también con restricción
+  en BD. El mismo número de pasaporte de países distintos se admite.
+- No se verifica autenticidad ni se identifica a una persona que utilice documentos
+  diferentes. No se implementa NIE ni verificación por correo.
+
+El formulario mantiene los datos ante errores. La lógica permanece en el servicio;
+el controlador solo prepara países para la vista y coordina la petición.
+La entidad sustituye dni por tipo_documento, pais_emisor y numero_documento.
+H2 sigue en memoria: probar con una instancia recién arrancada. No se incluye
+migración para bases antiguas persistentes ni normalización retroactiva de datos.
+
+## Decisiones históricas del primer incremento
+
+Las secciones siguientes conservan el alcance y las limitaciones originales de #25;
+las validaciones y el modelo actuales se describen en la ampliación anterior.
+
 ## Alcance
 
 Se sigue el plan humano de #10: registrar email, nombre, apellidos y DNI;

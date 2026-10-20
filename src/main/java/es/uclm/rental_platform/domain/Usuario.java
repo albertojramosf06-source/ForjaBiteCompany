@@ -6,9 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(
+        name = "uk_usuario_documento", columnNames = {"tipo_documento", "pais_emisor", "numero_documento"}))
 public class Usuario {
 
     @Id
@@ -24,18 +26,26 @@ public class Usuario {
     @Column(nullable = false)
     private String apellidos;
 
-    @Column(nullable = false)
-    private String dni;
+    @Column(name = "tipo_documento", nullable = false, length = 10)
+    private String tipoDocumento;
+
+    @Column(name = "pais_emisor", nullable = false, length = 2)
+    private String paisEmisor;
+
+    @Column(name = "numero_documento", nullable = false, length = 32)
+    private String numeroDocumento;
 
     protected Usuario() {
         // JPA necesita un constructor sin argumentos para recuperar las entidades.
     }
 
-    public Usuario(String email, String nombre, String apellidos, String dni) {
+    public Usuario(String email, String nombre, String apellidos, String tipoDocumento, String paisEmisor, String numeroDocumento) {
         this.email = email;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.dni = dni;
+        this.tipoDocumento = tipoDocumento;
+        this.paisEmisor = paisEmisor;
+        this.numeroDocumento = numeroDocumento;
     }
 
     public Long getId() {
@@ -66,11 +76,9 @@ public class Usuario {
         this.apellidos = apellidos;
     }
 
-    public String getDni() {
-        return dni;
-    }
+    public String getTipoDocumento() { return tipoDocumento; }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
+    public String getPaisEmisor() { return paisEmisor; }
+
+    public String getNumeroDocumento() { return numeroDocumento; }
 }

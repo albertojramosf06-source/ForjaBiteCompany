@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registro de usuarios · ForjaBiteCompany</title>
     <link rel="stylesheet" th:href="@{/css/registro.css}">
+    <script defer th:src="@{/js/registro.js}"></script>
 </head>
 <body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
 <header class="cabecera">
     <a class="marca" th:href="@{/}"><span class="icono-marca" aria-hidden="true">F</span> ForjaBiteCompany</a>
-    <span class="etiqueta">Alquiler entre particulares</span>
 </header>
-<main class="contenedor">
+<main id="contenido" class="contenedor">
     <section class="presentacion" aria-labelledby="titulo-bienvenida">
         <p class="antetitulo">TU PRÓXIMA ESTANCIA EMPIEZA AQUÍ</p>
-        <h1 id="titulo-bienvenida">Un lugar para<br>sentirte en casa.</h1>
+        <h1 id="titulo-bienvenida">Un lugar para<br>sentirte <em>en casa.</em></h1>
         <p class="descripcion">Crea tu usuario y da el primer paso para encontrar tu próximo alojamiento.</p>
         <div class="ilustracion" aria-hidden="true"><div class="techo"></div><div class="casa"><span class="ventana"></span><span class="puerta"></span></div><div class="suelo"></div></div>
         <p class="nota">Plataforma de alquiler de viviendas y habitaciones.</p>
@@ -31,12 +32,31 @@
                 <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" autocomplete="given-name" placeholder="Tu nombre" required maxlength="255" th:value="${nombre}"></div>
                 <div class="campo"><label for="apellidos">Apellidos</label><input id="apellidos" name="apellidos" autocomplete="family-name" placeholder="Tus apellidos" required maxlength="255" th:value="${apellidos}"></div>
             </div>
-            <div class="campo"><label for="dni">DNI</label><input id="dni" name="dni" placeholder="Tu documento de identidad" required maxlength="255" th:value="${dni}"></div>
+            <div class="campo">
+                <label for="tipoDocumento">Tipo de documento</label>
+                <select id="tipoDocumento" name="tipoDocumento" required>
+                    <option value="">Selecciona un documento</option>
+                    <option value="DNI" th:selected="${tipoDocumento == 'DNI'}">DNI español</option>
+                    <option value="PASAPORTE" th:selected="${tipoDocumento == 'PASAPORTE'}">Pasaporte</option>
+                </select>
+            </div>
+            <div id="datos-documento" hidden>
+                <div id="campo-pais" class="campo" hidden>
+                    <label for="paisEmisor">País emisor</label>
+                    <select id="paisEmisor" name="paisEmisor" disabled>
+                        <option value="">Selecciona un país</option>
+                        <option th:each="pais : ${paises}" th:value="${pais.key}" th:text="${pais.value}" th:selected="${paisEmisor == pais.key}"></option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label id="etiqueta-documento" for="numeroDocumento">Número de documento</label>
+                    <input id="numeroDocumento" name="numeroDocumento" maxlength="32" th:value="${numeroDocumento}" disabled>
+                </div>
+            </div>
             <button type="submit">Crear usuario <span aria-hidden="true">→</span></button>
         </form>
-        <a class="volver" th:href="@{/}">← Volver al inicio</a>
     </section>
 </main>
-<footer>ForjaBiteCompany · Proyecto de Ingeniería del Software II</footer>
+<footer><span>ForjaBiteCompany</span><span>Viviendas y habitaciones · Proyecto universitario</span></footer>
 </body>
 </html>

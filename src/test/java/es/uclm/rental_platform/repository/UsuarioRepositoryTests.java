@@ -22,7 +22,7 @@ class UsuarioRepositoryTests {
 
     @Test
     void guardarYRecuperarUsuario() {
-        Usuario usuario = new Usuario("ana@example.com", "Ana", "García López", "12345678Z");
+        Usuario usuario = new Usuario("ana@example.com", "Ana", "García López", "DNI", "ES", "12345678Z");
 
         Usuario guardado = usuarioRepository.saveAndFlush(usuario);
         Long id = guardado.getId();
@@ -36,6 +36,21 @@ class UsuarioRepositoryTests {
         assertEquals("ana@example.com", recuperado.getEmail());
         assertEquals("Ana", recuperado.getNombre());
         assertEquals("García López", recuperado.getApellidos());
-        assertEquals("12345678Z", recuperado.getDni());
+        assertEquals("12345678Z", recuperado.getNumeroDocumento());
     }
+
+    @Test
+    void baseDeDatosImpideEmailRepetido() {
+        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z"));
+        org.junit.jupiter.api.Assertions.assertThrows(org.springframework.dao.DataIntegrityViolationException.class,
+                () -> usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Otra", "Persona", "DNI", "ES", "87654321X")));
+    }
+
+    @Test
+    void baseDeDatosImpideDocumentoRepetido() {
+        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "PASAPORTE", "FR", "AB12345"));
+        org.junit.jupiter.api.Assertions.assertThrows(org.springframework.dao.DataIntegrityViolationException.class,
+                () -> usuarioRepository.saveAndFlush(new Usuario("otra@example.com", "Otra", "Persona", "PASAPORTE", "FR", "AB12345")));
+    }
+
 }
