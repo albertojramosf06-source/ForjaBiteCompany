@@ -2,7 +2,7 @@
 
 > Ingeniería del Software II · Laboratorio 2026-2027.
 > Adaptación a la plantilla oficial facilitada por Jorge.
-> Implementación: 15/10/2026. Integración: 17/10/2026. Actualización: 19/10/2026.
+> Implementación: 15/10/2026. Integración: 17/10/2026. Actualización inicial: 19/10/2026. Estados contrastados: 20/10/2026.
 
 ## 1. Identificación
 
@@ -145,8 +145,9 @@ no se atribuye una aprobación colectiva no registrada.
 Carlos aprobó el commit `ca2bca4` en #25 con «Todo bien». Jorge confirma la prueba
 manual. La aprobación no contiene checklist detallada por criterio: no se inventan
 esas comprobaciones ni la comprensión individual de todos los integrantes.
-En #27 Carlos declara pruebas locales, H2 y revisión del diff; esa PR seguía abierta
-al actualizar esta ficha.
+En #27 Carlos declara pruebas locales, H2 y revisión del diff. La nota inicial
+la describía como abierta; [#27](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/27) se integró el 19/10/2026.
+La integración no cambia el carácter de testimonio humano de esas pruebas.
 
 ### Problemas o carencias detectados
 
@@ -213,8 +214,9 @@ No se afirma conservación entre reinicios.
 ### Revisión final del cambio
 
 Se revisaron status y diff y se comprobó el formato antes de publicar #25.
-La PR no incluye PDF, capturas ni respaldos personales. Esta actualización de la
-ficha requiere su propia revisión; no queda aprobada por estar aprobado el código.
+La PR no incluye PDF, capturas ni respaldos personales. La adaptación de la
+ficha se revisó separadamente del código: Carlos aprobó [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28),
+integrada el 20/10/2026. La presente actualización de estados necesita su propia revisión.
 
 ## 8. Evidencias
 
@@ -223,7 +225,7 @@ ficha requiere su propia revisión; no queda aprobada por estar aprobado el cód
 | Plan humano previo | [#10](https://github.com/albertojramosf06-source/ForjaBiteCompany/issues/10), plan provisional. |
 | Plan del agente y decisiones humanas | Secciones 4-5 y [AI_USAGE](../../AI_USAGE.md), síntesis de la conversación de trabajo; sin publicar chats completos. |
 | Revisión humana | [#25](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/25), aprobación de Raamoos. |
-| Funcionalidad y persistencia | Confirmación de Jorge del 19/10, sin capturas aportadas. Testimonio adicional de Carlos en [#27](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/27), todavía no integrada. |
+| Funcionalidad y persistencia | Confirmación de Jorge del 19/10, sin capturas aportadas. Testimonio adicional de Carlos en [#27](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/27), integrada el 19/10/2026. |
 | Verificación reproducible | [Pruebas](../../src/test/java/es/uclm/rental_platform); informes locales target/surefire-reports no versionados. |
 | Modelo y decisiones | [Modelo](../diagrams/registro-usuarios.md) y [decisiones](../decisions/registro-usuarios.md). |
 | Pull Request | [#25](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/25). |
@@ -270,7 +272,8 @@ las 12:05:07. No se rellenó una checklist detallada en su review; no se inventa
 - [x] Build correcto y funcionalidad/persistencia comprobadas según las fuentes anteriores.
 - [x] Diff revisado en #25; modelo, decisiones y límites documentados.
 - [x] Evidencias organizadas con fuentes explícitas conforme a la plantilla oficial.
-- [ ] Revisión humana de esta actualización documental y aceptación final del equipo.
+- [x] Adaptación documental a la plantilla revisada por Carlos e integrada en [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), el 20/10/2026.
+- [ ] Revisión de la actualización de estados del 20/10/2026 y aceptación final de la entrega por el equipo.
 
 No se declara terminada toda la entrega intermedia: quedan acciones de calidad,
 documentación y planificación asignadas al resto del equipo.

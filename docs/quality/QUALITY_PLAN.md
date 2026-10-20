@@ -4,6 +4,10 @@
 
 Esta versión inicial se prepara antes de la entrega intermedia con carácter formativo. **El Plan de Calidad se evaluará íntegramente en la entrega final**, una vez incorporadas las evidencias de Sonar y la evolución del proyecto.
 
+> **Actualización de estados — 20/10/2026:** se conservan responsables y fechas
+> del plan inicial. Los estados se contrastan con las PR integradas; esta actualización
+> documental sigue pendiente de revisión humana. No cierra toda la entrega.
+
 ## 1. Identificación
 
 - **Equipo / empresa:** ForjaBiteCompany
@@ -124,8 +128,8 @@ Criterios actuales:
 |---|---|---|---|---|
 | Modelo de usuario provisional: el diagrama del cliente incluye login, contraseña y dirección; el registro implementado guarda email, nombre, apellidos y DNI | Diseño / Dependencia | Trasladar al cliente las dudas de #15 y actualizar el modelo y `docs/diagrams` según su respuesta | Jorge (portavoz) | Pendiente |
 | Se solicita y almacena el DNI, un dato personal cuya necesidad no ha confirmado el cliente | Seguridad básica | Confirmar con el cliente (#15) si es necesario; si no lo es, dejar de pedirlo | Equipo | Pendiente |
-| La ficha AI-01 no sigue la plantilla oficial | Documentación | Completar `docs/ai/AI-01-hito-funcional.md` con la plantilla | Jorge (Carlos aporta Verificación y Revisión) | Pendiente |
-| README con el estado desactualizado ("Sprint 0") | Documentación | Actualizar el estado y revisar las instrucciones antes de la entrega | Diego | Pendiente |
+| Adaptación de AI-01 a la plantilla oficial (carencia detectada el 17/10) | Documentación | Completar `docs/ai/AI-01-hito-funcional.md` con la plantilla | Jorge (Carlos aporta Verificación y Revisión) | Resuelto: [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), integrada el 20/10 |
+| README con estado "Sprint 0" (carencia detectada el 17/10) | Documentación | Actualizar el estado y revisar las instrucciones antes de la entrega | Diego | Estado corregido en [#30](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/30), integrada el 20/10; resto documental en revisión |
 | `main` sin protección técnica (`protected: false`); las normas se aplican mediante revisión humana | Configuración | Activar la protección si el plan de GitHub lo permite o documentar la limitación | Alberto | Pendiente |
 | Construcción de `main` tras cada integración | Integración | Ejecutar `.\mvnw.cmd clean verify` antes y después de cada merge | Todo el equipo | Comprobado 17/10 |
 | Información sensible en el repositorio | Configuración | Revisar `.gitignore` y el diff antes de cada commit; `application.properties` solo contiene la configuración H2 de laboratorio | Todo el equipo | Revisado 17/10 |
@@ -170,10 +174,10 @@ Antes de considerar una issue lista para integrarse, se comprobará:
 | Acción | Responsable | Fecha límite | Estado |
 |---|---|---|---|
 | Comprobar `main` desde limpio | Carlos | 17/10/2026 | Hecho |
-| Cerrar e integrar el Hito 1 | Jorge (revisión: Carlos) | 20/10/2026 | En curso: integrado en la PR #25; falta completar la AI-01 |
-| Completar `AI-01-hito-funcional.md` | Jorge (Carlos: Verificación y Revisión) | 20/10/2026 | Pendiente |
-| Añadir la skill S5 "Review change before integration" a `AGENTS.md` | Alex | 20/10/2026 | Pendiente |
-| Revisar README y documentación | Diego | 20/10/2026 | Pendiente |
+| Cerrar e integrar el Hito 1 | Jorge (revisión: Carlos) | 20/10/2026 | Implementación integrada en [#25](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/25), 17/10; ficha integrada en [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), 20/10. No equivale al cierre de toda la entrega |
+| Completar `AI-01-hito-funcional.md` | Jorge (Carlos: Verificación y Revisión) | 20/10/2026 | Hecho: [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), revisión de Carlos e integración el 20/10 |
+| Añadir la skill S5 "Review change before integration" a `AGENTS.md` | Alex | 20/10/2026 | Hecho: [#29](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/29), integrada el 20/10 |
+| Revisar README y documentación | Diego | 20/10/2026 | README y AI_USAGE integrados en [#30](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/30), 20/10; otros estados documentales en revisión |
 | Actualizar modelo/diagramas | Jorge | 15/10/2026 | Hecho (`docs/diagrams/registro-usuarios.md`) |
 | Revisar problemas pendientes y deuda técnica | Carlos | 17/10/2026 | En curso (este plan) |
 | Poner el Project al día y replanificar el resto de issues | Alberto | 20/10/2026 | Pendiente |
@@ -225,4 +229,4 @@ Este documento debe actualizarse cuando:
 
 ## 10. Resumen
 
-Ahora mismo los objetivos de calidad del equipo son que el registro de usuarios funcione de forma fiable y repetible desde `main`, mantener la separación por capas y la trazabilidad issue → PR → revisión. La limitación más importante es que el modelo de usuario es provisional y depende de las respuestas del cliente (#15), lo que afecta a las validaciones y al uso del DNI. La acción prioritaria antes de la entrega intermedia es completar la ficha AI-01 con la plantilla oficial y dejar `main` recuperable con la demo preparada.
+Ahora mismo los objetivos de calidad del equipo son que el registro de usuarios funcione de forma fiable y repetible desde `main`, mantener la separación por capas y la trazabilidad issue → PR → revisión. La limitación más importante es que el modelo de usuario es provisional y depende de las respuestas del cliente (#15), lo que afecta a las validaciones y al uso del DNI. El 17/10 se identificó como prioridad completar AI-01; la ficha ya está integrada mediante #28. Al actualizar los estados el 20/10 siguen pendientes la puesta al día del Project, la identificación de la versión y la preparación de la demo. Se conserva la planificación inicial sin declarar cerradas esas acciones.

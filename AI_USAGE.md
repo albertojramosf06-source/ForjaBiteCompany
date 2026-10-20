@@ -1,6 +1,22 @@
 # Registro de uso de IA
 Este documento recoge los usos relevantes de inteligencia artificial realizados durante el proyecto.
 
+## Actualización de estados documentales — 20 de octubre de 2026
+
+**Solicitante y revisión del plan:** Jorge autoriza corregir los estados tras la
+auditoría y acepta el plan de cinco documentos, conservando el historial.
+**Herramienta:** Codex.
+**Alcance:** Plan de Calidad, AI-01, decisiones del registro, Plan de Configuración
+y esta entrada. Se añaden fechas y enlaces a #24, #25, #27, #28, #29 y #30.
+Se distingue la revisión de documentos ya integrados de la revisión pendiente de
+esta actualización. No se cambian código, responsables, fechas planificadas ni
+reglas del cliente; demo, versión, Project y dudas reales permanecen pendientes.
+**Verificación:** `.\mvnw.cmd clean verify`: BUILD SUCCESS el 20/10/2026,
+9 pruebas, 0 fallos, 0 errores y 0 omitidas. Diff revisado sin errores de espacios;
+enlaces locales comprobados. No se han cambiado código ni configuración.
+**Estado:** cambios locales en `codex/docs-refresh-document-status`; sin aprobación
+ni integración automática. La aceptación final de la entrega corresponde al equipo.
+
 ## Principios
 
 - La IA puede proponer, pero el equipo decide.

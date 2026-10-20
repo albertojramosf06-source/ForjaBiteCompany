@@ -1,7 +1,10 @@
 # Plan de Gestión de Configuración
 
 Propuesta del equipo para la issue #20, preparada el 15 de octubre de 2026.
-Se mantiene como propuesta hasta su revisión humana e integración.
+
+Actualización de estado — 20/10/2026: el plan fue revisado por Alex y Alberto e
+integrado el 15/10 mediante [#24](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/24). Las reglas siguientes corresponden
+al plan integrado. La presente actualización documental necesita revisión propia.
 
 ## Rama principal y contrato Git
 
@@ -111,7 +114,7 @@ Si hay cambios locales, preservarlos y revisarlos antes de cambiar de rama. Si
 trabajo para forzar la actualización. Las ramas ya integradas se pueden eliminar
 cuando no contengan trabajo pendiente. Mantener historial y evidencias de revisión.
 
-## Verificación de esta propuesta
+## Verificación histórica de la propuesta del 15/10/2026
 
 Se han contrastado los criterios de #20, la presentación S3 y el flujo existente.
 El resultado de Maven se registra en la PR; no se modifican código ni dependencias.
