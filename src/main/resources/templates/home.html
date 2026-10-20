@@ -1,14 +1,48 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Rental Platform</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inicio · ForjaBiteCompany</title>
+    <link rel="stylesheet" th:href="@{/css/registro.css}">
 </head>
 <body>
-<h1>Plataforma de alquiler de
-viviendas</h1>
-<p>Aplicación Spring Boot en
-ejecución.</p>
-<p><a href="/usuarios/registro">Crear usuario</a></p>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera">
+    <a class="marca" th:href="@{/}" aria-label="ForjaBiteCompany, inicio"><span class="icono-marca" aria-hidden="true">F</span> ForjaBiteCompany</a>
+</header>
+<main id="contenido" class="inicio">
+    <section class="portada" aria-labelledby="titulo-inicio">
+        <div class="portada-texto">
+            <p class="antetitulo"><span class="punto" aria-hidden="true"></span> ALQUILER ENTRE PARTICULARES</p>
+            <h1 id="titulo-inicio">El comienzo de<br>un nuevo <em>hogar.</em></h1>
+            <p class="descripcion">Cada lugar empieza con una historia. Crea tu usuario y da el primer paso hacia tu próxima estancia.</p>
+            <a class="boton" th:href="@{/usuarios/registro}">Crear mi usuario <span aria-hidden="true">→</span></a>
+            <p class="detalle">Un primer paso, a tu ritmo.</p>
+        </div>
+        <div class="escena" aria-hidden="true">
+            <span class="escena-numero">01 / UN NUEVO COMIENZO</span>
+            <svg class="vivienda" viewBox="0 0 480 430" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="351" cy="93" r="42" fill="#e6bd7e"/>
+                <path d="M35 350 Q220 310 445 351 L445 400 L35 400Z" fill="#b9c7ad"/>
+                <path d="M102 206 L244 96 L382 206 V354 H102Z" fill="#f4efe1"/>
+                <path d="M244 96 L382 206 V354 H244Z" fill="#e1d8c3"/>
+                <path d="M80 207 L242 80 L405 207 L388 228 L242 114 L98 228Z" fill="#254c3e"/>
+                <path d="M300 108 V62 H329 V131Z" fill="#254c3e"/>
+                <rect x="146" y="225" width="57" height="67" rx="3" fill="#74917a"/>
+                <path d="M174 225 V292 M146 258 H203" stroke="#f4efe1" stroke-width="5"/>
+                <path d="M279 354 V270 A27 27 0 0 1 333 270 V354Z" fill="#254c3e"/>
+                <circle cx="320" cy="304" r="3" fill="#e6bd7e"/>
+                <path d="M268 354 H344 L376 400 H234Z" fill="#e8dfca"/>
+                <path d="M78 354 V286 M394 354 V264" stroke="#526b4e" stroke-width="6"/>
+                <ellipse cx="78" cy="267" rx="29" ry="49" fill="#6e8863"/>
+                <ellipse cx="394" cy="247" rx="27" ry="53" fill="#567152"/>
+                <path d="M50 355 H424" stroke="#254c3e" stroke-width="3"/>
+            </svg>
+            <span class="escena-pie">Espacio para lo que viene.<span>ForjaBiteCompany</span></span>
+        </div>
+    </section>
+</main>
+<footer><span>ForjaBiteCompany</span><span>Viviendas y habitaciones · Proyecto universitario</span></footer>
 </body>
 </html>

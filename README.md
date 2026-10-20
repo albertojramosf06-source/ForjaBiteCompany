@@ -126,8 +126,11 @@ Ctrl + C
 ### Base de datos de laboratorio (S4)
 
 Formulario de registro: http://localhost:8080/usuarios/registro.
-Requiere email, nombre, apellidos y DNI; muestra errores de obligatorios y email
-duplicado. El email se compara exactamente tal como se introduce.
+Ampliación local pendiente de integración: requiere email, nombre, apellidos y
+DNI español o pasaporte. Para pasaportes se selecciona país emisor. Email y
+número de documento se normalizan; se rechazan duplicados y datos inválidos en
+el servidor. El DNI comprueba letra de control; el pasaporte solo tiene validación
+básica, sin comprobar autenticidad. Ver [reglas y límites](docs/decisions/registro-usuarios.md).
 Evidencia del Hito 1: [AI-01](docs/ai/AI-01-hito-funcional.md).
 
 La configuración actual utiliza H2 en memoria. Tras ejecutar
@@ -141,7 +144,8 @@ La configuración actual utiliza H2 en memoria. Tras ejecutar
 La base de datos solo existe durante la ejecución; sus datos se pierden al parar
 la aplicación. Esta configuración es para el laboratorio, no para producción.
 La entidad `domain/Usuario.java` genera la tabla `usuarios` con id, email,
-nombre, apellidos y DNI. El formulario llama al servicio y este al repositorio.
+nombre, apellidos, tipo_documento, pais_emisor y numero_documento en la ampliación local.
+El formulario llama al servicio y este al repositorio.
 En la consola se puede comprobar la tabla con `SELECT * FROM USUARIOS;`.
 
 En `application.properties`, `spring.jpa.hibernate.ddl-auto=update` permite a
