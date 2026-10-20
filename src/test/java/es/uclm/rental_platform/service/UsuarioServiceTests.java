@@ -153,4 +153,33 @@ class UsuarioServiceTests {
         assertEquals(2, usuarioRepository.count());
     }
 
+
+    @Test
+    void aceptarEmailEnLimiteYRechazarElSiguienteCaracter() {
+        String local = "a".repeat(64);
+        String dominio = "b".repeat(63) + "." + "c".repeat(63) + "." + "d".repeat(62);
+        String email = local + "@" + dominio;
+        assertEquals(255, email.length());
+        usuarioService.registrarUsuario(email, "Ana", "García", "DNI", "ES", "12345678Z");
+        assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
+                email + "d", "Otra", "Persona", "DNI", "ES", "87654321X"));
+        assertEquals(1, usuarioRepository.count());
+    }
+
+    @Test
+    void conservarCerosInicialesDelDni() {
+        Usuario usuario = usuarioService.registrarUsuario("ana@example.com", "Ana", "García",
+                "DNI", "ES", "00000000t");
+        assertEquals("00000000T", usuario.getNumeroDocumento());
+    }
+
+    @Test
+    void rechazarTipoDeDocumentoAusente() {
+        for (String tipo : new String[]{null, "", "   "}) {
+            assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
+                    "ana@example.com", "Ana", "García", tipo, "ES", "12345678Z"));
+        }
+        assertEquals(0, usuarioRepository.count());
+    }
+
 }

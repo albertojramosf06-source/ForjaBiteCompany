@@ -4,6 +4,11 @@ Revisión del 14 de octubre de 2026. Fuentes: presentación S1 (páginas 19-29 y
 36-40), Proyecto2026 y avisos de la profesora facilitados por Jorge; repositorio,
 issues y Project consultados con GitHub CLI. No sustituye decisiones del cliente.
 
+> **Documento histórico:** describe la revisión del 14/10/2026, anterior a #25.
+> Las menciones a ausencia de JPA/capas no describen el código actual. Para el
+> registro integrado y sus pruebas, consultar [base técnica](technical/README.md),
+> [AI-01](ai/AI-01-hito-funcional.md) y [modelo](diagrams/registro-usuarios.md).
+
 ## Empresa y acceso
 
 Nombre confirmado: ForjaBiteCompany. El README recoge los cinco integrantes,
