@@ -55,13 +55,17 @@ Estas responsabilidades rotarán según las necesidades del equipo. Tener una re
 
 ## Estado
 
-Primer incremento – desarrollo y persistencia.
+Primer incremento de registro integrado mediante #25 y ampliado mediante
+[#36](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/36), revisada por Alex e integrada el 20/10/2026.
+La versión de código comprobada es `1258bb7289c49d898336e8163368434afc24afd4`: 22 pruebas correctas.
 
 ## Documentación del proyecto
 
 La documentación viva del proyecto se mantiene en:
 
 - [Plan de Gestión de Configuración](docs/plan-gestion-configuracion.md): ramas, revisión e integración.
+- [Plan de Calidad](docs/quality/QUALITY_PLAN.md): problemas, deuda y acciones.
+- [Ficha AI-01](docs/ai/AI-01-hito-funcional.md) y [registro de IA](AI_USAGE.md).
 - [Modelo del registro](docs/diagrams/registro-usuarios.md) y [decisiones de #10](docs/decisions/registro-usuarios.md).
 
 - `docs/technical/`: base técnica y dependencias.
@@ -96,12 +100,7 @@ git pull
 Desde la raíz del repositorio:
 
 ```powershell
-.\mvnw.cmd clean
-.\mvnw.cmd test
-.\mvnw.cmd package
-.\mvnw.cmd verify
-
-Ejecución: .\mvnw.cmd spring-boot:run
+.\mvnw.cmd clean verify
 ```
 ### Ejecución
 
@@ -126,7 +125,7 @@ Ctrl + C
 ### Base de datos de laboratorio (S4)
 
 Formulario de registro: http://localhost:8080/usuarios/registro.
-Ampliación local pendiente de integración: requiere email, nombre, apellidos y
+Registro ampliado e integrado mediante #36: requiere email, nombre, apellidos y
 DNI español o pasaporte. Para pasaportes se selecciona país emisor. Email y
 número de documento se normalizan; se rechazan duplicados y datos inválidos en
 el servidor. El DNI comprueba letra de control; el pasaporte solo tiene validación
@@ -144,7 +143,7 @@ La configuración actual utiliza H2 en memoria. Tras ejecutar
 La base de datos solo existe durante la ejecución; sus datos se pierden al parar
 la aplicación. Esta configuración es para el laboratorio, no para producción.
 La entidad `domain/Usuario.java` genera la tabla `usuarios` con id, email,
-nombre, apellidos, tipo_documento, pais_emisor y numero_documento en la ampliación local.
+nombre, apellidos, tipo_documento, pais_emisor y numero_documento.
 El formulario llama al servicio y este al repositorio.
 En la consola se puede comprobar la tabla con `SELECT * FROM USUARIOS;`.
 
@@ -162,7 +161,7 @@ no conserva los datos después de detenerla.
 git config --global user.name "[PENDIENTE: NOMBRE Y APELLIDOS]"
 git config --global user.email "[PENDIENTE: EMAIL]"
 git status
-git add .
+git add ruta/del/archivo-revisado
 git commit -m "Describe los cambios"
 git push
 git pull
@@ -177,7 +176,7 @@ Para actualizar la copia local:
 
 ```powershell
 git checkout main
-git pull
+git pull --ff-only
 git status
 ```
 

@@ -1,6 +1,7 @@
 # Modelo implementado para #10
 
 Este modelo representa únicamente el flujo existente, no el diseño futuro completo.
+Código de referencia: `1258bb7289c49d898336e8163368434afc24afd4`.
 
 ```mermaid
 flowchart LR
@@ -20,7 +21,8 @@ flowchart LR
 | paisEmisor | String | No nula, longitud 2 |
 | numeroDocumento | String | No nula, longitud 32 |
 
-Actualización local del 20/10/2026, pendiente de revisión e integración:
+Modelo de la ampliación aprobada por Alex e integrada mediante
+[#36](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/36) el 20/10/2026:
 email, nombre y apellidos usan longitud por defecto de JPA: 255.
 Existe una restricción única compuesta por tipo_documento, pais_emisor y numero_documento.
 Las reglas se explican en [decisiones](../decisions/registro-usuarios.md). No hay relaciones JPA en este

@@ -37,14 +37,28 @@ Requisito: Java 17.
 Desde la raíz del repositorio:
 
 ```powershell
-.\mvnw.cmd clean
-.\mvnw.cmd test
-.\mvnw.cmd package
-.\mvnw.cmd verify
+.\mvnw.cmd clean verify
 .\mvnw.cmd spring-boot:run
 ```
 
-Con la aplicación arrancada, en http://localhost:8080/ debe aparecer la página "Plataforma de alquiler de viviendas" (`HomeController` → `home.html`).
+Con la aplicación arrancada, http://localhost:8080/ muestra el inicio
+"El comienzo de un nuevo hogar." (`HomeController` → `home.html`), con acceso al
+registro. El logo permite volver al inicio. Ambas vistas comparten `registro.css`.
+`registro.js` muestra los campos del documento elegido y requiere JavaScript.
+
+## Verificación del registro actual
+
+Versión integrada por #36: `1258bb7289c49d898336e8163368434afc24afd4`.
+El 20/10/2026, `.\mvnw.cmd clean verify` terminó correctamente: 22 pruebas
+(1 de arranque, 3 de repositorio, 11 de servicio y 7 web), sin fallos ni errores.
+Los informes se generan en `target/surefire-reports/`. Los tests usan H2 de prueba
+y sus usuarios no aparecen en la consola de la aplicación.
+
+Jorge confirma en la conversación del 20/10 que probó la aplicación actual y H2
+con resultado correcto. No se inventan datos exactos ni capturas de esa prueba.
+Para consultar los registros, mantener la aplicación arrancada y ejecutar
+`SELECT * FROM USUARIOS;` en la consola H2. Reglas y límites:
+[decisiones del registro](../decisions/registro-usuarios.md).
 
 Para parar la aplicación: `Ctrl + C` en la terminal.
 

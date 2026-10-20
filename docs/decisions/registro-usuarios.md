@@ -3,15 +3,18 @@
 Fecha original: 15/10/2026. En esa fecha era una propuesta pendiente de revisión.
 
 Actualización de estado — 20/10/2026: implementación revisada por Carlos e integrada
-el 17/10 mediante [#25](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/25). Se conservan las decisiones y los límites originales;
-esta actualización documental queda pendiente de su propia revisión.
+el 17/10 mediante [#25](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/25). Se conservan las decisiones y los límites originales.
+La actualización de estados fue revisada por Alex e integrada mediante
+[#31](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/31).
 
-## Ampliación local de validaciones — 20/10/2026
+## Ampliación integrada de validaciones — 20/10/2026
 
 Jorge solicita y acepta ampliar el registro con validación en servidor y selector
 DNI español / pasaporte, incluidos extranjeros. Es una decisión explícita del
 usuario para esta ampliación, no una respuesta nueva del profesorado ni un cambio
-retrospectivo de los criterios originales de #10. Propuesta local sin integrar.
+retrospectivo de los criterios originales de #10. La ampliación fue aprobada por
+Alex e integrada mediante [#36](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/36) el 20/10/2026.
+Versión de código: `1258bb7289c49d898336e8163368434afc24afd4`.
 
 - Email: espacios exteriores eliminados, minúsculas con Locale.ROOT, máximo 255
   caracteres y parte local de hasta 64. Se admite formato ASCII habitual con
@@ -30,6 +33,9 @@ retrospectivo de los criterios originales de #10. Propuesta local sin integrar.
 - No se verifica autenticidad ni se identifica a una persona que utilice documentos
   diferentes. No se implementa NIE ni verificación por correo.
 
+El formulario muestra primero el selector de documento; el número aparece al
+elegir y el país solo para pasaporte. El JavaScript deshabilita campos ocultos y
+restaura el estado tras un error; requiere JavaScript habilitado.
 El formulario mantiene los datos ante errores. La lógica permanece en el servicio;
 el controlador solo prepara países para la vista y coordina la petición.
 La entidad sustituye dni por tipo_documento, pais_emisor y numero_documento.
