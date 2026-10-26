@@ -30,6 +30,18 @@ http://localhost:8080/h2-console/; JDBC `jdbc:h2:mem:rentaldb`, usuario `sa`,
 contraseña vacía. Los datos se pierden al detener la aplicación.
 La página inicial conserva su ruta `/` y enlaza al formulario.
 
+## Registro de propietarios (#11)
+
+Formulario: http://localhost:8080/propietarios/registro. Usa la misma vista
+`registro.html` y el mismo servicio que el registro de usuarios; solo cambian los
+textos, la ruta del formulario y el rol guardado (`PROPIETARIO`). El registro de
+usuarios guarda `INQUILINO`. El rol se comprueba con `SELECT * FROM USUARIOS;`.
+Decisión: [registro de propietarios](../decisions/registro-propietarios.md).
+
+Verificación del 26/10/2026: `.\mvnw.cmd clean verify` → BUILD SUCCESS, 39 pruebas,
+0 fallos y 0 errores (repositorio 5, servicio 19, web de integración 13,
+controlador de errores 1 y arranque 1).
+
 ## Ejecución
 
 Requisito: Java 17.

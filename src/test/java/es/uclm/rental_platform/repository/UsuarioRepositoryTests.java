@@ -22,7 +22,8 @@ class UsuarioRepositoryTests {
 
     @Test
     void guardarYRecuperarUsuario() {
-        Usuario usuario = new Usuario("ana@example.com", "Ana", "García López", "DNI", "ES", "12345678Z");
+        //Añadido para #11: ''inquilino
+        Usuario usuario = new Usuario("ana@example.com", "Ana", "García López", "DNI", "ES", "12345678Z", "INQUILINO");
 
         Usuario guardado = usuarioRepository.saveAndFlush(usuario);
         Long id = guardado.getId();
@@ -41,24 +42,40 @@ class UsuarioRepositoryTests {
 
     @Test
     void baseDeDatosImpideEmailRepetido() {
-        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z"));
+        //Añadido para #11: ''inquilino
+        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", "INQUILINO"));
         org.junit.jupiter.api.Assertions.assertThrows(org.springframework.dao.DataIntegrityViolationException.class,
-                () -> usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Otra", "Persona", "DNI", "ES", "87654321X")));
+                () -> usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Otra", "Persona", "DNI", "ES", "87654321X", "INQUILINO")));
     }
 
     @Test
     void baseDeDatosImpideDocumentoRepetido() {
-        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "PASAPORTE", "FR", "AB12345"));
+        //Añadido para #11: ''inquilino
+        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "PASAPORTE", "FR", "AB12345", "INQUILINO"));
         org.junit.jupiter.api.Assertions.assertThrows(org.springframework.dao.DataIntegrityViolationException.class,
-                () -> usuarioRepository.saveAndFlush(new Usuario("otra@example.com", "Otra", "Persona", "PASAPORTE", "FR", "AB12345")));
+                () -> usuarioRepository.saveAndFlush(new Usuario("otra@example.com", "Otra", "Persona", "PASAPORTE", "FR", "AB12345", "INQUILINO")));
     }
 
 
     @Test
     void baseDeDatosImpideDniRepetido() {
-        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z"));
+        //Añadido para #11: ''inquilino
+        usuarioRepository.saveAndFlush(new Usuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", "INQUILINO"));
         org.junit.jupiter.api.Assertions.assertThrows(org.springframework.dao.DataIntegrityViolationException.class,
-                () -> usuarioRepository.saveAndFlush(new Usuario("otra@example.com", "Otra", "Persona", "DNI", "ES", "12345678Z")));
+                () -> usuarioRepository.saveAndFlush(new Usuario("otra@example.com", "Otra", "Persona", "DNI", "ES", "12345678Z", "INQUILINO")));
+    }
+
+    @Test
+    //Añadido para #11
+    void guardarYRecuperarPropietarioConSuRol() {
+        Usuario guardado = usuarioRepository.saveAndFlush(
+                new Usuario("pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", "12345678Z", "PROPIETARIO"));
+
+        entityManager.clear();
+        Usuario recuperado = usuarioRepository.findById(guardado.getId()).orElseThrow();
+
+        assertEquals("pedro@example.com", recuperado.getEmail());
+        assertEquals("PROPIETARIO", recuperado.getRol());
     }
 
 }

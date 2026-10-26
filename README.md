@@ -62,6 +62,10 @@ integrada mediante [#37](https://github.com/albertojramosf06-source/ForjaBiteCom
 Ver [base técnica](docs/technical/README.md) para el estado de verificación y
 [Plan de Calidad](docs/quality/QUALITY_PLAN.md) para los pendientes reales.
 
+Registro de propietarios (#11): formulario en http://localhost:8080/propietarios/registro.
+Usuarios y propietarios se guardan en la misma tabla con su rol. Ver
+[decisión de #11](docs/decisions/registro-propietarios.md).
+
 ## Documentación del proyecto
 
 La documentación viva del proyecto se mantiene en:
@@ -69,7 +73,7 @@ La documentación viva del proyecto se mantiene en:
 - [Plan de Gestión de Configuración](docs/plan-gestion-configuracion.md): ramas, revisión e integración.
 - [Plan de Calidad](docs/quality/QUALITY_PLAN.md): problemas, deuda y acciones.
 - [Ficha AI-01](docs/ai/AI-01-hito-funcional.md) y [registro de IA](AI_USAGE.md).
-- [Modelo del registro](docs/diagrams/registro-usuarios.md) y [decisiones de #10](docs/decisions/registro-usuarios.md).
+- [Modelo del registro](docs/diagrams/registro-usuarios.md), [decisiones de #10](docs/decisions/registro-usuarios.md) y [decisión de #11](docs/decisions/registro-propietarios.md).
 
 - `docs/technical/`: base técnica y dependencias.
 - `docs/diagrams/`: diagramas y modelos.
@@ -127,7 +131,7 @@ Ctrl + C
 
 ### Base de datos de laboratorio (S4)
 
-Formulario de registro: http://localhost:8080/usuarios/registro.
+Formularios de registro: http://localhost:8080/usuarios/registro y http://localhost:8080/propietarios/registro (#11).
 Registro ampliado e integrado mediante #36: requiere email, nombre, apellidos y
 DNI español o pasaporte. Para pasaportes se selecciona país emisor. Email y
 número de documento se normalizan; se rechazan duplicados y datos inválidos en
@@ -146,7 +150,7 @@ La configuración actual utiliza H2 en memoria. Tras ejecutar
 La base de datos solo existe durante la ejecución; sus datos se pierden al parar
 la aplicación. Esta configuración es para el laboratorio, no para producción.
 La entidad `domain/Usuario.java` genera la tabla `usuarios` con id, email,
-nombre, apellidos, tipo_documento, pais_emisor y numero_documento.
+nombre, apellidos, tipo_documento, pais_emisor, numero_documento y rol.
 El formulario llama al servicio y este al repositorio.
 En la consola se puede comprobar la tabla con `SELECT * FROM USUARIOS;`.
 

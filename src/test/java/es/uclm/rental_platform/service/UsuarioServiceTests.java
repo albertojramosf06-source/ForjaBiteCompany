@@ -182,4 +182,66 @@ class UsuarioServiceTests {
         assertEquals(0, usuarioRepository.count());
     }
 
+    //Añadido para #11
+    @Test
+    void registrarPropietarioConDatosCorrectos() {
+        Usuario propietario = usuarioService.registrarPropietario(
+                "pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", "12345678Z");
+
+        assertNotNull(propietario.getId());
+        Usuario recuperado = usuarioRepository.findById(propietario.getId()).orElseThrow();
+        assertEquals("pedro@example.com", recuperado.getEmail());
+        assertEquals("Pedro", recuperado.getNombre());
+        assertEquals("Sánchez", recuperado.getApellidos());
+        assertEquals("PROPIETARIO", recuperado.getRol());
+    }
+
+    @Test
+    void registrarUsuarioGuardaRolInquilino() {
+        Usuario usuario = usuarioService.registrarUsuario(
+                "ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z");
+
+        assertEquals("INQUILINO", usuario.getRol());
+    }
+
+    @Test
+    void rechazarPropietarioConCampoObligatorioVacio() {
+        String[] valoresVacios = {null, "", "   "};
+
+        for (String valorVacio : valoresVacios) {
+            assertThrows(IllegalArgumentException.class, () ->
+                    usuarioService.registrarPropietario(valorVacio, "Pedro", "Sánchez", "DNI", "ES", "12345678Z"));
+            assertThrows(IllegalArgumentException.class, () ->
+                    usuarioService.registrarPropietario("pedro@example.com", valorVacio, "Sánchez", "DNI", "ES", "12345678Z"));
+            assertThrows(IllegalArgumentException.class, () ->
+                    usuarioService.registrarPropietario("pedro@example.com", "Pedro", valorVacio, "DNI", "ES", "12345678Z"));
+            assertThrows(IllegalArgumentException.class, () ->
+                    usuarioService.registrarPropietario("pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", valorVacio));
+        }
+
+        assertEquals(0, usuarioRepository.count());
+    }
+
+    @Test
+    void rechazarPropietarioConEmailRepetido() {
+        usuarioService.registrarPropietario("pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", "12345678Z");
+
+        IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () ->
+                usuarioService.registrarPropietario("pedro@example.com", "Otro", "Persona", "DNI", "ES", "87654321X"));
+
+        assertEquals("Ya existe un usuario con ese email.", error.getMessage());
+        assertEquals(1, usuarioRepository.count());
+    }
+
+    @Test
+    void rechazarPropietarioConEmailDeInquilino() {
+        // Sin doble rol hasta que responda el cliente (#15).
+        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z");
+
+        assertThrows(IllegalArgumentException.class, () ->
+                usuarioService.registrarPropietario("ana@example.com", "Ana", "García", "PASAPORTE", "FR", "AB12345"));
+
+        assertEquals(1, usuarioRepository.count());
+    }
+
 }

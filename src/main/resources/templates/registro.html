@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registro de usuarios · ForjaBiteCompany</title>
+    <title th:text="${esPropietario} ? 'Registro de propietarios · ForjaBiteCompany' : 'Registro de usuarios · ForjaBiteCompany'">Registro de usuarios · ForjaBiteCompany</title> <!-- Línea cambiada para #11 -->
     <link rel="stylesheet" th:href="@{/css/registro.css}">
     <script defer th:src="@{/js/registro.js}"></script>
 </head>
@@ -16,17 +16,17 @@
     <section class="presentacion" aria-labelledby="titulo-bienvenida">
         <p class="antetitulo">TU PRÓXIMA ESTANCIA EMPIEZA AQUÍ</p>
         <h1 id="titulo-bienvenida">Un lugar para<br>sentirte <em>en casa.</em></h1>
-        <p class="descripcion">Crea tu usuario y da el primer paso para encontrar tu próximo alojamiento.</p>
+        <p class="descripcion" th:text="${esPropietario} ? 'Regístrate como propietario para poder publicar tus viviendas o habitaciones.' : 'Crea tu usuario y da el primer paso para encontrar tu próximo alojamiento.'">Crea tu usuario y da el primer paso para encontrar tu próximo alojamiento.</p> <!-- Línea cambiada para #11 -->
         <div class="ilustracion" aria-hidden="true"><div class="techo"></div><div class="casa"><span class="ventana"></span><span class="puerta"></span></div><div class="suelo"></div></div>
         <p class="nota">Plataforma de alquiler de viviendas y habitaciones.</p>
     </section>
     <section class="tarjeta" aria-labelledby="titulo-registro">
-        <p class="antetitulo">REGISTRO DE USUARIOS</p>
-        <h2 id="titulo-registro">Crea tu usuario</h2>
+        <p class="antetitulo" th:text="${esPropietario} ? 'REGISTRO DE PROPIETARIOS' : 'REGISTRO DE USUARIOS'">REGISTRO DE USUARIOS</p> <!-- Línea cambiada para #11 -->
+        <h2 id="titulo-registro" th:text="${esPropietario} ? 'Regístrate como propietario' : 'Crea tu usuario'">Crea tu usuario</h2> <!-- Línea cambiada para #11 -->
         <p class="ayuda">Completa tus datos. Todos los campos son obligatorios.</p>
         <div class="mensaje error" role="alert" th:if="${error}" th:text="${error}"></div>
         <div class="mensaje exito" role="status" th:if="${exito}" th:text="${exito}"></div>
-        <form th:action="@{/usuarios/registro}" method="post">
+        <form th:action="${esPropietario} ? @{/propietarios/registro} : @{/usuarios/registro}" method="post"> <!-- Línea cambiada para #11 -->
             <div class="campo"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="tu@email.com" required maxlength="255" th:value="${email}"></div>
             <div class="fila">
                 <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" autocomplete="given-name" placeholder="Tu nombre" required maxlength="255" th:value="${nombre}"></div>
@@ -53,7 +53,7 @@
                     <input id="numeroDocumento" name="numeroDocumento" maxlength="32" th:value="${numeroDocumento}" disabled>
                 </div>
             </div>
-            <button type="submit">Crear usuario <span aria-hidden="true">→</span></button>
+            <button type="submit"><span th:text="${esPropietario} ? 'Registrarme como propietario' : 'Crear usuario'">Crear usuario</span> <span aria-hidden="true">→</span></button> <!-- Línea cambiada para #11 -->
         </form>
     </section>
 </main>

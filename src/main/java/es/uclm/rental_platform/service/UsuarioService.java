@@ -21,8 +21,20 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario registrarUsuario(String email, String nombre, String apellidos,
+        public Usuario registrarUsuario(String email, String nombre, String apellidos,
                                    String tipoDocumento, String paisEmisor, String numeroDocumento) {
+        return registrar(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, "INQUILINO");
+    }
+    //Linea añadida para #11, además del rol inquilino para registrar usuario, y el rol propietario
+    public Usuario registrarPropietario(String email, String nombre, String apellidos,
+                                        String tipoDocumento, String paisEmisor, String numeroDocumento) {
+        return registrar(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, "PROPIETARIO");
+    }
+
+    // Inquilinos y propietarios comparten las mismas validaciones; solo cambia el rol.
+    private Usuario registrar(String email, String nombre, String apellidos,
+                              String tipoDocumento, String paisEmisor, String numeroDocumento, String rol) {
+
         if (estaVacio(email) || estaVacio(nombre) || estaVacio(apellidos)
                 || estaVacio(tipoDocumento) || estaVacio(numeroDocumento)) {
             throw new IllegalArgumentException("Todos los campos son obligatorios.");
@@ -71,7 +83,7 @@ public class UsuarioService {
             throw new IllegalArgumentException("Ya existe un usuario con ese documento y país emisor.");
         }
         return usuarioRepository.saveAndFlush(
-                new Usuario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento));
+                            new Usuario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, rol)); //Añadido para #11 rol
     }
 
     private boolean estaVacio(String valor) {

@@ -54,13 +54,48 @@ public class UsuarioController {
         } catch (DataIntegrityViolationException exception) {
             model.addAttribute("error", "No se ha podido guardar el usuario. Revisa los datos y comprueba que el email o el documento no estén registrados.");
         }
+            //Apartir de esta linea he modificado y añadido para #11
+                conservarDatos(model, email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento);
+        return "registro";
+    }
 
+    // Mismo formulario que el de usuarios, con los textos de propietario.
+    @GetMapping("/propietarios/registro")
+    public String mostrarRegistroPropietario(Model model) {
+        model.addAttribute("esPropietario", true);
+        return "registro";
+    }
+
+    @PostMapping("/propietarios/registro")
+    public String registrarPropietario(@RequestParam(defaultValue = "") String email,
+                                       @RequestParam(defaultValue = "") String nombre,
+                                       @RequestParam(defaultValue = "") String apellidos,
+                                       @RequestParam(defaultValue = "") String tipoDocumento,
+                                       @RequestParam(defaultValue = "") String paisEmisor,
+                                       @RequestParam(defaultValue = "") String numeroDocumento,
+                                       Model model, RedirectAttributes redirectAttributes) {
+        try {
+            usuarioService.registrarPropietario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento);
+            redirectAttributes.addFlashAttribute("exito", "Te has registrado como propietario correctamente.");
+            return "redirect:/propietarios/registro";
+        } catch (IllegalArgumentException exception) {
+            model.addAttribute("error", exception.getMessage());
+        } catch (DataIntegrityViolationException exception) {
+            model.addAttribute("error", "No se ha podido guardar el propietario. Revisa los datos y comprueba que el email o el documento no estén registrados.");
+        }
+
+        conservarDatos(model, email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento);
+        model.addAttribute("esPropietario", true);
+        return "registro";
+    }
+
+    private void conservarDatos(Model model, String email, String nombre, String apellidos,
+                                String tipoDocumento, String paisEmisor, String numeroDocumento) {
         model.addAttribute("email", email);
         model.addAttribute("nombre", nombre);
         model.addAttribute("apellidos", apellidos);
         model.addAttribute("tipoDocumento", tipoDocumento);
         model.addAttribute("paisEmisor", paisEmisor);
         model.addAttribute("numeroDocumento", numeroDocumento);
-        return "registro";
     }
 }

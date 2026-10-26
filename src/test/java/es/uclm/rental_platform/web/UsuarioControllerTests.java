@@ -150,4 +150,47 @@ class UsuarioControllerTests {
         }
     }
 
+    //Añadido para #11
+    @Test
+    void mostrarFormularioDePropietario() throws Exception {
+        mockMvc.perform(get("/propietarios/registro"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("REGISTRO DE PROPIETARIOS")))
+                .andExpect(content().string(containsString("action=\"/propietarios/registro\"")));
+    }
+
+    @Test
+    void formularioDeUsuariosNoCambia() throws Exception {
+        mockMvc.perform(get("/usuarios/registro"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("REGISTRO DE USUARIOS")))
+                .andExpect(content().string(containsString("action=\"/usuarios/registro\"")));
+    }
+
+    @Test
+    void registrarPropietarioDesdeFormularioYMostrarConfirmacion() throws Exception {
+        var resultado = mockMvc.perform(post("/propietarios/registro")
+                        .param("email", "pedro@example.com").param("nombre", "Pedro")
+                        .param("apellidos", "Sánchez").param("tipoDocumento", "DNI").param("paisEmisor", "ES").param("numeroDocumento", "12345678Z"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/propietarios/registro"))
+                .andExpect(flash().attribute("exito", "Te has registrado como propietario correctamente."))
+                .andReturn();
+        assertEquals(1, usuarioRepository.count());
+        assertEquals("PROPIETARIO", usuarioRepository.findAll().get(0).getRol());
+        mockMvc.perform(get("/propietarios/registro").flashAttrs(resultado.getFlashMap()))
+                .andExpect(content().string(containsString("Te has registrado como propietario correctamente.")));
+    }
+
+    @Test
+    void rechazarCamposVaciosDePropietarioYConservarDatos() throws Exception {
+        mockMvc.perform(post("/propietarios/registro").param("email", "pedro@example.com")
+                        .param("nombre", "   ").param("apellidos", "Sánchez").param("tipoDocumento", "DNI").param("paisEmisor", "ES").param("numeroDocumento", "12345678Z"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("error", "Todos los campos son obligatorios."))
+                .andExpect(content().string(containsString("value=\"pedro@example.com\"")))
+                .andExpect(content().string(containsString("action=\"/propietarios/registro\"")));
+        assertEquals(0, usuarioRepository.count());
+    }
+
 }
