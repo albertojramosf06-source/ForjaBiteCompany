@@ -160,7 +160,7 @@ Registrar únicamente deuda que el equipo conoce y ha decidido posponer de forma
 | Sin migración para una BD antigua persistente | H2 actual es temporal y el nuevo esquema se crea al arrancar | Baja | Preparar migración antes de utilizar datos duraderos de un esquema anterior |
 | Base de datos H2 en memoria: los datos se pierden al parar la aplicación | Es la base de datos de laboratorio de S4 y basta para demostrar la persistencia | Baja | Valorar una base de datos persistente cuando el proyecto lo necesite |
 | `ddl-auto=update`, `show-sql=true` y consola H2 activados | Facilitan el desarrollo; no son configuración de producción (S4 diap. 15) | Baja | Mantenerlos solo para desarrollo y revisarlos antes de la entrega final |
-| Sin inicio de sesión ni roles (inquilino / propietario) | Fuera del alcance del Hito 1; depende de #11, #12 y de las respuestas de #15 | Media | Abordarlo en las issues #11 y #12 |
+| Sin inicio de sesión; los roles existen desde #11, sin doble rol (provisional) | El login depende de #12 y el doble rol de la respuesta de #15 | Media | Login en #12; revisar el rol si el cliente permite el doble rol |
 
 > La deuda técnica no es un error oculto. Debe ser visible, justificada y planificada.
 
