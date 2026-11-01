@@ -8,12 +8,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals; //Añadido nuevo para #12
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(properties = "spring.datasource.url=jdbc:h2:mem:usuarios_service_test;DB_CLOSE_ON_EXIT=FALSE")
 @Transactional
 class UsuarioServiceTests {
+
+    //Añadido nuevo para #12
+    private static final String CONTRASENA = "secreta123";
 
     @Autowired
     private UsuarioService usuarioService;
@@ -24,7 +28,7 @@ class UsuarioServiceTests {
     @Test
     void registrarUsuarioConDatosCorrectos() {
         Usuario usuario = usuarioService.registrarUsuario(
-                "ana@example.com", "Ana", "García López", "DNI", "ES", "12345678Z");
+                "ana@example.com", "Ana", "García López", "DNI", "ES", "12345678Z", CONTRASENA);
 
         assertNotNull(usuario.getId());
         Usuario recuperado = usuarioRepository.findById(usuario.getId()).orElseThrow();
@@ -40,13 +44,13 @@ class UsuarioServiceTests {
 
         for (String valorVacio : valoresVacios) {
             assertThrows(IllegalArgumentException.class, () ->
-                    usuarioService.registrarUsuario(valorVacio, "Ana", "García", "DNI", "ES", "12345678Z"));
+                    usuarioService.registrarUsuario(valorVacio, "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA));
             assertThrows(IllegalArgumentException.class, () ->
-                    usuarioService.registrarUsuario("ana@example.com", valorVacio, "García", "DNI", "ES", "12345678Z"));
+                    usuarioService.registrarUsuario("ana@example.com", valorVacio, "García", "DNI", "ES", "12345678Z", CONTRASENA));
             assertThrows(IllegalArgumentException.class, () ->
-                    usuarioService.registrarUsuario("ana@example.com", "Ana", valorVacio, "DNI", "ES", "12345678Z"));
+                    usuarioService.registrarUsuario("ana@example.com", "Ana", valorVacio, "DNI", "ES", "12345678Z", CONTRASENA));
             assertThrows(IllegalArgumentException.class, () ->
-                    usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", valorVacio));
+                    usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", valorVacio, CONTRASENA));
         }
 
         assertEquals(0, usuarioRepository.count());
@@ -54,10 +58,10 @@ class UsuarioServiceTests {
 
     @Test
     void rechazarEmailDuplicado() {
-        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z");
+        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA);
 
         IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () ->
-                usuarioService.registrarUsuario("ana@example.com", "Otra", "Persona", "DNI", "ES", "87654321X"));
+                usuarioService.registrarUsuario("ana@example.com", "Otra", "Persona", "DNI", "ES", "87654321X", CONTRASENA));
 
         assertEquals("Ya existe un usuario con ese email.", error.getMessage());
         assertEquals(1, usuarioRepository.count());
@@ -66,14 +70,14 @@ class UsuarioServiceTests {
     @Test
     void normalizarEmailNombreYDocumento() {
         Usuario usuario = usuarioService.registrarUsuario(
-                "  ANA@Example.COM  ", "  Ana  ", " O'Neill-García ", "DNI", "", " 12345678z ");
+                "  ANA@Example.COM  ", "  Ana  ", " O'Neill-García ", "DNI", "", " 12345678z ", CONTRASENA);
         assertEquals("ana@example.com", usuario.getEmail());
         assertEquals("Ana", usuario.getNombre());
         assertEquals("O'Neill-García", usuario.getApellidos());
         assertEquals("12345678Z", usuario.getNumeroDocumento());
         assertEquals("ES", usuario.getPaisEmisor());
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                "ANA@EXAMPLE.COM", "Otra", "Persona", "DNI", "ES", "87654321X"));
+                "ANA@EXAMPLE.COM", "Otra", "Persona", "DNI", "ES", "87654321X", CONTRASENA));
         assertEquals(1, usuarioRepository.count());
     }
 
@@ -82,7 +86,7 @@ class UsuarioServiceTests {
         for (String email : new String[]{"ana", "ana@", "@example.com", "ana@@example.com",
                 "ana a@example.com", "ana..a@example.com", "ana@-dominio.com", "ana@example.com."}) {
             assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                    email, "Ana", "García", "DNI", "ES", "12345678Z"));
+                    email, "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA));
         }
         assertEquals(0, usuarioRepository.count());
     }
@@ -90,20 +94,20 @@ class UsuarioServiceTests {
     @Test
     void respetarLimitesDeNombreYApellidos() {
         Usuario usuario = usuarioService.registrarUsuario("ana@example.com", "a".repeat(255),
-                "b".repeat(255), "DNI", "ES", "12345678Z");
+                "b".repeat(255), "DNI", "ES", "12345678Z", CONTRASENA);
         assertEquals(255, usuario.getNombre().length());
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                "otra@example.com", "a".repeat(256), "García", "DNI", "ES", "87654321X"));
+                "otra@example.com", "a".repeat(256), "García", "DNI", "ES", "87654321X", CONTRASENA));
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                "otra@example.com", "Ana", "b".repeat(256), "DNI", "ES", "87654321X"));
+                "otra@example.com", "Ana", "b".repeat(256), "DNI", "ES", "87654321X", CONTRASENA));
     }
 
     @Test
     void rechazarEmailDemasiadoLargo() {
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                "a".repeat(256) + "@example.com", "Ana", "García", "DNI", "ES", "12345678Z"));
+                "a".repeat(256) + "@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA));
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                "a".repeat(65) + "@example.com", "Ana", "García", "DNI", "ES", "12345678Z"));
+                "a".repeat(65) + "@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA));
         assertEquals(0, usuarioRepository.count());
     }
 
@@ -111,23 +115,23 @@ class UsuarioServiceTests {
     void rechazarDniIncorrectoYDuplicado() {
         for (String dni : new String[]{"12345678A", "1234567Z", "123456789Z", "X1234567L", "1234 678Z"}) {
             assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                    "ana@example.com", "Ana", "García", "DNI", "ES", dni));
+                    "ana@example.com", "Ana", "García", "DNI", "ES", dni, CONTRASENA));
         }
-        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z");
+        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA);
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                "otra@example.com", "Otra", "Persona", "DNI", "FR", "12345678z"));
+                "otra@example.com", "Otra", "Persona", "DNI", "FR", "12345678z", CONTRASENA));
         assertEquals(1, usuarioRepository.count());
     }
 
     @Test
     void pasaporteNormalizadoYUnicoPorPais() {
         Usuario usuario = usuarioService.registrarUsuario("ana@example.com", "Ana", "García",
-                "PASAPORTE", "fr", " ab12345 ");
+                "PASAPORTE", "fr", " ab12345 ", CONTRASENA);
         assertEquals("AB12345", usuario.getNumeroDocumento());
         assertEquals("FR", usuario.getPaisEmisor());
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                "otra@example.com", "Otra", "Persona", "PASAPORTE", "FR", "ab12345"));
-        usuarioService.registrarUsuario("otra@example.com", "Otra", "Persona", "PASAPORTE", "DE", "AB12345");
+                "otra@example.com", "Otra", "Persona", "PASAPORTE", "FR", "ab12345", CONTRASENA));
+        usuarioService.registrarUsuario("otra@example.com", "Otra", "Persona", "PASAPORTE", "DE", "AB12345", CONTRASENA);
         assertEquals(2, usuarioRepository.count());
     }
 
@@ -135,21 +139,21 @@ class UsuarioServiceTests {
     void rechazarPasaporteSinPaisOConCaracteresInvalidos() {
         for (String pais : new String[]{null, "", "   ", "XX", "Francia"}) {
             assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                    "ana@example.com", "Ana", "García", "PASAPORTE", pais, "AB12345"));
+                    "ana@example.com", "Ana", "García", "PASAPORTE", pais, "AB12345", CONTRASENA));
         }
         for (String numero : new String[]{"AB 123", "AB-123", "Á123", "A".repeat(33)}) {
             assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                    "ana@example.com", "Ana", "García", "PASAPORTE", "FR", numero));
+                    "ana@example.com", "Ana", "García", "PASAPORTE", "FR", numero, CONTRASENA));
         }
         assertEquals(0, usuarioRepository.count());
     }
 
     @Test
     void aceptarLimitesDePasaporteYRechazarTipoDesconocido() {
-        usuarioService.registrarUsuario("a@example.com", "Ana", "García", "PASAPORTE", "FR", "A");
-        usuarioService.registrarUsuario("b@example.com", "Ana", "García", "PASAPORTE", "FR", "B".repeat(32));
+        usuarioService.registrarUsuario("a@example.com", "Ana", "García", "PASAPORTE", "FR", "A", CONTRASENA);
+        usuarioService.registrarUsuario("b@example.com", "Ana", "García", "PASAPORTE", "FR", "B".repeat(32), CONTRASENA);
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                "c@example.com", "Ana", "García", "NIE", "ES", "X1234567L"));
+                "c@example.com", "Ana", "García", "NIE", "ES", "X1234567L", CONTRASENA));
         assertEquals(2, usuarioRepository.count());
     }
 
@@ -160,16 +164,16 @@ class UsuarioServiceTests {
         String dominio = "b".repeat(63) + "." + "c".repeat(63) + "." + "d".repeat(62);
         String email = local + "@" + dominio;
         assertEquals(255, email.length());
-        usuarioService.registrarUsuario(email, "Ana", "García", "DNI", "ES", "12345678Z");
+        usuarioService.registrarUsuario(email, "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA);
         assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                email + "d", "Otra", "Persona", "DNI", "ES", "87654321X"));
+                email + "d", "Otra", "Persona", "DNI", "ES", "87654321X", CONTRASENA));
         assertEquals(1, usuarioRepository.count());
     }
 
     @Test
     void conservarCerosInicialesDelDni() {
         Usuario usuario = usuarioService.registrarUsuario("ana@example.com", "Ana", "García",
-                "DNI", "ES", "00000000t");
+                "DNI", "ES", "00000000t", CONTRASENA);
         assertEquals("00000000T", usuario.getNumeroDocumento());
     }
 
@@ -177,7 +181,7 @@ class UsuarioServiceTests {
     void rechazarTipoDeDocumentoAusente() {
         for (String tipo : new String[]{null, "", "   "}) {
             assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
-                    "ana@example.com", "Ana", "García", tipo, "ES", "12345678Z"));
+                    "ana@example.com", "Ana", "García", tipo, "ES", "12345678Z", CONTRASENA));
         }
         assertEquals(0, usuarioRepository.count());
     }
@@ -186,7 +190,7 @@ class UsuarioServiceTests {
     @Test
     void registrarPropietarioConDatosCorrectos() {
         Usuario propietario = usuarioService.registrarPropietario(
-                "pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", "12345678Z");
+                "pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", "12345678Z", CONTRASENA);
 
         assertNotNull(propietario.getId());
         Usuario recuperado = usuarioRepository.findById(propietario.getId()).orElseThrow();
@@ -199,7 +203,7 @@ class UsuarioServiceTests {
     @Test
     void registrarUsuarioGuardaRolInquilino() {
         Usuario usuario = usuarioService.registrarUsuario(
-                "ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z");
+                "ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA);
 
         assertEquals("INQUILINO", usuario.getRol());
     }
@@ -210,13 +214,13 @@ class UsuarioServiceTests {
 
         for (String valorVacio : valoresVacios) {
             assertThrows(IllegalArgumentException.class, () ->
-                    usuarioService.registrarPropietario(valorVacio, "Pedro", "Sánchez", "DNI", "ES", "12345678Z"));
+                    usuarioService.registrarPropietario(valorVacio, "Pedro", "Sánchez", "DNI", "ES", "12345678Z", CONTRASENA));
             assertThrows(IllegalArgumentException.class, () ->
-                    usuarioService.registrarPropietario("pedro@example.com", valorVacio, "Sánchez", "DNI", "ES", "12345678Z"));
+                    usuarioService.registrarPropietario("pedro@example.com", valorVacio, "Sánchez", "DNI", "ES", "12345678Z", CONTRASENA));
             assertThrows(IllegalArgumentException.class, () ->
-                    usuarioService.registrarPropietario("pedro@example.com", "Pedro", valorVacio, "DNI", "ES", "12345678Z"));
+                    usuarioService.registrarPropietario("pedro@example.com", "Pedro", valorVacio, "DNI", "ES", "12345678Z", CONTRASENA));
             assertThrows(IllegalArgumentException.class, () ->
-                    usuarioService.registrarPropietario("pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", valorVacio));
+                    usuarioService.registrarPropietario("pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", valorVacio, CONTRASENA));
         }
 
         assertEquals(0, usuarioRepository.count());
@@ -224,10 +228,10 @@ class UsuarioServiceTests {
 
     @Test
     void rechazarPropietarioConEmailRepetido() {
-        usuarioService.registrarPropietario("pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", "12345678Z");
+        usuarioService.registrarPropietario("pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", "12345678Z", CONTRASENA);
 
         IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () ->
-                usuarioService.registrarPropietario("pedro@example.com", "Otro", "Persona", "DNI", "ES", "87654321X"));
+                usuarioService.registrarPropietario("pedro@example.com", "Otro", "Persona", "DNI", "ES", "87654321X", CONTRASENA));
 
         assertEquals("Ya existe un usuario con ese email.", error.getMessage());
         assertEquals(1, usuarioRepository.count());
@@ -236,12 +240,88 @@ class UsuarioServiceTests {
     @Test
     void rechazarPropietarioConEmailDeInquilino() {
         // Sin doble rol hasta que responda el cliente (#15).
-        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z");
+        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA);
 
         assertThrows(IllegalArgumentException.class, () ->
-                usuarioService.registrarPropietario("ana@example.com", "Ana", "García", "PASAPORTE", "FR", "AB12345"));
+                usuarioService.registrarPropietario("ana@example.com", "Ana", "García", "PASAPORTE", "FR", "AB12345", CONTRASENA));
 
         assertEquals(1, usuarioRepository.count());
+    }
+
+    //Añadido nuevo para #12
+    @Test
+    void guardarContrasenaCifrada() {
+        Usuario usuario = usuarioService.registrarUsuario(
+                "ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA);
+
+        assertNotEquals(CONTRASENA, usuario.getContrasena());
+    }
+
+    //Añadido nuevo para #12
+    @Test
+    void rechazarContrasenaNoValidaAlRegistrar() {
+        // "ñ" ocupa 2 bytes: 37 eñes son 74 bytes y superan el límite de BCrypt.
+        for (String contrasena : new String[]{null, "", "   ", "corta", "a".repeat(73), "ñ".repeat(37)}) {
+            assertThrows(IllegalArgumentException.class, () -> usuarioService.registrarUsuario(
+                    "ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", contrasena));
+        }
+        assertEquals(0, usuarioRepository.count());
+    }
+
+    //Añadido nuevo para #12
+    @Test
+    void aceptarContrasenaEnLosLimites() {
+        usuarioService.registrarUsuario("a@example.com", "Ana", "García", "DNI", "ES", "12345678Z", "a".repeat(8));
+        usuarioService.registrarUsuario("b@example.com", "Ana", "García", "DNI", "ES", "87654321X", "b".repeat(72));
+        assertEquals(2, usuarioRepository.count());
+    }
+
+    //Añadido nuevo para #12
+    @Test
+    void iniciarSesionConCredencialesCorrectas() {
+        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA);
+
+        Usuario usuario = usuarioService.iniciarSesion(" ANA@example.com ", CONTRASENA);
+
+        assertEquals("ana@example.com", usuario.getEmail());
+        assertEquals("INQUILINO", usuario.getRol());
+    }
+
+    //Añadido nuevo para #12
+    @Test
+    void propietarioIniciaSesionConSuRol() {
+        usuarioService.registrarPropietario("pedro@example.com", "Pedro", "Sánchez", "DNI", "ES", "12345678Z", CONTRASENA);
+
+        assertEquals("PROPIETARIO", usuarioService.iniciarSesion("pedro@example.com", CONTRASENA).getRol());
+    }
+
+    //Añadido nuevo para #12
+    @Test
+    void rechazarContrasenaIncorrecta() {
+        usuarioService.registrarUsuario("ana@example.com", "Ana", "García", "DNI", "ES", "12345678Z", CONTRASENA);
+
+        IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () ->
+                usuarioService.iniciarSesion("ana@example.com", "otraContrasena"));
+
+        assertEquals("El email o la contraseña no son correctos.", error.getMessage());
+    }
+
+    //Añadido nuevo para #12
+    @Test
+    void rechazarUsuarioNoRegistrado() {
+        IllegalArgumentException error = assertThrows(IllegalArgumentException.class, () ->
+                usuarioService.iniciarSesion("nadie@example.com", CONTRASENA));
+
+        assertEquals("El email o la contraseña no son correctos.", error.getMessage());
+    }
+
+    //Añadido nuevo para #12
+    @Test
+    void rechazarCredencialesVacias() {
+        for (String vacio : new String[]{null, "", "   "}) {
+            assertThrows(IllegalArgumentException.class, () -> usuarioService.iniciarSesion(vacio, CONTRASENA));
+            assertThrows(IllegalArgumentException.class, () -> usuarioService.iniciarSesion("ana@example.com", vacio));
+        }
     }
 
 }

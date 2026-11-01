@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--Añadido nuevo para #12-->
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar sesión · ForjaBiteCompany</title>
+    <link rel="stylesheet" th:href="@{/css/registro.css}">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera">
+    <a class="marca" th:href="@{/}"><span class="icono-marca" aria-hidden="true">F</span> ForjaBiteCompany</a>
+</header>
+<main id="contenido" class="contenedor">
+    <section class="presentacion" aria-labelledby="titulo-bienvenida">
+        <p class="antetitulo">BIENVENIDO DE NUEVO</p>
+        <h1 id="titulo-bienvenida">Tu próxima estancia<br>te <em>espera.</em></h1>
+        <p class="descripcion">Inicia sesión para acceder a lo que te corresponde como inquilino o propietario.</p>
+        <div class="ilustracion" aria-hidden="true"><div class="techo"></div><div class="casa"><span class="ventana"></span><span class="puerta"></span></div><div class="suelo"></div></div>
+        <p class="nota">Plataforma de alquiler de viviendas y habitaciones.</p>
+    </section>
+    <section class="tarjeta" aria-labelledby="titulo-sesion">
+        <p class="antetitulo">INICIO DE SESIÓN</p>
+        <h2 id="titulo-sesion">Inicia sesión</h2>
+        <p class="ayuda">Introduce el email y la contraseña con los que te registraste.</p>
+        <div class="mensaje error" role="alert" th:if="${error}" th:text="${error}"></div>
+        <form th:action="@{/iniciar-sesion}" method="post">
+            <div class="campo"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="tu@email.com" required maxlength="255" th:value="${email}"></div>
+            <div class="campo"><label for="contrasena">Contraseña</label><input id="contrasena" name="contrasena" type="password" autocomplete="current-password" placeholder="Tu contraseña" required maxlength="72"></div>
+            <button type="submit">Iniciar sesión <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="ayuda">¿Aún no tienes cuenta? <a th:href="@{/usuarios/registro}">Crea tu usuario</a></p>
+    </section>
+</main>
+<footer><span>ForjaBiteCompany</span><span>Viviendas y habitaciones · Proyecto universitario</span></footer>
+</body>
+</html>

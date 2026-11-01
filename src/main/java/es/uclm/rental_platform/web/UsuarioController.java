@@ -44,9 +44,10 @@ public class UsuarioController {
                                    @RequestParam(defaultValue = "") String tipoDocumento,
                                    @RequestParam(defaultValue = "") String paisEmisor,
                                    @RequestParam(defaultValue = "") String numeroDocumento,
+                                   @RequestParam(defaultValue = "") String contrasena, //Añadido nuevo para #12
                                    Model model, RedirectAttributes redirectAttributes) {
         try {
-            usuarioService.registrarUsuario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento);
+            usuarioService.registrarUsuario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, contrasena); //Añadido nuevo para #12
             redirectAttributes.addFlashAttribute("exito", "Tu usuario se ha registrado correctamente.");
             return "redirect:/usuarios/registro";
         } catch (IllegalArgumentException exception) {
@@ -73,9 +74,10 @@ public class UsuarioController {
                                        @RequestParam(defaultValue = "") String tipoDocumento,
                                        @RequestParam(defaultValue = "") String paisEmisor,
                                        @RequestParam(defaultValue = "") String numeroDocumento,
+                                       @RequestParam(defaultValue = "") String contrasena, //Añadido nuevo para #12
                                        Model model, RedirectAttributes redirectAttributes) {
         try {
-            usuarioService.registrarPropietario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento);
+            usuarioService.registrarPropietario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, contrasena); //Añadido nuevo para #12
             redirectAttributes.addFlashAttribute("exito", "Te has registrado como propietario correctamente.");
             return "redirect:/propietarios/registro";
         } catch (IllegalArgumentException exception) {

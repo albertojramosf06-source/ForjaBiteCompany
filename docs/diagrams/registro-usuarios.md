@@ -21,6 +21,7 @@ flowchart LR
 | paisEmisor | String | No nula, longitud 2 |
 | numeroDocumento | String | No nula, longitud 32 |
 | rol | String | No nula, longitud 20: INQUILINO o PROPIETARIO |
+| contrasena | String | No nula, longitud 100: hash BCrypt, nunca la contraseña |
 
 Modelo de la ampliación aprobada por Alex e integrada mediante
 [#36](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/36) el 20/10/2026:
@@ -34,3 +35,7 @@ issues y de las aclaraciones del cliente.
 Ampliación de [#11](https://github.com/albertojramosf06-source/ForjaBiteCompany/issues/11) (26/10/2026): se añade `rol`. El mismo
 controlador atiende `/usuarios/registro` (rol INQUILINO) y `/propietarios/registro`
 (rol PROPIETARIO). Ver [decisión de #11](../decisions/registro-propietarios.md).
+
+Ampliación de [#12](https://github.com/albertojramosf06-source/ForjaBiteCompany/issues/12) (01/11/2026): se añade `contrasena`, guardada
+cifrada. `SesionController` atiende `/iniciar-sesion` y usa `UsuarioService` y
+`UsuarioRepository.findByEmailIgnoreCase`. Ver [decisión de #12](../decisions/inicio-sesion.md).
