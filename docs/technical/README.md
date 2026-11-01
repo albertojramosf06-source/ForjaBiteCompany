@@ -16,6 +16,7 @@ En esta carpeta se documentan las decisiones técnicas del proyecto sobre Maven,
 - `spring-boot-starter-thymeleaf` → vistas HTML mediante plantillas Thymeleaf.
 - `spring-boot-starter-webmvc-test` (test) → soporte para pruebas de Spring MVC.
 - `spring-boot-starter-thymeleaf-test` (test) → soporte para pruebas de Thymeleaf.
+- `spring-security-crypto` → cifrar las contraseñas con BCrypt (#12). Solo el módulo de cifrado: no activa Spring Security ni protege rutas.
 
 Cualquier dependencia nueva debe añadirse aquí con su justificación.
 
@@ -40,6 +41,18 @@ Decisión: [registro de propietarios](../decisions/registro-propietarios.md).
 
 Verificación del 26/10/2026: `.\mvnw.cmd clean verify` → BUILD SUCCESS, 39 pruebas,
 0 fallos y 0 errores (repositorio 5, servicio 19, web de integración 13,
+controlador de errores 1 y arranque 1).
+
+## Inicio de sesión (#12)
+
+Formulario: http://localhost:8080/iniciar-sesion. Pide email y contraseña; los
+dos registros piden ahora también una contraseña de 8 a 72 caracteres, que se
+guarda cifrada con BCrypt en la columna `contrasena`. Si el inicio es correcto,
+la sesión guarda `usuarioId` y `rol` y se vuelve al inicio con un mensaje.
+Decisión: [inicio de sesión](../decisions/inicio-sesion.md).
+
+Verificación del 01/11/2026: `.\mvnw.cmd clean verify` → BUILD SUCCESS, 55 pruebas,
+0 fallos y 0 errores (repositorio 6, servicio 27, web de integración 20,
 controlador de errores 1 y arranque 1).
 
 ## Ejecución

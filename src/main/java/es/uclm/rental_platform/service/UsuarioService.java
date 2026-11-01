@@ -2,8 +2,10 @@ package es.uclm.rental_platform.service;
 
 import es.uclm.rental_platform.domain.Usuario;
 import es.uclm.rental_platform.repository.UsuarioRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; //Añadido nuevo para #12
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets; //Añadido nuevo para #12
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -16,27 +18,32 @@ public class UsuarioService {
             + "(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+");
     private static final String LETRAS_DNI = "TRWAGMYFPDXBNJZSQVHLCKE";
     private final UsuarioRepository usuarioRepository;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); //Añadido nuevo para #12
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 
         public Usuario registrarUsuario(String email, String nombre, String apellidos,
-                                   String tipoDocumento, String paisEmisor, String numeroDocumento) {
-        return registrar(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, "INQUILINO");
+                                   String tipoDocumento, String paisEmisor, String numeroDocumento,
+                                   String contrasena) { //Añadido nuevo para #12
+        return registrar(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, "INQUILINO", contrasena); //Añadido nuevo para #12
     }
     //Linea añadida para #11, además del rol inquilino para registrar usuario, y el rol propietario
     public Usuario registrarPropietario(String email, String nombre, String apellidos,
-                                        String tipoDocumento, String paisEmisor, String numeroDocumento) {
-        return registrar(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, "PROPIETARIO");
+                                        String tipoDocumento, String paisEmisor, String numeroDocumento,
+                                        String contrasena) { //Añadido nuevo para #12
+        return registrar(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, "PROPIETARIO", contrasena); //Añadido nuevo para #12
     }
 
     // Inquilinos y propietarios comparten las mismas validaciones; solo cambia el rol.
     private Usuario registrar(String email, String nombre, String apellidos,
-                              String tipoDocumento, String paisEmisor, String numeroDocumento, String rol) {
+                              String tipoDocumento, String paisEmisor, String numeroDocumento, String rol,
+                              String contrasena) { //Añadido nuevo para #12
 
         if (estaVacio(email) || estaVacio(nombre) || estaVacio(apellidos)
-                || estaVacio(tipoDocumento) || estaVacio(numeroDocumento)) {
+                || estaVacio(tipoDocumento) || estaVacio(numeroDocumento)
+                || estaVacio(contrasena)) { //Añadido nuevo para #12
             throw new IllegalArgumentException("Todos los campos son obligatorios.");
         }
         email = email.strip().toLowerCase(Locale.ROOT);
@@ -50,6 +57,10 @@ public class UsuarioService {
         comprobarLongitud(numeroDocumento, 32, "El documento");
         if (!EMAIL.matcher(email).matches() || email.indexOf('@') > 64) {
             throw new IllegalArgumentException("Introduce un email válido, por ejemplo nombre@dominio.com.");
+        }
+        //Añadido nuevo para #12: BCrypt solo admite hasta 72 bytes (la ñ y las tildes ocupan 2 por eso no las he puesto)
+        if (contrasena.length() < 8 || contrasena.getBytes(StandardCharsets.UTF_8).length > 72) {
+            throw new IllegalArgumentException("La contraseña debe tener entre 8 y 72 caracteres.");
         }
 
         if ("DNI".equals(tipoDocumento)) {
@@ -83,7 +94,21 @@ public class UsuarioService {
             throw new IllegalArgumentException("Ya existe un usuario con ese documento y país emisor.");
         }
         return usuarioRepository.saveAndFlush(
-                            new Usuario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, rol)); //Añadido para #11 rol
+                            new Usuario(email, nombre, apellidos, tipoDocumento, paisEmisor, numeroDocumento, rol, //Añadido para #11 rol
+                                    passwordEncoder.encode(contrasena))); //Añadido nuevo para #12
+    }
+
+    //Añadido nuevo para #12
+    public Usuario iniciarSesion(String email, String contrasena) {
+        if (estaVacio(email) || estaVacio(contrasena)) {
+            throw new IllegalArgumentException("Introduce tu email y tu contraseña.");
+        }
+        Usuario usuario = usuarioRepository.findByEmailIgnoreCase(email.strip()).orElse(null);
+        if (usuario == null || contrasena.getBytes(StandardCharsets.UTF_8).length > 72
+                || !passwordEncoder.matches(contrasena, usuario.getContrasena())) {
+            throw new IllegalArgumentException("El email o la contraseña no son correctos.");
+        }
+        return usuario;
     }
 
     private boolean estaVacio(String valor) {

@@ -15,13 +15,13 @@ class UsuarioControllerErrorTests {
     @Test
     void errorDeIntegridadConservaLosDatosYSoloMuestraError() {
         UsuarioService servicio = mock(UsuarioService.class);
-        when(servicio.registrarUsuario("ana@example.com", "Ana", "García", "PASAPORTE", "FR", "AB12345"))
+        when(servicio.registrarUsuario("ana@example.com", "Ana", "García", "PASAPORTE", "FR", "AB12345", "secreta123")) //Añadido nuevo para #12
                 .thenThrow(new DataIntegrityViolationException("Restricción de prueba"));
         var controlador = new UsuarioController(servicio);
         var modelo = new ExtendedModelMap();
         var redireccion = new RedirectAttributesModelMap();
         String vista = controlador.registrarUsuario("ana@example.com", "Ana", "García",
-                "PASAPORTE", "FR", "AB12345", modelo, redireccion);
+                "PASAPORTE", "FR", "AB12345", "secreta123", modelo, redireccion); //Añadido nuevo para #12
         assertEquals("registro", vista);
         assertEquals("No se ha podido guardar el usuario. Revisa los datos y comprueba que el email o el documento no estén registrados.",
                 modelo.get("error"));

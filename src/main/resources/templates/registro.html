@@ -28,6 +28,7 @@
         <div class="mensaje exito" role="status" th:if="${exito}" th:text="${exito}"></div>
         <form th:action="${esPropietario} ? @{/propietarios/registro} : @{/usuarios/registro}" method="post"> <!-- Línea cambiada para #11 -->
             <div class="campo"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="tu@email.com" required maxlength="255" th:value="${email}"></div>
+            <div class="campo"><label for="contrasena">Contraseña</label><input id="contrasena" name="contrasena" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8" maxlength="72"></div> <!--Añadido nuevo para #12-->
             <div class="fila">
                 <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" autocomplete="given-name" placeholder="Tu nombre" required maxlength="255" th:value="${nombre}"></div>
                 <div class="campo"><label for="apellidos">Apellidos</label><input id="apellidos" name="apellidos" autocomplete="family-name" placeholder="Tus apellidos" required maxlength="255" th:value="${apellidos}"></div>
