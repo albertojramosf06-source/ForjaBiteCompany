@@ -68,6 +68,7 @@ La documentación viva del proyecto se mantiene en:
 
 - [Plan de Gestión de Configuración](docs/plan-gestion-configuracion.md): ramas, revisión e integración.
 - [Plan de Calidad](docs/quality/QUALITY_PLAN.md): problemas, deuda y acciones.
+- [Plan de Pruebas](docs/testing/TEST_PLAN.md): flujo crítico, casos y pruebas implementadas.
 - [Ficha AI-01](docs/ai/AI-01-hito-funcional.md) y [registro de IA](AI_USAGE.md).
 - [Modelo del registro](docs/diagrams/registro-usuarios.md) y [decisiones de #10](docs/decisions/registro-usuarios.md).
 
@@ -115,6 +116,24 @@ http://localhost:8080/
 
 ### Parar
 Ctrl + C
+
+### Pruebas (S6)
+
+Ejecutar solo las pruebas:
+
+```powershell
+.\mvnw.cmd test
+```
+
+Ejecutar las pruebas y la verificación completa:
+
+```powershell
+.\mvnw.cmd verify
+```
+
+Flujo probado: registro de usuarios (#10). Casos, pruebas implementadas y pendientes en el [Plan de Pruebas](docs/testing/TEST_PLAN.md).
+
+Limitación: las pruebas web usan MockMvc, sin navegador; el selector de documento con JavaScript no se prueba.
 
 ### Dependencias Principales
 - spring-boot-starter-webmvc → aplicación web con Spring MVC: controladores y peticiones HTTP.
