@@ -137,7 +137,7 @@ Criterios actuales:
 
 | Aspecto pendiente | Tipo | Acción prevista | Responsable | Estado |
 |---|---|---|---|---|
-| Modelo de usuario provisional: el diagrama del cliente incluye login, contraseña y dirección; el registro actual guarda email, nombre, apellidos y DNI español o pasaporte con país emisor | Diseño / Dependencia | Trasladar al cliente las dudas de #15 y actualizar el modelo y `docs/diagrams` según su respuesta | Jorge (portavoz) | Pendiente |
+| Modelo de usuario provisional: el diagrama del cliente incluye login, contraseña y dirección; el registro actual guarda email, nombre, apellidos, DNI español o pasaporte con país emisor, rol (#11) y contraseña cifrada (#12); el email hace de login de forma provisional | Diseño / Dependencia | Trasladar al cliente las dudas de #15 y actualizar el modelo y `docs/diagrams` según su respuesta | Jorge (portavoz) | Pendiente |
 | Se solicita y almacena un documento de identidad, cuya necesidad no ha confirmado el cliente | Seguridad básica | Confirmar con el cliente (#15) si es necesario el documento; la validación pedida por Jorge no sustituye esa respuesta | Equipo | Pendiente |
 | Adaptación de AI-01 a la plantilla oficial (carencia detectada el 17/10) | Documentación | Completar `docs/ai/AI-01-hito-funcional.md` con la plantilla | Jorge (Carlos aporta Verificación y Revisión) | Resuelto: [#28](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/28), integrada el 20/10 |
 | README con estado "Sprint 0" (carencia detectada el 17/10) | Documentación | Actualizar el estado y revisar las instrucciones antes de la entrega | Diego | Estado corregido en [#30](https://github.com/albertojramosf06-source/ForjaBiteCompany/pull/30), integrada el 20/10; estilos y validaciones integrados en #36; reconciliación documental integrada en #37 |
@@ -160,7 +160,8 @@ Registrar únicamente deuda que el equipo conoce y ha decidido posponer de forma
 | Sin migración para una BD antigua persistente | H2 actual es temporal y el nuevo esquema se crea al arrancar | Baja | Preparar migración antes de utilizar datos duraderos de un esquema anterior |
 | Base de datos H2 en memoria: los datos se pierden al parar la aplicación | Es la base de datos de laboratorio de S4 y basta para demostrar la persistencia | Baja | Valorar una base de datos persistente cuando el proyecto lo necesite |
 | `ddl-auto=update`, `show-sql=true` y consola H2 activados | Facilitan el desarrollo; no son configuración de producción (S4 diap. 15) | Baja | Mantenerlos solo para desarrollo y revisarlos antes de la entrega final |
-| Sin inicio de sesión; los roles existen desde #11, sin doble rol (provisional) | El login depende de #12 y el doble rol de la respuesta de #15 | Media | Login en #12; revisar el rol si el cliente permite el doble rol |
+| Inicio de sesión básico (#12): sin cerrar sesión, sin protección CSRF y sin renovar el identificador de sesión | Se cubre solo lo que pide #12, sin Spring Security completo | Media | Valorar Spring Security completo cuando haya rutas que proteger (#5) |
+| Un email solo puede tener un rol: sin doble rol (provisional, #11) | Depende de la respuesta de #15 | Media | Revisar el rol si el cliente permite el doble rol |
 
 > La deuda técnica no es un error oculto. Debe ser visible, justificada y planificada.
 

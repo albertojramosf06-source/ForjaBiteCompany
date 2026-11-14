@@ -39,11 +39,15 @@ public class Usuario {
     @Column(nullable = false, length = 20)
     private String rol;
 
+    //Añadido nuevo para #12
+    @Column(nullable = false, length = 100)
+    private String contrasena;
+
     protected Usuario() {
         // JPA necesita un constructor sin argumentos para recuperar las entidades.
     }
 
-        public Usuario(String email, String nombre, String apellidos, String tipoDocumento, String paisEmisor, String numeroDocumento, String rol) {
+        public Usuario(String email, String nombre, String apellidos, String tipoDocumento, String paisEmisor, String numeroDocumento, String rol, String contrasena) { //Añadido nuevo para #12
         this.email = email;
         this.rol = rol; //Linea añadida para #11
         this.nombre = nombre;
@@ -51,6 +55,7 @@ public class Usuario {
         this.tipoDocumento = tipoDocumento;
         this.paisEmisor = paisEmisor;
         this.numeroDocumento = numeroDocumento;
+        this.contrasena = contrasena; //Añadido nuevo para #12
     }
 
     public Long getId() {
@@ -88,4 +93,6 @@ public class Usuario {
     public String getNumeroDocumento() { return numeroDocumento; }
 
     public String getRol() { return rol; } //Linea añadida para #11
+
+    public String getContrasena() { return contrasena; } //Añadido nuevo para #12
 }

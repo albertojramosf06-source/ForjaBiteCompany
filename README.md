@@ -66,6 +66,9 @@ Registro de propietarios (#11): formulario en http://localhost:8080/propietarios
 Usuarios y propietarios se guardan en la misma tabla con su rol. Ver
 [decisión de #11](docs/decisions/registro-propietarios.md).
 
+Inicio de sesión (#12): formulario en http://localhost:8080/iniciar-sesion, con
+email y contraseña. La contraseña se guarda cifrada. Ver [decisión de #12](docs/decisions/inicio-sesion.md).
+
 ## Documentación del proyecto
 
 La documentación viva del proyecto se mantiene en:
@@ -73,7 +76,7 @@ La documentación viva del proyecto se mantiene en:
 - [Plan de Gestión de Configuración](docs/plan-gestion-configuracion.md): ramas, revisión e integración.
 - [Plan de Calidad](docs/quality/QUALITY_PLAN.md): problemas, deuda y acciones.
 - [Ficha AI-01](docs/ai/AI-01-hito-funcional.md) y [registro de IA](AI_USAGE.md).
-- [Modelo del registro](docs/diagrams/registro-usuarios.md), [decisiones de #10](docs/decisions/registro-usuarios.md) y [decisión de #11](docs/decisions/registro-propietarios.md).
+- [Modelo del registro](docs/diagrams/registro-usuarios.md), [decisiones de #10](docs/decisions/registro-usuarios.md), [decisión de #11](docs/decisions/registro-propietarios.md) y [decisión de #12](docs/decisions/inicio-sesion.md).
 
 - `docs/technical/`: base técnica y dependencias.
 - `docs/diagrams/`: diagramas y modelos.
@@ -128,10 +131,12 @@ Ctrl + C
 - spring-boot-starter-data-jpa → persistencia de entidades Java mediante repositorios JPA.
 - h2 → base de datos embebida para las pruebas y el laboratorio.
 - spring-boot-h2console → consola web para consultar la base de datos H2.
+- spring-security-crypto → cifrar las contraseñas con BCrypt (#12).
 
 ### Base de datos de laboratorio (S4)
 
 Formularios de registro: http://localhost:8080/usuarios/registro y http://localhost:8080/propietarios/registro (#11).
+Inicio de sesión: http://localhost:8080/iniciar-sesion (#12).
 Registro ampliado e integrado mediante #36: requiere email, nombre, apellidos y
 DNI español o pasaporte. Para pasaportes se selecciona país emisor. Email y
 número de documento se normalizan; se rechazan duplicados y datos inválidos en
@@ -150,7 +155,7 @@ La configuración actual utiliza H2 en memoria. Tras ejecutar
 La base de datos solo existe durante la ejecución; sus datos se pierden al parar
 la aplicación. Esta configuración es para el laboratorio, no para producción.
 La entidad `domain/Usuario.java` genera la tabla `usuarios` con id, email,
-nombre, apellidos, tipo_documento, pais_emisor, numero_documento y rol.
+nombre, apellidos, tipo_documento, pais_emisor, numero_documento, rol y contrasena (cifrada).
 El formulario llama al servicio y este al repositorio.
 En la consola se puede comprobar la tabla con `SELECT * FROM USUARIOS;`.
 

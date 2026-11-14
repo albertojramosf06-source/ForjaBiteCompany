@@ -348,8 +348,22 @@ por sí sola #16 ni las tareas de otros integrantes.
 
 **Sobre el uso de la IA en el código:** Mi método de uso de la IA en el código es ir haciendo parte por parte conjuntamente con Claude, entendiendo cada punto; y cuando acababa de poner esa parte bien la añadia al codigo en visual.
 
-**Qué hice yo:** decidí hacer #11 y lo comuniqué en #34. Acepté el rol como decisión provisional, apliqué y revisé los cambios en mi rama, ejecuté las pruebas y probé el formulario y la consola H2.
+**Qué hice yo:** decidí hacer #11 y lo comuniqué en #34. Acepté el rol como decisión provisional, apliqué y revisé los cambios en mi rama, ejecuté las pruebas y probé el formulario y la consola H2. Además de escribir y revisar el código.
 
 **Verificación:** `.\mvnw.cmd clean verify` → BUILD SUCCESS, 39 pruebas; prueba manual de los dos registros y `SELECT * FROM USUARIOS;` con los roles correctos.
 
 **Pendiente:** contrastar la decisión con el diagrama de clases del cliente y con la respuesta de #15.
+
+## Inicio de sesión (#12)  1 de noviembre de 2026
+
+**Responsable:** Carlos Ramos Cabañas.
+
+**Herramienta:** Claude, como asistente, con acceso de solo lectura al repositorio en GitHub. No subió cambios, ni tiene permisos para ello.
+
+**En qué ayudó la IA:** explicarme cómo encadenar esta PR a la de #11 (#39), que todavía estaba en revisión, para no mezclar las dos issues. Plantear tres formas de guardar las contraseñas (Spring Security completo, solo `spring-security-crypto` o cifrar a mano) y recomendar la segunda. También me ayudó con los códigos, ayudandome a entender el código que no llegaba a comprender y que ya habia, ha encontrar los errores que cometia dentro de mis lineas y así guiandome hasta hacer el codigo como Claude creía correcto; pruebas, diciendome como probar y verificar que todo va bien; y documentación, ayudandome en este último a redactarlo mejor. Sigo utilizando el mismo modus operandi al escribir el codigo y aprender sobre ello
+
+**Qué hice yo:** decidí hacer #12 sobre #11 y avisé al equipo. Acepté BCrypt y el email como credencial de forma provisional, apliqué y revisé los cambios en mi rama, ejecuté las pruebas y probé el registro con contraseña, el inicio de sesión correcto y los errores. Además de escribir y revisar el código.
+
+**Verificación:** `.\mvnw.cmd clean verify` → BUILD SUCCESS, 55 pruebas; prueba manual del inicio de sesión y `SELECT * FROM USUARIOS;` con la contraseña guardada cifrada.
+
+**Pendiente:** respuesta del cliente sobre las credenciales (#15) y valorar Spring Security completo cuando haya rutas que proteger.
